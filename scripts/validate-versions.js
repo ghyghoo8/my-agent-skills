@@ -2,35 +2,61 @@
 
 "use strict";
 
-const { execFileSync } = require("node:child_process");
 const { readFileSync } = require("node:fs");
 
 const manifestPaths = [
   "plugin.json",
   ".codex-plugin/plugin.json",
   ".claude-plugin/plugin.json",
+];
+
+const marketplacePaths = [
   ".claude-plugin/marketplace.json",
   ".agents/plugins/marketplace.json",
 ];
 
-function readManifestVersion(manifestPath) {
-  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-  return manifest.version ?? manifest.plugins?.[0]?.version;
+function readJson(filePath) {
+  return JSON.parse(readFileSync(filePath, "utf8"));
 }
 
-const expectedVersion = execFileSync(
-  "git",
-  ["describe", "--tags", "--abbrev=0"],
-  { encoding: "utf8" },
-).trim();
-
-for (const manifestPath of manifestPaths) {
-  const version = readManifestVersion(manifestPath);
-  if (version !== expectedVersion) {
+function assertVersion(label, actual, expected) {
+  if (actual !== expected) {
     throw new Error(
-      `${manifestPath} has version ${version ?? "<missing>"}; expected ${expectedVersion}`,
+      `${label} has version ${actual ?? "<missing>"}; expected ${expected}`,
     );
   }
 }
 
-console.log(`All plugin manifests use version ${expectedVersion}.`);
+const agentSkillsVersion = readJson("plugin.json").version;
+
+for (const manifestPath of manifestPaths) {
+  assertVersion(manifestPath, readJson(manifestPath).version, agentSkillsVersion);
+}
+
+for (const marketplacePath of marketplacePaths) {
+  const entry = readJson(marketplacePath).plugins?.find(
+    (plugin) => plugin.name === "agent-skills",
+  );
+  assertVersion(
+    `${marketplacePath} agent-skills entry`,
+    entry?.version,
+    agentSkillsVersion,
+  );
+}
+
+const architectureManifestPath =
+  "plugins/architecture-gate/.codex-plugin/plugin.json";
+const architectureVersion = readJson(architectureManifestPath).version;
+const architectureEntry = readJson(
+  ".agents/plugins/marketplace.json",
+).plugins?.find((plugin) => plugin.name === "architecture-gate");
+
+assertVersion(
+  ".agents/plugins/marketplace.json architecture-gate entry",
+  architectureEntry?.version,
+  architectureVersion,
+);
+
+console.log(
+  `Plugin versions are consistent: agent-skills ${agentSkillsVersion}, architecture-gate ${architectureVersion}.`,
+);

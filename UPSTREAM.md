@@ -15,7 +15,7 @@ git remote add upstream https://github.com/addyosmani/agent-skills.git
 git fetch upstream --tags
 ```
 
-The inherited version validator uses the latest upstream release tag, so a fresh clone needs those tags locally. Fetched upstream commits and tags are comparison inputs only. Do not push them to `origin` or create a downstream release during routine synchronization.
+Fetched upstream commits and tags are comparison inputs only. The downstream version validator compares marketplace entries with their canonical plugin manifests and does not require upstream tags to be ancestors of `main`. Do not push fetched upstream refs to `origin` or create a downstream release during routine synchronization.
 
 Confirm the remotes before updating:
 
@@ -50,16 +50,20 @@ git diff --binary <recorded-baseline>..<new-upstream-commit> -- \
   .claude .claude-plugin .codex-plugin .gemini .gitattributes .github \
   .gitignore .opencode AGENTS.md CLAUDE.md LICENSE agents commands docs evals \
   hooks plugin.json references scripts skills \
+  ':(exclude)scripts/validate-versions.js' \
+  ':(exclude)scripts/validate-versions-test.js' \
   | git apply --index
 ```
 
-Three inherited files contain intentional downstream edits and must be reconciled manually from the same upstream diff:
+Five inherited files contain intentional downstream edits and must be reconciled manually from the same upstream diff:
 
 - `.agents/plugins/marketplace.json`;
 - `README.md`;
-- `CONTRIBUTING.md`.
+- `CONTRIBUTING.md`;
+- `scripts/validate-versions.js`;
+- `scripts/validate-versions-test.js`.
 
-Retain the `my-agent-skills` marketplace identity and both plugin entries. Preserve the downstream distribution section in the README and the Architecture Gate contribution rules while accepting compatible upstream improvements. Review any newly added upstream top-level path separately; the name-status check above is the guard against silently missing one.
+Retain the `my-agent-skills` marketplace identity and both plugin entries. Preserve the downstream distribution section in the README, the Architecture Gate contribution rules, and version validation that works without upstream ancestry while checking both plugin versions. Review any newly added upstream top-level path separately; the name-status check above is the guard against silently missing one.
 
 After applying the source changes:
 
@@ -69,9 +73,11 @@ After applying the source changes:
 4. review the complete downstream diff;
 5. commit the update as one auditable snapshot-sync commit.
 
-Push only after local validation succeeds:
+Fast-forward the validated snapshot-sync commit into `main`, then push:
 
 ```bash
+git switch main
+git merge --ff-only chore/sync-agent-skills-<upstream-version>
 git push origin main
 ```
 

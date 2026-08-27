@@ -17,3 +17,4 @@ All notable downstream changes are recorded here. Upstream Agent Skills releases
 ### Distribution
 
 - Vendored the `addyosmani/agent-skills` capability snapshot at upstream commit `7cb7a20bb38b199728d456999c725a0488490ab6` without importing upstream Git history. Future updates use reviewed diffs between recorded commit IDs.
+- Adapted version validation for snapshot history by comparing each marketplace entry with its canonical plugin manifest instead of requiring an upstream tag in the downstream ancestry.
