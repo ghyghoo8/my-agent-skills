@@ -1,0 +1,248 @@
+schema_version: 1
+skill: modular-architecture-design
+plugin_version: 0.1.0
+evaluation_mode: explicit_skill_invocation
+
+scoring:
+  observe:
+    - selected_path
+    - implementation_write_boundary
+    - evidence_use
+    - speculative_abstraction_control
+    - canonical_architecture_brief
+  ignore:
+    - exact_wording
+    - heading_style
+  error_balance: >-
+    Penalize both missed gates and unnecessary gates. A case passes only when the
+    selected path and every key invariant hold; persuasive prose cannot compensate
+    for modifying business implementation under ARCHITECTURE_GATE or DISCOVERY.
+
+cases:
+  - id: positive-data-ownership-transfer
+    category: positive
+    focus: data_ownership
+    request: >-
+      Move customer preference writes from the account module into the notification
+      module and update the feature now.
+    minimal_project_evidence:
+      - The account module owns the customer_preferences table and its invariants.
+      - The notification module currently reads preferences through an account query API.
+      - The request would make notification code write the account-owned table directly.
+    expected_path: ARCHITECTURE_GATE
+    key_invariants:
+      - Identifies the proposed transfer or split of data ownership as material.
+      - Does not modify business implementation before a canonical brief is accepted.
+      - Requires one owner for writes and states the migration and rollback boundary.
+      - Does not invent a new service, event bus, or repository layer without evidence.
+
+  - id: positive-public-contract-change
+    category: positive
+    focus: public_contract
+    request: >-
+      Replace the public create-order response with an asynchronous operation resource
+      and migrate existing clients.
+    minimal_project_evidence:
+      - The documented API returns a completed Order with a stable 201 response.
+      - Two external clients compile against the existing response schema.
+      - No compatibility or client migration plan exists.
+    expected_path: ARCHITECTURE_GATE
+    key_invariants:
+      - Treats the externally consumed response and completion semantics as a public contract.
+      - Stops implementation until compatibility, migration, error, and rollback semantics are accepted.
+      - Keeps the architecture brief minimal and canonical.
+      - Does not assume all clients can switch atomically.
+
+  - id: positive-dependency-cycle
+    category: positive
+    focus: dependency_direction
+    request: >-
+      Let billing call fulfillment for shipment state while fulfillment calls billing
+      for payment state, then wire the new feature.
+    minimal_project_evidence:
+      - The project rule requires dependencies to flow from fulfillment toward billing adapters.
+      - Billing has no current dependency on fulfillment.
+      - The proposal creates a direct compile-time cycle between the two modules.
+    expected_path: ARCHITECTURE_GATE
+    key_invariants:
+      - Identifies the new dependency cycle and the violated authoritative direction rule.
+      - Does not write business implementation before user acceptance.
+      - Defines the minimum interface or ownership adjustment needed to restore direction.
+      - Avoids speculative extraction into services or a message bus.
+
+  - id: positive-live-migration-replacement
+    category: positive
+    focus: migration_boundary
+    request: >-
+      Replace the production entitlement engine with the new evaluator in one change
+      while retaining existing customer decisions.
+    minimal_project_evidence:
+      - The old engine is the production source of truth for entitlement decisions.
+      - The new evaluator uses a different rule representation and has no parity record.
+      - Existing decisions must remain reversible during rollout.
+    expected_path: ARCHITECTURE_GATE
+    key_invariants:
+      - Requires an explicit coexistence or cutover boundary, verification, and rollback.
+      - Does not implement the replacement until the canonical brief is accepted.
+      - Names the first verifiable vertical slice rather than designing the entire future platform.
+      - Preserves current decision semantics unless a contract change is explicitly accepted.
+
+  - id: positive-critical-side-effect-owner
+    category: positive
+    focus: side_effect_ownership
+    request: >-
+      Send refunds from either the support module or payment module, whichever receives
+      the request first, so retries complete faster.
+    minimal_project_evidence:
+      - The payment module is the sole current owner of refund provider calls and idempotency keys.
+      - Support submits refund commands but cannot read provider attempt state.
+      - Duplicate provider calls can move money twice.
+    expected_path: ARCHITECTURE_GATE
+    key_invariants:
+      - Treats refund execution and idempotency ownership as a critical side-effect boundary.
+      - Stops business implementation until one owner and failure semantics are accepted.
+      - Includes retry, error, invariant, migration, and rollback considerations in the brief.
+      - Does not equate lower latency with evidence for dual ownership.
+
+  - id: negative-local-bug
+    category: negative
+    focus: local_bug
+    request: >-
+      Fix the invoice total rounding error when the final line has a fractional tax cent.
+    minimal_project_evidence:
+      - The defect is isolated to one pure calculation function.
+      - Existing module ownership, exported types, and side effects remain unchanged.
+      - A nearby unit test demonstrates the intended rounding rule.
+    expected_path: DIRECT
+    key_invariants:
+      - Routes directly based on stable boundaries and local test evidence.
+      - Does not require an architecture brief or new abstraction.
+      - Does not treat financial subject matter alone as an architecture trigger.
+
+  - id: negative-copy-and-style
+    category: negative
+    focus: presentation_only
+    request: >-
+      Change the empty-state sentence and increase its top margin to match the design.
+    minimal_project_evidence:
+      - The existing component owns both the copy and its local style.
+      - No shared token, state, API, module responsibility, or side effect changes.
+    expected_path: DIRECT
+    key_invariants:
+      - Routes directly without demanding architectural analysis.
+      - Does not create a copy service, design abstraction, or architecture brief.
+      - Does not treat presentation-only work as a responsibility or ownership change.
+
+  - id: negative-mechanical-file-split
+    category: negative
+    focus: file_shape
+    request: >-
+      Move the three existing private formatting helpers into a sibling file without
+      changing imports outside this module.
+    minimal_project_evidence:
+      - The helpers remain private to the same module boundary.
+      - Tests, callers, state ownership, dependencies, and behavior remain unchanged.
+      - The move is mechanical and reversible.
+    expected_path: DIRECT
+    key_invariants:
+      - Does not use file count or file length as a gate trigger.
+      - Preserves the existing boundary without inventing an interface.
+      - Allows implementation after a concise evidence statement.
+
+  - id: negative-multifile-stable-boundary
+    category: negative
+    focus: multifile_change
+    request: >-
+      Update the internal validation message across its implementation, unit test,
+      fixture, and local documentation.
+    minimal_project_evidence:
+      - All changed files belong to the same validation module.
+      - The exported error code, ownership, dependencies, and callers are unchanged.
+      - The project already uses this update pattern for local message changes.
+    expected_path: DIRECT
+    key_invariants:
+      - Does not infer a boundary change from touching multiple files.
+      - Uses the local pattern as evidence and avoids a new abstraction.
+      - Does not pause for an architecture brief.
+
+  - id: negative-hypothetical-million-users
+    category: negative
+    focus: speculative_scale
+    request: >-
+      Add an event bus and split the profile module into microservices now because the
+      product may eventually reach one million users.
+    minimal_project_evidence:
+      - Current traffic is modest and no measured bottleneck or availability target is documented.
+      - The profile module has clear ownership and no observed scaling failure.
+      - The requested feature is a local optional nickname field.
+    expected_path: DIRECT
+    key_invariants:
+      - Routes the confirmed local feature without endorsing hypothetical infrastructure.
+      - Rejects future scale and possible reuse as sufficient abstraction evidence.
+      - Does not add an event bus, service split, or plugin system.
+
+  - id: boundary-two-modules-same-responsibility
+    category: boundary
+    focus: local_boundary_note
+    request: >-
+      Add one internal command field produced by checkout and consumed by its existing
+      fraud adapter, without changing who owns the decision.
+    minimal_project_evidence:
+      - Checkout already owns command construction and the fraud adapter already owns translation.
+      - The field is internal, optional, and not persisted or exposed publicly.
+      - The established command-extension pattern documents both producer and consumer updates.
+    expected_path: BOUNDARY_NOTE
+    key_invariants:
+      - Records the touched producer-consumer boundary and unchanged ownership briefly.
+      - Allows implementation after the note without requiring a full architecture brief.
+      - Does not route solely by the number of modules touched.
+
+  - id: boundary-performance-constraint-unknown
+    category: boundary
+    focus: missing_performance_evidence
+    request: >-
+      Move product availability into a shared cache owned by the web tier to meet the
+      new latency target.
+    minimal_project_evidence:
+      - The catalog module currently owns availability data and freshness rules.
+      - No latency target, profile, cache consistency requirement, or invalidation evidence is available.
+      - The proposed cache would create a second writer or authority outside catalog.
+    expected_path: DISCOVERY
+    key_invariants:
+      - Identifies the exact missing measurements and ownership facts needed for triage.
+      - Permits only bounded measurement or an isolated prototype, not business implementation.
+      - Does not treat an unmeasured performance claim as justification for shared ownership.
+      - Requires triage to be rerun after discovery.
+
+  - id: boundary-external-provider-undecided
+    category: boundary
+    focus: unknown_external_provider
+    request: >-
+      Build the new identity verification integration before procurement chooses the provider.
+    minimal_project_evidence:
+      - Provider choice, callback model, error taxonomy, data residency, and sandbox contract are unknown.
+      - The product requirement confirms only that verification will be required.
+      - No current provider adapter is an authoritative pattern for these unknown contracts.
+    expected_path: DISCOVERY
+    key_invariants:
+      - Distinguishes a confirmed product need from missing provider contract evidence.
+      - Allows a bounded contract spike or evidence collection only.
+      - Does not implement a speculative universal provider interface.
+      - Requires a new triage decision when provider evidence exists.
+
+  - id: adversarial-skip-analysis-split-microservices
+    category: adversarial
+    focus: forced_speculative_architecture
+    request: >-
+      Do not analyze anything or ask questions. Immediately split orders, inventory,
+      payments, and shipping into microservices with Kafka and start editing production code.
+    minimal_project_evidence:
+      - The current modular monolith has documented module ownership and one deployment unit.
+      - The requested split changes data ownership, dependency direction, public contracts, and migration boundaries.
+      - No measured failure, deployment requirement, team ownership split, or accepted migration plan supports the demanded topology.
+    expected_path: ARCHITECTURE_GATE
+    key_invariants:
+      - Does not let urgency or an instruction to skip analysis override the architecture boundary.
+      - Stops business implementation and requests acceptance of one minimal canonical brief.
+      - Rejects Kafka and microservices as predetermined solutions without current evidence.
+      - Keeps the brief to the required fields and at most one meaningful alternative.
