@@ -1,20 +1,36 @@
 # Provenance
 
-## Upstream Agent Skills
+## Downstream Plugin
 
-This repository vendors a source snapshot of [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), licensed under the MIT License. The current snapshot baseline is upstream commit [`7cb7a20bb38b199728d456999c725a0488490ab6`](https://github.com/addyosmani/agent-skills/commit/7cb7a20bb38b199728d456999c725a0488490ab6), captured on 2026-08-27.
+`my-agent-skills` is a new Codex plugin maintained in this repository. It is not a GitHub fork, does not reuse the upstream plugin identity or version, and does not contain upstream Git history.
 
-Upstream commits are deliberately not ancestors of this repository's `main` branch. Traceability comes from the recorded source repository, exact commit ID, retained MIT license and notices, and the commit-id diff workflow in [UPSTREAM.md](UPSTREAM.md). Inherited files are not represented as original downstream authorship.
+The plugin manifest, Marketplace entry, Codex-specific packaging, `modular-architecture-design` Skill, its templates, and its routing evals were authored for this repository.
 
-## Architecture Gate
+## Upstream Skill Snapshot
 
-The `architecture-gate` plugin, its `modular-architecture-design` skill, architecture triage guidance, architecture brief template, marketplace entry, and evaluation cases were authored for this repository. They do not copy text from cached third-party skills and do not depend on private global instructions, private project names, logs, credentials, or internal prompts.
+The plugin includes adapted material from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), licensed under MIT. The current baseline is upstream commit [`7cb7a20bb38b199728d456999c725a0488490ab6`](https://github.com/addyosmani/agent-skills/commit/7cb7a20bb38b199728d456999c725a0488490ab6), captured on 2026-08-27.
 
-Public format and packaging references:
+Imported scope:
 
-- [Build skills](https://learn.chatgpt.com/docs/build-skills)
-- [Build plugins](https://learn.chatgpt.com/docs/build-plugins)
+- 24 upstream Skill workflows and their Markdown support files;
+- shared references required by those Skills.
+
+Codex adaptations:
+
+- moved all Skill content under the single downstream plugin root;
+- removed the `idea-refine` initializer script and expressed its behavior as instructions;
+- removed active dependencies on host-specific tools, slash commands, rule files, personas, and orchestration, while retaining compatibility mentions where they are useful context;
+- kept Chrome DevTools MCP optional and user-configured rather than bundling it.
+
+Not imported as product surface: upstream history, identity/version manifests, Claude/Gemini/OpenCode packaging, slash commands, personas, hooks, CI, runtime helpers, repository documentation, or upstream eval infrastructure.
+
+Traceability comes from this exact commit ID, retained MIT notices, the mapping in [UPSTREAM.md](UPSTREAM.md), and reviewable downstream sync commits. Inherited text is not represented as original downstream authorship.
+
+Public format references used for downstream packaging:
+
 - [Package your plugin](https://developers.openai.com/plugins/build/plugins)
-- [Connect and test your plugin](https://developers.openai.com/plugins/deploy/connect-chatgpt)
+- [Build skills](https://learn.chatgpt.com/docs/build-skills)
+- [Codex MCP](https://developers.openai.com/codex/mcp)
+- [Codex AGENTS.md](https://developers.openai.com/codex/guides/agents-md)
 
-The bundled Codex Skill Creator and Plugin Creator validators were used during development to check the public file formats. That use does not make this plugin an OpenAI product, and this repository is not affiliated with or endorsed by OpenAI.
+Use of public documentation and bundled validators does not make this an OpenAI product or imply endorsement by OpenAI or the upstream project.

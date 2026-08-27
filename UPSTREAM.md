@@ -1,88 +1,57 @@
-# Upstream Snapshot Updates
+# Upstream Updates
 
-This repository vendors the capabilities of [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) without importing its Git history. [PROVENANCE.md](PROVENANCE.md) records the exact upstream commit used by the current snapshot.
+This repository tracks `addyosmani/agent-skills` by commit ID, not by Git ancestry. The recorded baseline is in [PROVENANCE.md](PROVENANCE.md).
 
-An update compares the recorded baseline commit with a newer upstream commit, reviews that source diff, and applies only the accepted file changes in a new commit owned by this repository. Do not merge, rebase, subtree-add, or cherry-pick upstream commits into `main`.
+## Mapping
 
-The downstream `architecture-gate` plugin lives under `plugins/architecture-gate/`. Its files, marketplace entry, evaluation cases, and routing contract are outside upstream snapshot ownership.
+| Upstream | Downstream |
+|---|---|
+| `skills/<name>/**` | `plugins/my-agent-skills/skills/<name>/**` |
+| `references/*.md` | `plugins/my-agent-skills/references/*.md` |
+| upstream manifests and host adapters | not imported |
+| `modular-architecture-design` | downstream-only; never overwritten by upstream |
 
-## Configure a Fresh Clone
+The downstream plugin version is independent of the upstream release version.
 
-The `upstream` remote is local Git configuration and is not transferred by cloning. Add it once:
+## Configure a Clone
 
 ```bash
 git remote add upstream https://github.com/addyosmani/agent-skills.git
 git fetch upstream --tags
-```
-
-Fetched upstream commits and tags are comparison inputs only. The downstream version validator compares marketplace entries with their canonical plugin manifests and does not require upstream tags to be ancestors of `main`. Do not push fetched upstream refs to `origin` or create a downstream release during routine synchronization.
-
-Confirm the remotes before updating:
-
-```bash
 git remote -v
-git status --short --branch
 ```
 
-Expected ownership:
+Fetched refs are comparison inputs only. Never push upstream refs to `origin`.
 
-- `origin` points to `ghyghoo8/my-agent-skills`;
-- `upstream` points to `addyosmani/agent-skills`.
+## Review an Update
 
-## Apply an Upstream Commit Diff
-
-Start from a clean downstream `main` branch. Read the current baseline commit ID from [PROVENANCE.md](PROVENANCE.md), fetch upstream, and choose the new commit explicitly:
+Start from a clean `main`, fetch upstream, select the new commit explicitly, and compare it with the baseline recorded in `PROVENANCE.md`:
 
 ```bash
-git switch main
 git fetch upstream --tags
-git rev-parse upstream/main
-git log --oneline <recorded-baseline>..<new-upstream-commit>
-git diff --name-status <recorded-baseline>..<new-upstream-commit>
-git diff --stat <recorded-baseline>..<new-upstream-commit>
+git log --oneline <recorded-baseline>..<selected-upstream-commit>
+git diff --name-status <recorded-baseline>..<selected-upstream-commit> -- skills references
+git diff <recorded-baseline>..<selected-upstream-commit> -- skills references
 ```
 
-Review the full name-status and content diff before changing the working tree. Create a downstream update branch, then apply the accepted changes for inherited paths:
+Review the complete diff before changing downstream files. Apply only accepted Skill and reference changes through the mapping above. Do not merge, rebase, subtree-add, or cherry-pick upstream commits.
 
-```bash
-git switch -c chore/sync-agent-skills-<upstream-version>
-git diff --binary <recorded-baseline>..<new-upstream-commit> -- \
-  .claude .claude-plugin .codex-plugin .gemini .gitattributes .github \
-  .gitignore .opencode AGENTS.md CLAUDE.md LICENSE agents commands docs evals \
-  hooks plugin.json references scripts skills \
-  ':(exclude)scripts/validate-versions.js' \
-  ':(exclude)scripts/validate-versions-test.js' \
-  | git apply --index
-```
+Always reconcile these downstream boundaries manually:
 
-Five inherited files contain intentional downstream edits and must be reconciled manually from the same upstream diff:
+- `skills/idea-refine/SKILL.md`: remain instruction-only; do not restore its shell helper.
+- `skills/browser-testing-with-devtools/SKILL.md`: keep Codex MCP setup optional and user-authorized.
+- `skills/context-engineering/SKILL.md`, `skills/code-simplification/SKILL.md`, and `skills/documentation-and-adrs/SKILL.md`: keep `AGENTS.md` as the primary Codex rule file.
+- `skills/planning-and-task-breakdown/SKILL.md` and `skills/spec-driven-development/SKILL.md`: keep Skill-to-Skill handoffs; do not restore deleted slash-command dependencies.
+- `skills/doubt-driven-development/SKILL.md` and `references/orchestration-patterns.md`: keep Codex subagent semantics.
+- plugin manifest, Marketplace, README, licenses, provenance, changelog, and Architecture Gate files: downstream-owned.
 
-- `.agents/plugins/marketplace.json`;
-- `README.md`;
-- `CONTRIBUTING.md`;
-- `scripts/validate-versions.js`;
-- `scripts/validate-versions-test.js`.
+New upstream files require an explicit decision. Do not import executables, hooks, MCP configuration, telemetry, network clients, dependencies, or other host-specific packaging merely because they appeared upstream.
 
-Retain the `my-agent-skills` marketplace identity and both plugin entries. Preserve the downstream distribution section in the README, the Architecture Gate contribution rules, and version validation that works without upstream ancestry while checking both plugin versions. Review any newly added upstream top-level path separately; the name-status check above is the guard against silently missing one.
+## Finish the Sync
 
-After applying the source changes:
-
-1. update the baseline commit ID and capture date in [PROVENANCE.md](PROVENANCE.md);
-2. record the old and new upstream commit IDs in [CHANGELOG.md](CHANGELOG.md);
-3. run the current upstream validation suite plus the Architecture Gate validators and eval-data checks;
-4. review the complete downstream diff;
-5. commit the update as one auditable snapshot-sync commit.
-
-Fast-forward the validated snapshot-sync commit into `main`, then push:
-
-```bash
-git switch main
-git merge --ff-only chore/sync-agent-skills-<upstream-version>
-git push origin main
-```
-
-Routine snapshot updates use a normal push. They never require a force-push because upstream history is not part of the downstream branch.
-
-## Update Boundary
-
-An accepted upstream source diff may update the vendored 24-skill pack, its agents, commands, hooks, references, scripts, documentation, or evals. It does not implicitly change the routing contract of `architecture-gate`; make those changes separately and version them according to the Architecture Gate rules in the README.
+1. Update the baseline commit and capture date in `PROVENANCE.md` and `plugins/my-agent-skills/THIRD_PARTY_NOTICES.md`.
+2. Choose the downstream SemVer change and update the plugin manifest and changelog.
+3. Update affected eval cases.
+4. Run all validation described in `AGENTS.md`.
+5. Review and commit one auditable downstream snapshot-sync diff.
+6. Push normally to `origin/main`; never force-push for routine upstream updates.

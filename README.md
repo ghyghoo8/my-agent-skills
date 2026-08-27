@@ -1,50 +1,52 @@
 # My Agent Skills
 
-A personal Codex plugin marketplace containing a traced snapshot of Agent Skills plus the original Architecture Gate plugin.
+一个全新的、skills-only 的 Codex Plugin：在同一个插件中提供 24 个经来源追踪的工程工作流，以及本仓库原创的模块化架构分流能力。
 
-## Included Plugins
-
-| Plugin | Version | Purpose |
-|---|---:|---|
-| `agent-skills` | `0.6.7` | 24 engineering workflow skills covering define, plan, build, verify, review, and ship. |
-| `architecture-gate` | `0.1.0` | Evidence-led architecture triage before boundary-sensitive implementation. |
-
-The `agent-skills` files come from a recorded source snapshot; upstream Git history is not imported into this repository. See [PROVENANCE.md](PROVENANCE.md) for the exact commit and license attribution.
-
-For the upstream project's complete documentation, see [addyosmani/agent-skills README](https://github.com/addyosmani/agent-skills/blob/main/README.md).
+本仓库不是 fork，不包含上游 Git 历史。上游内容以 commit-id 快照追踪；完整的上游介绍请见 [addyosmani/agent-skills README](https://github.com/addyosmani/agent-skills/blob/main/README.md)。
 
 ## Install
 
 ```bash
+# 首次使用时注册一次 Marketplace
 codex plugin marketplace add ghyghoo8/my-agent-skills --ref main
-codex plugin add agent-skills@my-agent-skills
-codex plugin add architecture-gate@my-agent-skills
+
+# 安装唯一的 Plugin
+codex plugin add my-agent-skills@my-agent-skills
 ```
 
-Start a new Codex session after installation so the skills are discovered.
+安装后新建 Codex 会话，让 25 个 Skill 被重新发现。后续获取仓库更新：
 
-## Architecture Gate
+```bash
+codex plugin marketplace upgrade my-agent-skills
+codex plugin add my-agent-skills@my-agent-skills
+```
 
-`$modular-architecture-design` performs read-only triage when a feature or structural refactor may change module responsibility, data or side-effect ownership, dependency direction, public contracts, or migration boundaries.
+## What It Contains
 
-It selects exactly one path:
+- 24 个来自上游快照的工程 Skill，覆盖定义、规划、实现、测试、审查与交付。
+- `$modular-architecture-design`：在职责、所有权、依赖方向、公共契约或迁移边界可能实质变化时，先做只读、证据驱动的分流。
 
-| Path | Result |
+Architecture Gate 只选择一条路径：
+
+| Path | Meaning |
 |---|---|
-| `DIRECT` | Boundaries remain stable; implementation may proceed. |
-| `BOUNDARY_NOTE` | Record a short local boundary note, then implement. |
-| `ARCHITECTURE_GATE` | Stop business implementation until one canonical architecture brief is accepted. |
-| `DISCOVERY` | Gather bounded missing evidence, then run triage again. |
+| `DIRECT` | 边界稳定，可直接实施。 |
+| `BOUNDARY_NOTE` | 记录简短边界说明后实施。 |
+| `ARCHITECTURE_GATE` | 暂停业务实现，先接受一份最小架构简报。 |
+| `DISCOVERY` | 只做有界调查或隔离原型，取得证据后重新分流。 |
 
-File count, file length, possible reuse, an external API, or hypothetical scale are not sufficient reasons to trigger an architecture gate.
+文件数、文件长度、未来复用、外部 API、用户说“模块化”或想象中的规模，都不是单独触发架构门禁的理由。
 
-Explicit invocation:
+显式调用示例：
 
 ```text
-$modular-architecture-design Triage this change before implementation.
+$using-agent-skills 为这个任务选择合适的工程工作流。
+$modular-architecture-design 在实现前判断这次改动是否改变架构边界。
 ```
 
-Implicit invocation is enabled but remains a soft gate. Projects that need deterministic enforcement can add this rule to their own `AGENTS.md`; the plugin never edits project rules automatically.
+## Soft Gate
+
+`modular-architecture-design` 默认允许隐式调用，但它仍是软门禁。插件不会自动修改用户项目规则。需要强制暂停时，可自行把以下片段加入项目 `AGENTS.md`：
 
 ```markdown
 Before a change that may alter responsibility, ownership, dependency direction,
@@ -53,38 +55,25 @@ For `ARCHITECTURE_GATE` or `DISCOVERY`, do not modify business implementation
 until the required acceptance or discovery-and-retriage step is complete.
 ```
 
-## Repository Layout
+## Repository
 
 ```text
-skills/                                      # vendored Agent Skills snapshot
-agents/, commands/, hooks/, references/      # vendored supporting capabilities
-plugins/architecture-gate/                   # original skills-only plugin
-.agents/plugins/marketplace.json             # Codex marketplace
-evals/architecture-gate/cases.yaml           # 14 routing cases
-PROVENANCE.md                                 # source commit and attribution
-UPSTREAM.md                                   # commit-id diff update workflow
+.agents/plugins/marketplace.json          # 单一 Marketplace 条目
+plugins/my-agent-skills/                  # 唯一 Codex Plugin
+  .codex-plugin/plugin.json
+  skills/                                 # 25 个 Skill
+  references/                             # Skill 共享参考资料
+evals/architecture-gate/cases.yaml        # 架构分流评测
+PROVENANCE.md                              # 来源 commit-id 与适配边界
+UPSTREAM.md                                # 后续 diff 更新流程
 ```
 
-## Upstream Updates
+插件本身不内置 MCP、hooks、联网组件、遥测、运行时脚本或外部依赖，也不会自行上传仓库内容。需要检索资料的 Skill 只使用宿主已经提供且用户允许的能力；`browser-testing-with-devtools` 只有在用户另行配置 Chrome DevTools MCP 后才能使用浏览器能力，插件不会替用户安装或配置它。
 
-Updates do not merge or cherry-pick upstream history. Maintainers:
-
-1. read the recorded baseline commit from [PROVENANCE.md](PROVENANCE.md);
-2. compare it with a selected newer upstream commit;
-3. review and apply the source diff;
-4. update provenance and the changelog;
-5. validate and commit the result in this repository.
-
-See [UPSTREAM.md](UPSTREAM.md) for the exact workflow.
-
-## Evaluation and Privacy
-
-[evals/architecture-gate/cases.yaml](evals/architecture-gate/cases.yaml) contains positive, negative, boundary, and adversarial cases. Score the selected path and observable invariants, not fixed wording.
-
-Architecture Gate is instruction-only: no MCP server, hooks, runtime scripts, network client, telemetry, or external dependency. Host sandbox and approval rules remain authoritative.
+评测关注路径选择、停写边界、证据使用和拒绝投机抽象，不测试固定措辞。详见 [evals/README.md](evals/README.md)。
 
 ## Versioning and Contribution
 
-Architecture Gate follows semantic versioning: PATCH preserves routing semantics, MINOR adds compatible capabilities or trigger scenarios, and MAJOR changes path meanings, pause behavior, or the output contract.
+当前版本为 `0.1.0`。PATCH 仅用于不改变行为语义的修正；MINOR 用于兼容的新能力、Skill 或上游快照更新；MAJOR 用于改变路径含义、暂停语义或其他公开输出契约。
 
-See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and [CHANGELOG.md](CHANGELOG.md). Licensed under the [MIT License](LICENSE). This repository is not affiliated with or endorsed by OpenAI.
+参见 [CONTRIBUTING.md](CONTRIBUTING.md)、[SECURITY.md](SECURITY.md)、[PROVENANCE.md](PROVENANCE.md) 和 [UPSTREAM.md](UPSTREAM.md)。项目采用 [MIT License](LICENSE)，不代表 OpenAI 或上游项目官方产品，也未获其背书。
