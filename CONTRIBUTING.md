@@ -2,6 +2,20 @@
 
 Thanks for your interest in contributing! This project is a collection of production-grade engineering skills for AI coding agents.
 
+## Downstream Distribution Changes
+
+This repository vendors a traced source snapshot of `addyosmani/agent-skills` and keeps downstream work isolated where practical. It does not import upstream Git history. Propose changes to inherited upstream skills in the upstream project unless the change is specific to this distribution.
+
+For `plugins/architecture-gate/` changes:
+
+- keep the plugin instruction-only: no MCP server, hooks, telemetry, runtime scripts, network client, or external dependency;
+- preserve exactly one of `DIRECT`, `BOUNDARY_NOTE`, `ARCHITECTURE_GATE`, or `DISCOVERY` as the observable routing result;
+- update `evals/architecture-gate/cases.yaml` when trigger, routing, pause, or output semantics change;
+- test observable invariants rather than fixed generated wording;
+- run the current bundled Skill and Plugin validators plus JSON and YAML checks before committing, and record the exact commands in the change review.
+
+Use [UPSTREAM.md](UPSTREAM.md) for commit-id-based snapshot updates. Keep each reviewed upstream source diff in its own downstream commit so later updates remain auditable.
+
 New here? [docs/developer-onboarding.md](docs/developer-onboarding.md) is a guided tour of how the repo fits together (the five layers, the verification loop, and the contribution paths) and tells you when to read this document, [skill-anatomy.md](docs/skill-anatomy.md), and [evals/README.md](evals/README.md). This file is the authoritative rulebook; the onboarding guide is the map.
 
 ## Adding a New Skill

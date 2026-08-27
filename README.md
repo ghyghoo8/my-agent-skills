@@ -4,6 +4,92 @@
 
 Skills encode the workflows, quality gates, and best practices that senior engineers use when building software. These ones are packaged so AI agents follow them consistently across every phase of development.
 
+## This downstream distribution
+
+This repository vendors the capabilities of [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) as a source snapshot and adds a separately installable, Codex-native skills-only plugin named **Architecture Gate**. It intentionally does not import the upstream Git history. The exact upstream commit and MIT attribution are recorded in [PROVENANCE.md](PROVENANCE.md); future updates compare that commit with a newer upstream commit and apply the reviewed source diff described in [UPSTREAM.md](UPSTREAM.md).
+
+Register this repository as a Codex marketplace, then install either or both plugins:
+
+```bash
+codex plugin marketplace add ghyghoo8/my-agent-skills --ref main
+codex plugin add agent-skills@my-agent-skills
+codex plugin add architecture-gate@my-agent-skills
+```
+
+- `agent-skills` exposes all 24 upstream engineering workflow skills.
+- `architecture-gate` exposes `$modular-architecture-design` without adding MCP servers, hooks, network calls, telemetry, runtime scripts, or external dependencies.
+
+Start a new Codex session after installation so newly installed skills are discovered.
+
+### Architecture Gate
+
+Architecture Gate performs read-only, evidence-led triage before a feature or structural refactor that may change module responsibilities, data or side-effect ownership, dependency direction, public contracts, or migration boundaries. It is not a mandate to design every change, and it does not treat file count, file length, future reuse, an external API, or hypothetical scale as architecture evidence.
+
+The skill selects exactly one path:
+
+| Path | Meaning |
+|---|---|
+| `DIRECT` | Existing boundaries remain stable; implementation may proceed. |
+| `BOUNDARY_NOTE` | A local boundary is affected; record a short note, then implement. |
+| `ARCHITECTURE_GATE` | A material boundary changes; stop business implementation until one canonical architecture brief is accepted. |
+| `DISCOVERY` | Decision-critical evidence is missing; run bounded investigation or an isolated prototype, then triage again. |
+
+Invoke it explicitly with a request such as:
+
+```text
+$modular-architecture-design Triage this refactor before implementation.
+```
+
+Implicit invocation is enabled, but it is a **soft gate**: model-selected skills are not a deterministic enforcement mechanism. Projects that require a mandatory pause can add this optional rule to their own `AGENTS.md`; the plugin never edits project rules automatically.
+
+```markdown
+## Architecture Gate
+
+Before changing business implementation for a feature or structural refactor that may
+alter module responsibility, data or side-effect ownership, dependency direction,
+public contracts, or migration boundaries, invoke `$modular-architecture-design`.
+
+If the selected path is `ARCHITECTURE_GATE` or `DISCOVERY`, do not modify business
+implementation code. Resume only after the architecture brief is accepted or bounded
+discovery has produced enough evidence and triage has been rerun.
+```
+
+### Privacy and execution boundary
+
+Architecture Gate is instruction-only. It reads only the project evidence that the active Codex task is already allowed to inspect and introduces no credential flow, network client, telemetry, or background process. Any tools the host agent uses after a `DIRECT` or `BOUNDARY_NOTE` decision remain governed by the host's sandbox, approvals, and the user's authorization.
+
+The imported Agent Skills project retains its own cross-agent integrations and lifecycle files. Those are part of the upstream `agent-skills` plugin, not dependencies of `architecture-gate`.
+
+### Distribution structure
+
+```text
+skills/                                      # 24 upstream workflow skills
+agents/, commands/, hooks/, references/      # upstream cross-agent capabilities
+.codex-plugin/plugin.json                    # upstream agent-skills Codex plugin
+plugins/architecture-gate/                   # downstream skills-only plugin
+.agents/plugins/marketplace.json             # installs either plugin
+evals/architecture-gate/cases.yaml           # routing and stop-write evaluations
+UPSTREAM.md                                   # commit-id diff update workflow
+```
+
+### Evaluation
+
+[`evals/architecture-gate/cases.yaml`](evals/architecture-gate/cases.yaml) is a portable behavior specification with positive, negative, boundary, and adversarial cases. Run each case in a clean context with the skill explicitly invoked, keep `expected_path` hidden from the model, then score the selected path and every `key_invariant`. Exact phrasing and heading style are intentionally out of scope. Evaluate implicit trigger selection separately from explicit skill behavior so a discovery miss is not confused with a routing error.
+
+The v0.1 repository does not bundle a model runner or external evaluation dependency. Maintainers should validate the case schema, run the bundled Skill and Plugin validators, and record any structured manual or model-run limitations in the change review.
+
+Architecture Gate uses semantic versioning for its routing contract:
+
+- `PATCH` fixes wording, examples, or metadata without changing routing semantics.
+- `MINOR` adds compatible capabilities or trigger scenarios.
+- `MAJOR` changes path meanings, pause behavior, or the output contract.
+
+Contributions are welcome under the MIT license. Follow [CONTRIBUTING.md](CONTRIBUTING.md), update observable evaluation invariants when routing behavior changes, and keep the Architecture Gate plugin instruction-only unless a future version explicitly changes that product boundary.
+
+---
+
+The remainder of this README is the retained upstream Agent Skills documentation.
+
 <a href="https://trendshift.io/repositories/25200" target="_blank"><img src="https://trendshift.io/api/badge/repositories/25200" alt="addyosmani%2Fagent-skills | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 ![Addy's Agent Skills](https://addyosmani.com/assets/images/addys-agent-skills.jpg)
