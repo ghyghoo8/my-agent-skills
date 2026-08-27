@@ -1,0 +1,7 @@
+interface:
+  display_name: "Modular Architecture Design"
+  short_description: "Evidence-led architecture boundary triage"
+  default_prompt: "Use $modular-architecture-design to triage this change before implementation."
+
+policy:
+  allow_implicit_invocation: true

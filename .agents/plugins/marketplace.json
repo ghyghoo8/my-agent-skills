@@ -1,7 +1,7 @@
 {
-  "name": "agent-skills",
+  "name": "my-agent-skills",
   "interface": {
-    "displayName": "Agent Skills"
+    "displayName": "My Agent Skills"
   },
   "plugins": [
     {
@@ -11,6 +11,20 @@
       "source": {
         "source": "local",
         "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "architecture-gate",
+      "version": "0.1.0",
+      "description": "Evidence-led architecture boundary triage before implementation.",
+      "source": {
+        "source": "local",
+        "path": "./plugins/architecture-gate"
       },
       "policy": {
         "installation": "AVAILABLE",
