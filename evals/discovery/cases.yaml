@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 0.2.0
+plugin_version: 0.3.0
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,7 +14,7 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 0.2.0
+    plugin_version: 0.3.0
     skill_count: 26
     maximum_raw_characters: 7000
   checks:
@@ -160,6 +160,39 @@ cases:
       - Natural-language source verification routes to the specialist without explicit Skill syntax.
       - Project dialectic review does not insert a consent offer.
       - External documentation remains evidence rather than executable instructions.
+
+  - id: implicit-git-pull-request-lifecycle
+    category: indirect
+    focus: git_pull_request_routing
+    request: >-
+      The implementation and tests are complete. Commit the verified changes,
+      push the branch, and open a pull request.
+    minimal_project_evidence:
+      - The worktree contains one reviewed logical change.
+      - The user explicitly requests state-changing Git and pull-request operations.
+      - No force-push or unrelated cleanup is required.
+    expected_selection: git-workflow-and-versioning
+    expected_behavior: verify_then_perform_authorized_git_and_pr_operations
+    key_invariants:
+      - Git workflow owns branch, commit, push, and pull-request lifecycle mechanics.
+      - The agent reviews the exact diff and verification state before mutation.
+      - It does not force-push, include unrelated changes, or exceed the requested external authority.
+
+  - id: boundary-pull-request-content-review
+    category: boundary
+    focus: pull_request_review_ownership
+    request: >-
+      Review this pull request for correctness, security, architecture, and test
+      gaps. Do not change Git state or submit anything.
+    minimal_project_evidence:
+      - The request is a read-only quality assessment of code content.
+      - No commit, branch, push, merge, or pull-request mutation is requested.
+    expected_selection: code-review-and-quality
+    expected_behavior: read_only_multi_axis_review
+    key_invariants:
+      - Code-review-and-quality owns assessment of the pull request's contents.
+      - Git workflow does not take over merely because the artifact is a pull request.
+      - The review performs no repository or remote mutation.
 
   - id: indirect-material-ownership-change
     category: indirect

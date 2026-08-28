@@ -1,6 +1,6 @@
 schema_version: 1
 skill: project-dialectic-review
-plugin_version: 0.2.0
+plugin_version: 0.3.0
 evaluation_mode: implicit_and_explicit_invocation
 
 scoring:

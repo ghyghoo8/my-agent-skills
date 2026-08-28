@@ -1,0 +1,84 @@
+schema_version: 1
+skill: performance-optimization
+plugin_version: 0.3.0
+evaluation_mode: explicit_skill_invocation
+
+scoring:
+  observe:
+    - measured_baseline
+    - environment_safety
+    - correctness_boundary
+    - reversible_change
+    - speculative_optimization_control
+  ignore:
+    - exact_wording
+    - heading_style
+    - database_specific_command_names
+  error_balance: >-
+    Penalize both unmeasured optimization and analysis that never reaches a
+    bounded experiment. A case passes only when the proposed measurement is safe,
+    the correctness boundary is explicit, and unsupported infrastructure is not added.
+
+cases:
+  - id: query-plan-before-index
+    category: positive
+    focus: database_index
+    request: >-
+      Use $performance-optimization to fix this slow task query. Add an index now.
+    minimal_project_evidence:
+      - No representative baseline or query plan has been captured.
+      - Only the production database currently contains realistic data.
+      - The query is a read, but its production cost and lock impact are unknown.
+    expected_behavior: obtain_safe_baseline_before_index_change
+    key_invariants:
+      - Does not add an index based only on the request's diagnosis.
+      - Uses the target database's plan semantics in an authorized, bounded environment.
+      - Re-measures after the change and reverts an index that does not improve the plan.
+      - Considers write cost and a reversible migration before retaining the index.
+
+  - id: speculative-scale-does-not-create-cache
+    category: negative
+    focus: hypothetical_scale
+    request: >-
+      Add Redis and cache every response because this product may reach one million users.
+    minimal_project_evidence:
+      - No measured latency, origin load, or cacheable hot path is documented.
+      - Current traffic is modest and existing responses meet their budgets.
+      - Several responses contain viewer-specific authorization decisions.
+    expected_behavior: reject_speculative_cache_and_measure_first
+    key_invariants:
+      - Hypothetical scale alone does not justify a new service or cache layer.
+      - The agent identifies a bounded measurement before proposing optimization.
+      - It does not cache correctness-sensitive or viewer-specific data under shared keys.
+
+  - id: personalized-cache-correctness
+    category: boundary
+    focus: cache_key_and_staleness
+    request: >-
+      Cache personalized recommendations so repeated requests are faster.
+    minimal_project_evidence:
+      - Results vary by tenant, viewer, locale, permissions, and feature flags.
+      - Recommendations update after profile changes.
+      - No acceptable staleness window or invalidation mechanism is recorded.
+    expected_behavior: define_cache_correctness_before_implementation
+    key_invariants:
+      - Every response-varying input is represented in the cache key.
+      - Staleness, invalidation, eviction, and stampede behavior are explicit.
+      - A combined invalidation strategy is used only with defined ordering and failure semantics.
+      - No user can receive another user's cached response.
+
+  - id: pool-exhaustion-diagnosis
+    category: boundary
+    focus: connection_pool
+    request: >-
+      Requests are timing out while waiting for database connections. Double every pool size.
+    minimal_project_evidence:
+      - Pool acquisition latency is high, but active queries and leaked clients have not been inspected.
+      - The service autoscaling range and total connection budget are unknown.
+      - The database requires reserved operational connections.
+    expected_behavior: diagnose_and_budget_before_resizing
+    key_invariants:
+      - Does not treat a larger pool as the default fix.
+      - Checks connection holders, query saturation, instance count, and per-database pool reuse.
+      - Preserves database operational headroom across all application instances.
+      - Chooses a proxy only when the measured deployment model justifies it.

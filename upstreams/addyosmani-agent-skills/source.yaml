@@ -9,7 +9,7 @@ license:
   spdx: MIT
   notice_file: plugins/my-agent-skills/THIRD_PARTY_NOTICES.md
 baseline_commit: 7cb7a20bb38b199728d456999c725a0488490ab6
-reviewed_through_commit: 7cb7a20bb38b199728d456999c725a0488490ab6
+reviewed_through_commit: f63ec56a3cc936408d792956ae583c3c96a825bd
 
 import_policy:
   default: deny
@@ -23,7 +23,7 @@ mappings:
     primary_owner: addyosmani-agent-skills
     artifact_unit: top-level-directory
     allowlist_mode: exact-artifact-id
-    default_last_applied_commit: 7cb7a20bb38b199728d456999c725a0488490ab6
+    default_last_applied_commit: f63ec56a3cc936408d792956ae583c3c96a825bd
     artifact_commit_overrides: {}
     allowlist:
       - api-and-interface-design
@@ -56,7 +56,7 @@ mappings:
     primary_owner: addyosmani-agent-skills
     artifact_unit: file
     allowlist_mode: exact-artifact-id
-    default_last_applied_commit: 7cb7a20bb38b199728d456999c725a0488490ab6
+    default_last_applied_commit: f63ec56a3cc936408d792956ae583c3c96a825bd
     artifact_commit_overrides: {}
     allowlist:
       - accessibility-checklist.md
@@ -74,6 +74,8 @@ downstream_adaptations:
   - Keep Skill-to-Skill handoffs in planning-and-task-breakdown and spec-driven-development; do not restore slash-command dependencies.
   - Keep Codex subagent semantics in doubt-driven-development and orchestration-patterns.md.
   - Preserve downstream-narrowed Skill frontmatter descriptions for Codex progressive discovery; never replace them silently with broader upstream descriptions.
+  - Keep git-workflow-and-versioning focused on state-changing Git and release operations; code-quality review remains owned by code-review-and-quality.
+  - Keep performance guidance measurement-first and environment-safe: database-specific plans, authorized bounded execution, reversible index removal, connection headroom, and explicit cache consistency.
   - Keep all runtime content inside the single downstream plugin root.
 
 excluded_surface:

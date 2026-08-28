@@ -4,7 +4,8 @@ The repository keeps structured, wording-independent cases for the public behavi
 
 - `architecture-gate/cases.yaml`: 14 cases for the four exclusive architecture paths and write boundary.
 - `project-dialectic-review/cases.yaml`: 16 cases for trigger, consent, project evidence, revision, and untrusted material.
-- `discovery/cases.yaml`: 22 cross-skill routing cases plus the checked-in discovery metadata budget.
+- `discovery/cases.yaml`: 24 cross-skill routing cases plus the checked-in discovery metadata budget.
+- `performance-optimization/cases.yaml`: 4 cases for measurement-first database, pool, and cache decisions.
 
 Each case records the request or conversation, minimum project evidence, expected observable behavior, and key invariants. Do not score exact wording or heading style.
 

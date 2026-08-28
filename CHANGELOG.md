@@ -4,6 +4,18 @@ All notable downstream changes are recorded here.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-08-28
+
+### Added
+
+- Expanded performance guidance for query plans, index decisions, connection pools, and cache correctness.
+- Added four downstream performance behavior cases.
+
+### Changed
+
+- Added pull-request lifecycle routing to `git-workflow-and-versioning` while preserving code-review ownership.
+- Reviewed and adapted upstream changes through `f63ec56a3cc936408d792956ae583c3c96a825bd` without importing upstream history.
+
 ## [0.2.0] - 2026-08-28
 
 ### Added

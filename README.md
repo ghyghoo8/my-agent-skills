@@ -66,7 +66,7 @@ until the required acceptance or discovery-and-retriage step is complete.
 
 | 名称 | GitHub | 当前采用版本（commit-id） |
 |---|---|---|
-| addyosmani/agent-skills | [github.com/addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | [`7cb7a20`](https://github.com/addyosmani/agent-skills/commit/7cb7a20bb38b199728d456999c725a0488490ab6) |
+| addyosmani/agent-skills | [github.com/addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | [`f63ec56`](https://github.com/addyosmani/agent-skills/commit/f63ec56a3cc936408d792956ae583c3c96a825bd) |
 
 上游更新时同步更新此表；精确的审查与应用状态以对应 `source.yaml` 为准。
 
@@ -92,4 +92,4 @@ flowchart LR
 - 行为评测：[`evals/`](evals/)
 - 架构与来源：[`ARCHITECTURE.md`](ARCHITECTURE.md)、[`PROVENANCE.md`](PROVENANCE.md)
 
-当前版本为 `0.2.0`：PATCH 不改变分流语义，MINOR 增加兼容能力或触发场景，MAJOR 改变路径、暂停或输出契约。参见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [SECURITY.md](SECURITY.md)。项目采用 [MIT License](LICENSE)，不代表 OpenAI 或任何上游项目，也未获其背书。
+当前版本为 `0.3.0`：PATCH 不改变分流语义，MINOR 增加兼容能力或触发场景，MAJOR 改变路径、暂停或输出契约。参见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [SECURITY.md](SECURITY.md)。项目采用 [MIT License](LICENSE)，不代表 OpenAI 或任何上游项目，也未获其背书。

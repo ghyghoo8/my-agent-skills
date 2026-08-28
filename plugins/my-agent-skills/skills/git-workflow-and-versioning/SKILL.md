@@ -1,6 +1,6 @@
 ---
 name: git-workflow-and-versioning
-description: Structures commits, branches, conflict resolution, pushes, and semantic versions. Use for any Git change or release operation. Do not use for read-only repository inspection.
+description: Structures commits, branches, pull requests, conflict resolution, pushes, and semantic versions. Use for state-changing Git and release operations. Do not use for read-only repository inspection or code-quality review.
 ---
 
 # Git Workflow and Versioning
