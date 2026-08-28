@@ -66,7 +66,7 @@ until the required acceptance or discovery-and-retriage step is complete.
 
 | 名称 | GitHub | 当前采用版本（commit-id） |
 |---|---|---|
-| addyosmani/agent-skills | [github.com/addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | [`7cb7a20bb38b199728d456999c725a0488490ab6`](https://github.com/addyosmani/agent-skills/commit/7cb7a20bb38b199728d456999c725a0488490ab6) |
+| addyosmani/agent-skills | [github.com/addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | [`7cb7a20`](https://github.com/addyosmani/agent-skills/commit/7cb7a20bb38b199728d456999c725a0488490ab6) |
 
 上游更新时同步更新此表；精确的审查与应用状态以对应 `source.yaml` 为准。
 
