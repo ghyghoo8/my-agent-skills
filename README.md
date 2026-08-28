@@ -58,6 +58,25 @@ For `ARCHITECTURE_GATE` or `DISCOVERY`, do not modify business implementation
 until the required acceptance or discovery-and-retriage step is complete.
 ```
 
+## 上游迭代
+
+每个上游使用独立的 `source_id`、Git remote 和 `source.yaml`。更新时只比较已记录 commit 与候选 commit，按 allowlist 对每个 artifact 做 `adopt`、`adapt` 或 `reject`；不合并上游历史，也不自动覆盖当前 Plugin。完整规则见 [`UPSTREAM.md`](UPSTREAM.md)。
+
+```mermaid
+flowchart LR
+    A["按 source_id 读取 source.yaml"] --> B["Fetch 指定 remote"]
+    B --> C{"候选 commit 可达且向前？"}
+    C -- 否 --> X["停止：不推进记录"]
+    C -- 是 --> D["Diff reviewed..candidate"]
+    D --> E{"按 allowlist 审查 artifact"}
+    E -- adopt / adapt --> F["应用到单 Plugin"]
+    E -- reject --> G["保持下游内容"]
+    F --> H["验证 Skill、Plugin、eval 与 diff"]
+    G --> H
+    H -- 失败 --> X
+    H -- 通过 --> I["同一提交更新内容与追踪状态"]
+```
+
 ## 维护
 
 - Plugin：[`plugins/my-agent-skills/`](plugins/my-agent-skills/)
