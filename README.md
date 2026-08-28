@@ -62,6 +62,14 @@ until the required acceptance or discovery-and-retriage step is complete.
 
 每个上游使用独立的 `source_id`、Git remote 和 `source.yaml`。更新时只比较已记录 commit 与候选 commit，按 allowlist 对每个 artifact 做 `adopt`、`adapt` 或 `reject`；不合并上游历史，也不自动覆盖当前 Plugin。完整规则见 [`UPSTREAM.md`](UPSTREAM.md)。
 
+### 上游列表
+
+| 名称 | GitHub | 当前采用版本（commit-id） |
+|---|---|---|
+| addyosmani/agent-skills | [github.com/addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | [`7cb7a20bb38b199728d456999c725a0488490ab6`](https://github.com/addyosmani/agent-skills/commit/7cb7a20bb38b199728d456999c725a0488490ab6) |
+
+上游更新时同步更新此表；精确的审查与应用状态以对应 `source.yaml` 为准。
+
 ```mermaid
 flowchart LR
     A["按 source_id 读取 source.yaml"] --> B["Fetch 指定 remote"]
