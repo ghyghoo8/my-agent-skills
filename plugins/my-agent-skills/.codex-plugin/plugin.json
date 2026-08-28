@@ -1,7 +1,7 @@
 {
   "name": "my-agent-skills",
-  "version": "0.1.0",
-  "description": "Codex-native engineering workflows with evidence-led architecture triage.",
+  "version": "0.2.0",
+  "description": "Codex-native engineering workflows with architecture triage and project-grounded dialectical review.",
   "author": {
     "name": "ghyghoo8",
     "url": "https://github.com/ghyghoo8"
@@ -18,8 +18,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "My Agent Skills",
-    "shortDescription": "Engineering workflows and architecture triage for Codex.",
-    "longDescription": "Twenty-five Codex skills for defining, planning, building, testing, reviewing, shipping, and proportionally gating architecture-sensitive changes.",
+    "shortDescription": "Engineering workflows, architecture triage, and idea review.",
+    "longDescription": "Twenty-six Codex skills for defining, planning, building, testing, reviewing, shipping, proportionally gating architecture-sensitive changes, and challenging project-relevant ideas with consent.",
     "developerName": "ghyghoo8",
     "category": "Productivity",
     "capabilities": [
@@ -29,7 +29,8 @@
     ],
     "defaultPrompt": [
       "Choose the right engineering workflow for this task.",
-      "Triage this change for architecture boundary impact before implementation."
+      "Triage this change for architecture boundary impact before implementation.",
+      "Challenge and revise this idea against current project evidence."
     ]
   }
 }

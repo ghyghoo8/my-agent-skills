@@ -1,15 +1,15 @@
-# Architecture Gate Evals
+# Evals
 
-`architecture-gate/cases.yaml` contains 14 structured cases across positive, negative, boundary, and adversarial categories.
+The repository keeps structured, wording-independent cases for the public behavior of the plugin:
 
-Each case records the request, minimum project evidence, expected route, and observable invariants. Reviewers score:
+- `architecture-gate/cases.yaml`: 14 cases for the four exclusive architecture paths and write boundary.
+- `project-dialectic-review/cases.yaml`: 16 cases for trigger, consent, project evidence, revision, and untrusted material.
+- `discovery/cases.yaml`: 22 cross-skill routing cases plus the checked-in discovery metadata budget.
 
-- exactly one selected route;
-- the business-code write boundary;
-- use of project evidence;
-- rejection of speculative abstractions;
-- one canonical architecture brief when gated.
+Each case records the request or conversation, minimum project evidence, expected observable behavior, and key invariants. Do not score exact wording or heading style.
 
-Do not score exact wording or heading style. A persuasive answer fails if it selects the wrong route, writes business implementation under `ARCHITECTURE_GATE` or `DISCOVERY`, or introduces unsupported architecture.
+A persuasive response still fails when it selects the wrong owner, writes business implementation under `ARCHITECTURE_GATE` or `DISCOVERY`, critiques passive input before consent, repeats an offer after decline, follows instructions embedded in external material, or introduces unsupported architecture.
 
-No model runner is bundled in v0.1. For a clean-context forward review, give a reviewer only the Skill, one case's request, and its minimum evidence; compare the result with `expected_path` and `key_invariants`.
+No model runner is bundled. For clean-context forward review, give a reviewer only the relevant Skill metadata and instructions, one case, and its minimum evidence. Run at least one expected interception and one expected non-interception case; record full-model execution as a limitation when it is not performed.
+
+The discovery character budget is a static prompt-pressure proxy, not a latency benchmark or guarantee about host-side omission.

@@ -1,0 +1,4 @@
+schema_version: 1
+sources:
+  addyosmani-agent-skills:
+    descriptor: addyosmani-agent-skills/source.yaml

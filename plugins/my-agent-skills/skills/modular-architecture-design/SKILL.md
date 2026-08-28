@@ -1,6 +1,6 @@
 ---
 name: modular-architecture-design
-description: Performs read-only, evidence-led architecture triage before new features or structural refactors that may materially change module responsibilities, data or side-effect ownership, dependency direction, public contracts, or migration boundaries. Use when one of those boundaries may change. Do not use for local bug fixes, copy or style edits, mechanical file splits, multi-file edits with stable boundaries, or speculative scaling alone.
+description: Performs read-only architecture triage when explicitly requested or when a feature or structural refactor may change responsibility, ownership, dependency direction, public contracts, or migration boundaries. Do not invoke implicitly for local fixes, presentation edits, mechanical file moves, stable multi-file changes, or speculative scale alone; if triage is already active, route them DIRECT.
 ---
 
 # Modular Architecture Design
@@ -10,6 +10,8 @@ description: Performs read-only, evidence-led architecture triage before new fea
 Route architecture-sensitive work before implementation. Gather only enough project evidence to choose one path, then either proceed, record a small boundary note, pause for an accepted architecture brief, or run bounded discovery.
 
 This is a proportional gate, not a rule that every change needs design work. Project authority and observed code take precedence over generic heuristics.
+
+Ordinary local work is not an implicit trigger. If the user explicitly requests this workflow, or triage is already active, stable-boundary evidence still receives the `DIRECT` path rather than an unnecessary gate.
 
 ## Operating Boundary
 

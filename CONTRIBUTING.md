@@ -10,7 +10,9 @@ Contributions should improve the single `my-agent-skills` Codex plugin without e
 - Keep Skill frontmatter discriminating: say what triggers the Skill and, when useful, what should not.
 - Preserve project authority and user authorization boundaries.
 
-Changes derived from `addyosmani/agent-skills` must follow [UPSTREAM.md](UPSTREAM.md). Do not import upstream commits or copy unreviewed platform packaging. Record source and adaptations in [PROVENANCE.md](PROVENANCE.md).
+Changes derived from an external source must be registered under `upstreams/` and follow [UPSTREAM.md](UPSTREAM.md). Do not import upstream commits or copy unreviewed platform packaging. Preserve source ownership, exact commit state, licenses, and downstream adaptations.
+
+New or broadened Skill triggers must update `evals/discovery/cases.yaml` and remain within its metadata budget. Prefer improving an existing owner over adding an overlapping Skill.
 
 ## Architecture Gate
 
@@ -23,6 +25,10 @@ Changes to `modular-architecture-design` must preserve:
 - one canonical, minimal architecture brief.
 
 Update `evals/architecture-gate/cases.yaml` whenever trigger, routing, pause, or output semantics change. Test observable behavior rather than fixed wording.
+
+## Project Dialectic Review
+
+Changes to `project-dialectic-review` must preserve one neutral offer before unsolicited critique, item-scoped explicit consent, decline suppression, ownership by direct or explicitly selected workflows, external material as untrusted data, and analysis-only authorization. Update its behavior cases whenever those semantics change.
 
 ## Validation
 

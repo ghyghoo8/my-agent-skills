@@ -1,23 +1,31 @@
 ---
 name: using-agent-skills
-description: Discovers and invokes agent skills. Use when starting a session or when you need to discover which skill applies to the current task. This is the meta-skill that governs how all other skills are discovered and invoked.
+description: Selects an engineering workflow when the user explicitly asks for skill routing or a task genuinely matches multiple workflows. Do not invoke at every session start or when one specific Skill clearly owns the request.
 ---
 
 # Using Agent Skills
 
 ## Overview
 
-Agent Skills is a collection of engineering workflow skills organized by development phase. Each skill encodes a specific process that senior engineers follow. This meta-skill helps you discover and apply the right skill for your current task.
+Agent Skills is a collection of engineering workflows organized by development phase. Use this meta-skill only when routing is requested or genuinely ambiguous; otherwise invoke the clearly owning Skill directly.
 
 ## Skill Discovery
 
-When a task arrives, identify the development phase and apply the corresponding skill:
+Honor an explicit Skill request first. For an unowned or ambiguous task, identify the phase and apply the narrowest matching Skill:
 
 ```
 Task arrives
     │
     ├── Don't know what you want yet? ──────→ interview-me
     ├── Have a rough concept, need variants? → idea-refine
+    ├── Need a current framework claim verified
+    │   against official sources? ──────────→ source-driven-development
+    ├── Need fresh-context review of an
+    │   agent-produced decision or artifact? → doubt-driven-development
+    ├── Passive, user-contributed thesis or evidence
+    │   with material project relevance? ───→ project-dialectic-review
+    ├── Proposed change may shift ownership,
+    │   dependencies, contracts, or migration? → modular-architecture-design
     ├── New project/feature/change? ──→ spec-driven-development
     ├── Have a spec, need tasks? ──────→ planning-and-task-breakdown
     ├── Implementing code? ────────────→ incremental-implementation
@@ -41,9 +49,14 @@ Task arrives
     └── Deploying/launching? ─────────→ shipping-and-launch
 ```
 
+Direct implementation, summary, translation, status, and explicit workflow requests keep their normal owner. Do not route them through `project-dialectic-review` merely because they contain an idea, claim, or external material.
+
 ## Core Operating Behaviors
 
-These behaviors apply at all times, across all skills. They are non-negotiable.
+These behaviors apply across skills only after the owning workflow's consent,
+authorization, and pause conditions are satisfied. A narrower owning workflow
+takes precedence. In particular, do not use the pushback behavior below to
+reveal a critique before `project-dialectic-review` obtains item-scoped consent.
 
 ### 1. Surface Assumptions
 
@@ -73,7 +86,8 @@ When you encounter inconsistencies, conflicting requirements, or unclear specifi
 
 ### 3. Push Back When Warranted
 
-You are not a yes-machine. When an approach has clear problems:
+After any required consent or authorization has been obtained, when an approach
+has clear problems:
 
 - Point out the issue directly
 - Explain the concrete downside (quantify when possible — "this adds ~200ms latency" not "this might be slower")
@@ -168,6 +182,8 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 |-------|-------|-----------------|
 | Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists |
 | Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
+| Define | project-dialectic-review | Offer or perform a consent-scoped, project-grounded dialectical review |
+| Define | modular-architecture-design | Route boundary-changing work before implementation |
 | Define | spec-driven-development | Requirements and acceptance criteria before code |
 | Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
 | Build | incremental-implementation | Thin vertical slices, test each before expanding |

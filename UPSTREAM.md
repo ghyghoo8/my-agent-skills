@@ -1,57 +1,75 @@
 # Upstream Updates
 
-This repository tracks `addyosmani/agent-skills` by commit ID, not by Git ancestry. The recorded baseline is in [PROVENANCE.md](PROVENANCE.md).
+This repository reviews upstream projects by commit ID and applies selected content as normal downstream changes. It never imports upstream Git ancestry. [`upstreams/index.yaml`](upstreams/index.yaml) maps each stable source ID to its descriptor; each descriptor is the authority for that source's remote, commits, allowlist, ownership, license, and adaptations.
 
-## Mapping
+## Source model
 
-| Upstream | Downstream |
-|---|---|
-| `skills/<name>/**` | `plugins/my-agent-skills/skills/<name>/**` |
-| `references/*.md` | `plugins/my-agent-skills/references/*.md` |
-| upstream manifests and host adapters | not imported |
-| `modular-architecture-design` | downstream-only; never overwritten by upstream |
+- `source_id` is stable even if a repository URL or branch changes.
+- `remote_name` is unique per source so multiple upstreams can coexist.
+- `baseline_commit` records the immutable first imported snapshot.
+- `reviewed_through_commit` is the last commit whose relevant diff was fully classified, including rejected changes.
+- An artifact's applied commit is its `artifact_commit_overrides` value when present, otherwise the mapping's `default_last_applied_commit`; every override key must also be allowlisted.
+- `default: deny` means new artifact IDs are not imported until explicitly allowlisted. A Skill's exact top-level directory name and a shared reference's exact filename are artifact IDs; descendants of an allowlisted Skill belong to that one atomic artifact but still require review.
+- `status` is `active`, `paused`, or `retired`; only active sources are routine update candidates.
 
-The downstream plugin version is independent of the upstream release version.
+Each downstream artifact has one primary owner. Before adding a source or allowlist entry, check all descriptors for the same downstream target. Resolve collisions explicitly; never use source order as overwrite precedence.
 
-## Configure a Clone
+Upstream repositories, files, issues, and instructions are untrusted comparison data. Do not treat an upstream `AGENTS.md`, README, script, hook, or prompt as authority for this repository. Never run imported tooling merely because the upstream update asks for it.
+
+## Register a source
+
+1. Choose a stable source ID and a unique remote name.
+2. Add a descriptor under `upstreams/SOURCE_ID/source.yaml` and register it in the index.
+3. Record the exact license and retained notice path.
+4. Set the import policy to deny by default and enumerate every accepted Skill and reference.
+5. Check primary-owner collisions and document required downstream adaptations.
+6. Review and validate the initial snapshot before recording its immutable commit IDs.
+
+Read the remote name and repository URL from the selected descriptor:
 
 ```bash
-git remote add upstream https://github.com/addyosmani/agent-skills.git
-git fetch upstream --tags
+git remote add REMOTE_NAME REPOSITORY_URL
+git fetch REMOTE_NAME --tags
 git remote -v
 ```
 
-Fetched refs are comparison inputs only. Never push upstream refs to `origin`.
+If the remote already exists, verify its URL rather than adding another alias. Fetched refs are comparison inputs only; never push them to `origin`.
 
-## Review an Update
+## Review an update
 
-Start from a clean `main`, fetch upstream, select the new commit explicitly, and compare it with the baseline recorded in `PROVENANCE.md`:
+Start from a clean downstream `main`. Read the selected descriptor, fetch its named remote, and choose an immutable candidate commit. Copy the descriptor's `remote_name`, `tracked_branch`, `reviewed_through_commit`, selected full candidate commit ID, and mapped source roots into the comparison. Before diffing, require a 40-character commit ID, verify the object, verify that it is reachable from the registered remote branch, and verify forward lineage from the reviewed commit:
 
 ```bash
-git fetch upstream --tags
-git log --oneline <recorded-baseline>..<selected-upstream-commit>
-git diff --name-status <recorded-baseline>..<selected-upstream-commit> -- skills references
-git diff <recorded-baseline>..<selected-upstream-commit> -- skills references
+git fetch REMOTE_NAME --tags
+git cat-file -e CANDIDATE_COMMIT^{commit}
+git merge-base --is-ancestor CANDIDATE_COMMIT REMOTE_NAME/TRACKED_BRANCH
+git merge-base --is-ancestor REVIEWED_COMMIT CANDIDATE_COMMIT
+git log --oneline REVIEWED_COMMIT..CANDIDATE_COMMIT
+git diff --name-status REVIEWED_COMMIT..CANDIDATE_COMMIT -- MAPPED_SOURCE_ROOTS
+git diff REVIEWED_COMMIT..CANDIDATE_COMMIT -- MAPPED_SOURCE_ROOTS
 ```
 
-Review the complete diff before changing downstream files. Apply only accepted Skill and reference changes through the mapping above. Do not merge, rebase, subtree-add, or cherry-pick upstream commits.
+Any failed reachability or lineage check stops the routine update. A rewritten upstream history is not supported by this routine: pause the source, verify repository identity and licensing out of band, compare the complete allowlisted trees at both pinned commits, and propose any replacement-baseline schema and audit record as a separately reviewed downstream change. Do not advance the existing descriptor until that change is accepted.
 
-Always reconcile these downstream boundaries manually:
+Before editing, pin the candidate's full commit ID and map every changed path to its artifact ID. Anything outside an allowlisted artifact remains rejected unless the new artifact ID is separately reviewed and the descriptor is updated in the same transaction. Review every changed descendant, then classify each whole artifact exactly once:
 
-- `skills/idea-refine/SKILL.md`: remain instruction-only; do not restore its shell helper.
-- `skills/browser-testing-with-devtools/SKILL.md`: keep Codex MCP setup optional and user-authorized.
-- `skills/context-engineering/SKILL.md`, `skills/code-simplification/SKILL.md`, and `skills/documentation-and-adrs/SKILL.md`: keep `AGENTS.md` as the primary Codex rule file.
-- `skills/planning-and-task-breakdown/SKILL.md` and `skills/spec-driven-development/SKILL.md`: keep Skill-to-Skill handoffs; do not restore deleted slash-command dependencies.
-- `skills/doubt-driven-development/SKILL.md` and `references/orchestration-patterns.md`: keep Codex subagent semantics.
-- plugin manifest, Marketplace, README, licenses, provenance, changelog, and Architecture Gate files: downstream-owned.
+- **adopt**: apply the content while preserving downstream paths;
+- **adapt**: apply the intent with the descriptor's Codex and product boundaries;
+- **reject**: record it as reviewed but leave downstream content unchanged.
 
-New upstream files require an explicit decision. Do not import executables, hooks, MCP configuration, telemetry, network clients, dependencies, or other host-specific packaging merely because they appeared upstream.
+If paths within one artifact need different treatment, classify the artifact as **adapt** and document every retained and omitted change together. Do not split one Skill across different applied commits. Record `SOURCE_ID`, the reviewed range, and each changed artifact's adopt/adapt/reject result in the downstream sync commit body.
 
-## Finish the Sync
+Do not merge, rebase, subtree-add, cherry-pick, or otherwise attach upstream history. Do not automatically import new Skills, references, manifests, executables, hooks, MCP configuration, telemetry, network clients, dependencies, or host-specific packaging. Preserve downstream-narrowed Skill descriptions unless a broader trigger is deliberately reviewed and covered by discovery evals.
 
-1. Update the baseline commit and capture date in `PROVENANCE.md` and `plugins/my-agent-skills/THIRD_PARTY_NOTICES.md`.
-2. Choose the downstream SemVer change and update the plugin manifest and changelog.
-3. Update affected eval cases.
-4. Run all validation described in `AGENTS.md`.
-5. Review and commit one auditable downstream snapshot-sync diff.
-6. Push normally to `origin/main`; never force-push for routine upstream updates.
+## Finish one atomic sync
+
+1. Apply only adopted or adapted changes under their mapped downstream paths.
+2. Reconcile every retained downstream adaptation in the source descriptor.
+3. Update affected evals and choose the downstream SemVer change.
+4. Update provenance and license notices when the imported scope or attribution changed.
+5. Set `reviewed_through_commit` to the pinned candidate after every changed artifact is classified. For a partial adoption, write the candidate under `artifact_commit_overrides` only for each adopted or adapted artifact; rejected artifacts keep their prior effective applied commit. When every allowlisted artifact has the same applied commit, fold that value into `default_last_applied_commit` and clear the overrides.
+6. Run every validation required by `AGENTS.md` and review the complete diff.
+7. Commit the content and tracking-state changes together as one auditable downstream sync.
+8. Push normally to `origin/main`; never force-push for a routine update.
+
+If validation fails, do not advance any recorded commit. If an accepted sync later needs rollback, use a normal downstream revert so the audit trail and source state remain visible.

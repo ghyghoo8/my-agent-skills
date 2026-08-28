@@ -1,0 +1,7 @@
+interface:
+  display_name: "Project Dialectic Review"
+  short_description: "Challenge and refine ideas against project evidence"
+  default_prompt: "Use $project-dialectic-review to review this position against the current project, preserve what holds, and propose a grounded revision."
+
+policy:
+  allow_implicit_invocation: true

@@ -4,11 +4,11 @@
 
 `my-agent-skills` is a new Codex plugin maintained in this repository. It is not a GitHub fork, does not reuse the upstream plugin identity or version, and does not contain upstream Git history.
 
-The plugin manifest, Marketplace entry, Codex-specific packaging, `modular-architecture-design` Skill, its templates, and its routing evals were authored for this repository.
+The plugin manifest, Marketplace entry, Codex-specific packaging, `modular-architecture-design` and `project-dialectic-review` Skills, their contracts, and their evals were authored for this repository.
 
 ## Upstream Skill Snapshot
 
-The plugin includes adapted material from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), licensed under MIT. The current baseline is upstream commit [`7cb7a20bb38b199728d456999c725a0488490ab6`](https://github.com/addyosmani/agent-skills/commit/7cb7a20bb38b199728d456999c725a0488490ab6), captured on 2026-08-27.
+The plugin includes adapted material from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), licensed under MIT. Its initial imported snapshot was upstream commit [`7cb7a20bb38b199728d456999c725a0488490ab6`](https://github.com/addyosmani/agent-skills/commit/7cb7a20bb38b199728d456999c725a0488490ab6), captured on 2026-08-27. Current reviewed and applied commit state and the exact allowlist live only in [`upstreams/addyosmani-agent-skills/source.yaml`](upstreams/addyosmani-agent-skills/source.yaml).
 
 Imported scope:
 
@@ -18,13 +18,14 @@ Imported scope:
 Codex adaptations:
 
 - moved all Skill content under the single downstream plugin root;
+- narrowed selected frontmatter descriptions for precise Codex discovery without changing their workflow ownership;
 - removed the `idea-refine` initializer script and expressed its behavior as instructions;
 - removed active dependencies on host-specific tools, slash commands, rule files, personas, and orchestration, while retaining compatibility mentions where they are useful context;
 - kept Chrome DevTools MCP optional and user-configured rather than bundling it.
 
 Not imported as product surface: upstream history, identity/version manifests, Claude/Gemini/OpenCode packaging, slash commands, personas, hooks, CI, runtime helpers, repository documentation, or upstream eval infrastructure.
 
-Traceability comes from this exact commit ID, retained MIT notices, the mapping in [UPSTREAM.md](UPSTREAM.md), and reviewable downstream sync commits. Inherited text is not represented as original downstream authorship.
+Traceability comes from the stable source ID, exact commit state, retained MIT notices, descriptor mapping, and reviewable downstream sync commits. Inherited text is not represented as original downstream authorship.
 
 Public format references used for downstream packaging:
 
