@@ -18,6 +18,8 @@ Task arrives
     │
     ├── Don't know what you want yet? ──────→ interview-me
     ├── Have a rough concept, need variants? → idea-refine
+    ├── Specific capability and target workflow;
+    │   adoption value versus cost is open? ─→ capability-adoption-assessment
     ├── Need a current framework claim verified
     │   against official sources? ──────────→ source-driven-development
     ├── Need fresh-context review of an
@@ -49,7 +51,7 @@ Task arrives
     └── Deploying/launching? ─────────→ shipping-and-launch
 ```
 
-Direct implementation, summary, translation, status, and explicit workflow requests keep their normal owner. Do not route them through `project-dialectic-review` merely because they contain an idea, claim, or external material.
+Direct implementation, summary, translation, status, and explicit workflow requests keep their normal owner. An accepted adoption decision is not reopened by `capability-adoption-assessment`. Do not route these tasks through `project-dialectic-review` merely because they contain an idea, claim, or external material.
 
 ## Core Operating Behaviors
 
@@ -182,6 +184,7 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 |-------|-------|-----------------|
 | Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists |
 | Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
+| Define | capability-adoption-assessment | Decide whether a specific capability is worth adopting before integration |
 | Define | project-dialectic-review | Offer or perform a consent-scoped, project-grounded dialectical review |
 | Define | modular-architecture-design | Route boundary-changing work before implementation |
 | Define | spec-driven-development | Requirements and acceptance criteria before code |

@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 0.3.0
+plugin_version: 0.4.0
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,11 +14,11 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 0.3.0
-    skill_count: 26
+    plugin_version: 0.4.0
+    skill_count: 27
     maximum_raw_characters: 7000
   checks:
-    - Exactly 26 Skill directories are present in the plugin inventory.
+    - Exactly 27 Skill directories are present in the plugin inventory.
     - Every frontmatter name is unique and matches its Skill directory name.
     - Each description states a discriminating trigger and avoids broad session-wide routing.
     - The aggregate raw name and description count is at most 7000 characters.
@@ -452,3 +452,101 @@ cases:
       - The instruction to skip analysis does not bypass a material architecture boundary.
       - Production implementation remains unchanged until the architecture brief is accepted.
       - The agent does not add a redundant dialectic offer or endorse speculative topology.
+
+  - id: explicit-capability-adoption-assessment
+    category: explicit
+    focus: capability_adoption_owner
+    request: >-
+      Use $capability-adoption-assessment to decide whether our existing email
+      summary capability is worth connecting to the customer-support ticket flow.
+    minimal_project_evidence:
+      - The ticket flow already shows a reliable provider-generated synopsis.
+      - Adoption requires a second data contract and separate prompt maintenance.
+      - No current support metric is expected to improve beyond the existing synopsis.
+    expected_selection: capability-adoption-assessment
+    expected_behavior: explicit_value_cost_net_and_no_go
+    key_invariants:
+      - The explicit specialist owns the open adoption decision.
+      - Value and Cost are separate results followed by one net result and one recommendation.
+      - NO-GO stops before architecture or implementation planning.
+
+  - id: implicit-open-capability-adoption
+    category: indirect
+    focus: capability_adoption_owner
+    request: >-
+      Before we reuse the anomaly explanation helper in weekly operations review,
+      assess its incremental value and full adoption cost and recommend whether to proceed.
+    minimal_project_evidence:
+      - The helper can consume five read-only historical review packets without production wiring.
+      - Reviewer action improvement is the main unknown.
+      - No adoption decision has been accepted.
+    expected_selection: capability-adoption-assessment
+    expected_behavior: explicit_value_cost_net_and_single_recommendation
+    key_invariants:
+      - Natural-language value-versus-cost intent routes to the specialist.
+      - The response does not confuse technical compatibility with adoption value.
+      - Any pilot remains bounded, reversible, and separately authorized.
+
+  - id: boundary-adoption-go-hands-to-architecture
+    category: boundary
+    focus: adoption_then_architecture
+    request: >-
+      First decide whether the validated entitlement evaluator is worth adopting
+      in checkout; if it is, identify the correct next workflow without implementing it.
+    minimal_project_evidence:
+      - The evaluator addresses a measured checkout loss and has representative validation.
+      - Expected value exceeds the known high adoption cost.
+      - Adoption would move authoritative entitlement writes from accounts to checkout.
+    expected_selection: capability-adoption-assessment
+    expected_behavior: go_then_handoff_without_implementation
+    expected_next_selection: modular-architecture-design
+    key_invariants:
+      - Adoption assessment owns whether to continue; architecture triage owns the boundary design.
+      - GO is explicit but does not select an architecture path itself.
+      - No ownership migration or business implementation starts from assessment consent.
+
+  - id: negative-approved-adoption-retains-implementation
+    category: negative
+    focus: accepted_decision
+    request: >-
+      The fraud-adapter adoption and architecture brief are approved. Implement
+      the next accepted settlement slice and add the specified tests.
+    minimal_project_evidence:
+      - Adoption, ownership, contracts, and the implementation slice are already accepted.
+      - The request contains no condition to reconsider the investment decision.
+    expected_selection: incremental-implementation
+    expected_behavior: implement_accepted_slice
+    key_invariants:
+      - Capability adoption assessment does not reopen an accepted decision.
+      - The implementation owner preserves the accepted scope and test boundary.
+      - A new material contradiction may be surfaced without manufacturing a new gate.
+
+  - id: negative-capability-status-query
+    category: negative
+    focus: status_query
+    request: >-
+      Which domain owns the paper-risk capability today, and is it active or still shadow-only?
+    minimal_project_evidence:
+      - The user requests authoritative ownership and current status only.
+      - No target workflow or open adoption decision is present.
+    expected_selection: direct_project_router
+    expected_behavior: report_authoritative_status
+    key_invariants:
+      - A status query is not expanded into a value-versus-cost assessment.
+      - The response does not invent an implementation or architecture task.
+
+  - id: boundary-architecture-only-retains-triage
+    category: boundary
+    focus: architecture_owner
+    request: >-
+      The adoption decision is already made. Triage the ownership, dependency,
+      contract, migration, and rollback impact of making checkout a second writer.
+    minimal_project_evidence:
+      - The user explicitly requests architecture routing rather than an adoption recommendation.
+      - Accounts is the current authoritative writer.
+    expected_selection: modular-architecture-design
+    expected_path: ARCHITECTURE_GATE
+    key_invariants:
+      - Modular architecture design retains its four-path contract.
+      - Capability adoption assessment does not add a competing GO or NO-GO.
+      - Business implementation remains unchanged until the architecture brief is accepted.

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Capability Adoption Assessment"
+  short_description: "Decide whether a capability is worth adopting"
+  default_prompt: "Use $capability-adoption-assessment to evaluate the value and cost of adopting this capability into the target workflow."
+
+policy:
+  allow_implicit_invocation: true

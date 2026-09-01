@@ -29,6 +29,12 @@ Preserve item-scoped consent, a single neutral offer for passive input, decline 
 
 Keep descriptions concise and discriminating. Do not make `using-agent-skills` a session-wide default; preserve the discovery metadata budget recorded in `evals/discovery/cases.yaml`.
 
+## Capability Adoption Assessment
+
+Route only a specific capability plus target workflow with an open adoption decision to `capability-adoption-assessment`. Preserve separate explicit Value and Cost results, one net result, and exactly one of `GO`, `PILOT`, `DEFER`, or `NO-GO`.
+
+Do not make adoption assessment a universal implementation gate or let assessment consent authorize a pilot, architecture change, migration, or implementation. `NO-GO` stops; boundary-sensitive `GO` or `PILOT` hands off to `modular-architecture-design` without selecting its path. Update `evals/capability-adoption-assessment/cases.yaml` and `evals/discovery/cases.yaml` when trigger or output semantics change.
+
 ## Verification
 
 Before committing:

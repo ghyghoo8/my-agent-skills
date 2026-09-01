@@ -2,9 +2,10 @@
 
 The repository keeps structured, wording-independent cases for the public behavior of the plugin:
 
-- `architecture-gate/cases.yaml`: 14 cases for the four exclusive architecture paths and write boundary.
+- `architecture-gate/cases.yaml`: 15 cases for the four exclusive architecture paths, write boundary, and adoption handoff.
+- `capability-adoption-assessment/cases.yaml`: 13 cases for Value, Cost, net result, single recommendation, adjacent ownership, and write boundaries.
 - `project-dialectic-review/cases.yaml`: 16 cases for trigger, consent, project evidence, revision, and untrusted material.
-- `discovery/cases.yaml`: 24 cross-skill routing cases plus the checked-in discovery metadata budget.
+- `discovery/cases.yaml`: 30 cross-skill routing cases plus the checked-in discovery metadata budget.
 - `performance-optimization/cases.yaml`: 4 cases for measurement-first database, pool, and cache decisions.
 
 Each case records the request or conversation, minimum project evidence, expected observable behavior, and key invariants. Do not score exact wording or heading style.

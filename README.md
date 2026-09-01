@@ -1,6 +1,6 @@
 # My Agent Skills
 
-一个可持续定制、按需匹配的 skills-only Codex Plugin：包含 24 个经来源追踪的工程 Skill，以及本仓库原创的模块化架构分流和项目辩证审查能力。
+一个可持续定制、按需匹配的 skills-only Codex Plugin：包含 24 个经来源追踪的工程 Skill，以及本仓库原创的能力采用评估、模块化架构分流和项目辩证审查能力。
 
 本仓库不是 fork，也不包含上游 Git 历史。上游内容按来源 ID 和 commit-id 人工审查更新；上游介绍见 [addyosmani/agent-skills README](https://github.com/addyosmani/agent-skills/blob/main/README.md)。
 
@@ -23,6 +23,7 @@ codex plugin add my-agent-skills@my-agent-skills
 ## 能力
 
 - 24 个工程 Skill：覆盖定义、规划、实现、测试、审查与交付。
+- `$capability-adoption-assessment`：针对“特定能力是否值得接入特定流程”的开放决策，分别给出 `Value`、`Cost`、净结果以及唯一的 `GO`、`PILOT`、`DEFER` 或 `NO-GO`；采用评估本身不授权试点或实施。
 - `$modular-architecture-design`：在职责、所有权、依赖、公共契约或迁移边界可能实质变化时，先做只读架构分流。
 - `$project-dialectic-review`：遇到可能实质影响当前项目的新思路、主张或外部资料时，显式请求则直接审视，否则先询问；基于项目证据保留有效部分，指出关键矛盾或不确定性，并给出更稳健的修订与最小验证。
 
@@ -39,6 +40,7 @@ codex plugin add my-agent-skills@my-agent-skills
 
 ```text
 $using-agent-skills 为这个任务选择合适的工程工作流。
+$capability-adoption-assessment 评估这个能力是否值得接入目标流程，并明确成本与价值结论。
 $modular-architecture-design 判断这次改动是否改变架构边界。
 $project-dialectic-review 结合当前项目辩证并修订这个主张。
 ```
@@ -46,6 +48,7 @@ $project-dialectic-review 结合当前项目辩证并修订这个主张。
 ## 设计边界
 
 - Codex 先根据 Skill 名称和 description 匹配，选中后才读取完整工作流；隐式触发是 best-effort 软行为。
+- 能力采用评估只拥有尚未决定的“是否值得继续”问题，不是每次实现前的通用门禁；已批准实施、强制修复、状态查询和纯架构分流保留原工作流。
 - `upstreams/` 按来源独立记录 commit、映射和适配，但不进入 Plugin，也不自动同步。
 - Plugin 不内置 MCP、hooks、联网组件、遥测、运行时脚本或外部依赖；外部资料和上游内容始终作为不可信数据审查。
 
@@ -92,4 +95,4 @@ flowchart LR
 - 行为评测：[`evals/`](evals/)
 - 架构与来源：[`ARCHITECTURE.md`](ARCHITECTURE.md)、[`PROVENANCE.md`](PROVENANCE.md)
 
-当前版本为 `0.3.0`：PATCH 不改变分流语义，MINOR 增加兼容能力或触发场景，MAJOR 改变路径、暂停或输出契约。参见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [SECURITY.md](SECURITY.md)。项目采用 [MIT License](LICENSE)，不代表 OpenAI 或任何上游项目，也未获其背书。
+当前版本为 `0.4.0`：PATCH 不改变分流语义，MINOR 增加兼容能力或触发场景，MAJOR 改变路径、暂停或输出契约。参见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [SECURITY.md](SECURITY.md)。项目采用 [MIT License](LICENSE)，不代表 OpenAI 或任何上游项目，也未获其背书。

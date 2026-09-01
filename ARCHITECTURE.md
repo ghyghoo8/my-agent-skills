@@ -1,6 +1,6 @@
 # Architecture
 
-Status: `ARCHITECTURE_GATE` accepted on 2026-08-28
+Status: `ARCHITECTURE_GATE` accepted on 2026-09-01
 
 ## Goal
 
@@ -11,6 +11,7 @@ Maintain one personal, skills-only Codex plugin that can evolve from multiple re
 - one plugin per upstream source;
 - automatic mirroring or unattended application of upstream changes;
 - runtime source lookup, networking, hooks, telemetry, or dependency loading;
+- a universal value-versus-cost preflight before every implementation or mandatory fix;
 - speculative capability layers that have no current Skill or measured discovery need.
 
 ## Planes and ownership
@@ -61,6 +62,41 @@ The initial migration copies the existing reviewed baseline and import inventory
 
 A schema change migrates the index and every affected descriptor in the same downstream commit. Before that commit ships, rollback means discarding the uncommitted metadata change. After it ships, rollback means reverting that downstream commit; do not restore a parallel legacy tracker or rewrite history.
 
+## Capability adoption assessment
+
+`capability-adoption-assessment` independently owns one question: whether a
+specific new or existing capability is worth adopting into a named target
+workflow. It triggers only while that adoption decision is open; it is not a
+mandatory preflight for implementation, remediation, status reporting, vague
+ideation, passive theses, or architecture-only review.
+
+The assessment is read-only and must expose four separate decision results:
+
+- incremental Value relative to the target workflow's current baseline;
+- total Cost, including material one-time, recurring, risk, and opportunity cost;
+- one net result: `POSITIVE`, `UNCERTAIN`, or `NEGATIVE`;
+- exactly one recommendation: `GO`, `PILOT`, `DEFER`, or `NO-GO`.
+
+One missing user expectation may be asked only when its answer could reverse the
+decision. Otherwise the Skill uses the smallest stated assumption and gathers
+only decision-changing evidence. `NO-GO` stops without architecture or
+implementation planning. `PILOT` names a bounded reversible validation but does
+not authorize it. A `GO` or `PILOT` hands off to
+`modular-architecture-design` only when responsibility, ownership, dependency,
+public-contract, or migration boundaries may change; the adoption Skill never
+selects an architecture path itself.
+
+The routing sequence is therefore conditional rather than universal:
+
+```text
+open adoption decision
+    -> capability-adoption-assessment
+    -> NO-GO: stop
+    -> DEFER: bounded evidence action
+    -> GO/PILOT + stable boundary: owning next workflow
+    -> GO/PILOT + material boundary: modular-architecture-design
+```
+
 ## Project dialectic review
 
 `project-dialectic-review` is an independent Skill for user-provided ideas, architecture or refactor proposals, claims, and external material that could materially affect the current project.
@@ -77,9 +113,13 @@ After consent, the smallest complete response identifies the project-relevant th
 
 This is a soft, instruction-only routing behavior. It cannot guarantee interception like a hook or watcher, and it must not become a global preamble for every user message.
 
-## First verifiable slice
+## Current verifiable slice
 
-The first slice adds the indexed control plane for the existing `addyosmani-agent-skills` snapshot, generalizes the commit-diff update protocol, adds `project-dialectic-review`, and covers its discovery and consent boundaries with eval cases. It does not synchronize newer upstream content.
+The current slice adds `capability-adoption-assessment` as a downstream-owned
+decision specialist, routes only open capability-to-workflow adoption questions
+to it, preserves adjacent workflow ownership, and covers its output, discovery,
+and architecture-handoff boundaries with eval cases. It does not synchronize
+newer upstream content or turn adoption assessment into a global gate.
 
 ## Alternative considered
 

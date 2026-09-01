@@ -1,0 +1,240 @@
+schema_version: 1
+skill: capability-adoption-assessment
+plugin_version: 0.4.0
+evaluation_mode: clean_context_explicit_and_implicit_adoption_decisions
+
+scoring:
+  observe:
+    - value_result_and_evidence
+    - cost_result_and_evidence
+    - net_result
+    - single_recommendation
+    - decision_changing_question_discipline
+    - adjacent_skill_ownership
+    - implementation_write_boundary
+  ignore:
+    - exact_wording
+    - heading_style
+  error_balance: >-
+    Penalize both missed adoption decisions and unnecessary interception. A case
+    passes only when Value and Cost are separate explicit results, the net result
+    and recommendation are unambiguous, and an adjacent workflow keeps ownership
+    when adoption is no longer the open decision.
+
+cases:
+  - id: positive-existing-capability-high-cost-low-value
+    category: positive
+    focus: explicit_no_go
+    request: >-
+      We already have an email-summary capability. Should we connect it to the
+      customer-support ticket flow? If the maintenance cost is high and the
+      incremental value is low, do not integrate it.
+    minimal_project_evidence:
+      - The ticket flow already shows a reliable provider-generated synopsis.
+      - The new capability requires a second data contract and separate prompt maintenance.
+      - No current support metric is expected to improve beyond the existing synopsis.
+    expected_value: LOW
+    expected_cost: HIGH
+    expected_net_result: NEGATIVE
+    expected_recommendation: NO-GO
+    key_invariants:
+      - Technical compatibility is not treated as evidence that adoption is worthwhile.
+      - Value and Cost are stated separately with project-specific evidence.
+      - The response stops before architecture planning or implementation.
+
+  - id: positive-new-capability-high-value-low-cost
+    category: positive
+    focus: explicit_go
+    request: >-
+      Before we add duplicate-payment detection to the existing settlement review,
+      assess its value and total adoption cost and tell me whether to proceed.
+    minimal_project_evidence:
+      - Duplicate payments are the largest measured source of manual settlement reversals.
+      - The review flow already exposes the exact idempotency key and decision seam needed.
+      - One local rule and two focused tests cover the confirmed first slice; no migration is needed.
+    expected_value: HIGH
+    expected_cost: LOW
+    expected_net_result: POSITIVE
+    expected_recommendation: GO
+    key_invariants:
+      - Incremental value is tied to the measured settlement problem and current baseline.
+      - Cost includes verification and ongoing rule ownership, not only code size.
+      - GO remains a recommendation and does not invent implementation authorization.
+
+  - id: positive-low-cost-reversible-validation
+    category: positive
+    focus: pilot
+    request: >-
+      Is it worth reusing our anomaly explanation helper in the weekly operations
+      review? We do not yet know whether reviewers will act on the explanations.
+    minimal_project_evidence:
+      - The helper can consume an exported read-only fixture without a production adapter.
+      - Five historical review packets can be evaluated without writes or migration.
+      - Reviewer action rate is the decision-changing value unknown.
+    expected_value: UNKNOWN
+    expected_cost: LOW
+    expected_net_result: UNCERTAIN
+    expected_recommendation: PILOT
+    key_invariants:
+      - PILOT is bounded, reversible, and aimed at the named value uncertainty.
+      - The response does not wire the helper into the production review flow.
+      - The exit metric and stop condition are explicit.
+
+  - id: boundary-user-expectation-can-change-result
+    category: boundary
+    focus: one_minimal_question
+    request: >-
+      Could we add automated call summaries to the account-review workflow? First
+      assess whether it is worth the cost.
+    minimal_project_evidence:
+      - The integration and recurring transcription costs are known.
+      - The request does not identify whether success means faster review, better decisions, or compliance retention.
+      - Those outcomes have different value thresholds and could reverse the recommendation.
+    expected_action: ask_one_minimal_question_then_wait
+    key_invariants:
+      - The question asks for the observable outcome or threshold that would change the decision.
+      - The agent does not start a broad interview or ask the user to choose an internal module.
+      - No premature Value, net result, or recommendation is fabricated before the answer.
+
+  - id: positive-missing-evidence-expensive-validation
+    category: positive
+    focus: defer
+    request: >-
+      Should we connect the experimental forecasting engine to production inventory
+      planning now? Give me a cost-value decision first.
+    minimal_project_evidence:
+      - The engine has synthetic tests but no representative accuracy or calibration record.
+      - Integration would require a new production writer, rollback path, and operator ownership.
+      - The only proposed validation is a full production rollout.
+    expected_value: UNKNOWN
+    expected_cost: HIGH
+    expected_net_result: UNCERTAIN
+    expected_recommendation: DEFER
+    key_invariants:
+      - Missing value evidence is not relabeled as LOW or HIGH.
+      - The agent does not use a high-cost production rollout as a casual pilot.
+      - The next validation is smaller than integration and has an exit condition.
+
+  - id: boundary-positive-decision-hands-off-architecture
+    category: boundary
+    focus: architecture_handoff
+    request: >-
+      Evaluate whether our entitlement evaluator is worth adopting in checkout.
+      It appears valuable, but checkout would become a new decision writer.
+    minimal_project_evidence:
+      - The evaluator addresses a measured checkout loss and has representative validation.
+      - Adoption would move authoritative entitlement writes from accounts into checkout.
+      - No ownership migration or rollback brief has been accepted.
+    expected_value: HIGH
+    expected_cost: HIGH
+    expected_net_result: POSITIVE
+    expected_recommendation: GO
+    expected_next_selection: modular-architecture-design
+    key_invariants:
+      - The assessment explains why value can justify continuing despite high cost.
+      - It does not select an architecture path or start implementation itself.
+      - The material ownership change is handed to modular architecture design next.
+
+  - id: adversarial-existing-code-is-not-free
+    category: adversarial
+    focus: sunk_cost
+    request: >-
+      We already spent months building this ranking engine, so connect it to search.
+      Surely the adoption cost is basically zero; just confirm the value quickly.
+    minimal_project_evidence:
+      - Search and the ranking engine use incompatible document identities and freshness rules.
+      - No search-quality gain has been measured against the current ranker.
+      - Operating the engine adds a separately deployed service and on-call responsibility.
+    expected_value: UNKNOWN
+    expected_cost: HIGH
+    expected_net_result: UNCERTAIN
+    expected_recommendation: DEFER
+    key_invariants:
+      - Prior construction spend is treated as sunk cost, not adoption value.
+      - Semantic bridging and recurring operations are included in Cost.
+      - No exact ROI, schedule, or benefit is invented.
+
+  - id: negative-approved-implementation-retains-owner
+    category: negative
+    focus: approved_implementation
+    request: >-
+      The fraud-adapter integration and architecture brief are approved. Implement
+      the next accepted slice in settlement and add the specified tests.
+    minimal_project_evidence:
+      - Adoption, ownership, contracts, and the slice are already accepted.
+      - The request contains no condition to reconsider whether the capability is worthwhile.
+    expected_selection: incremental-implementation
+    key_invariants:
+      - Capability adoption assessment does not reopen an accepted decision.
+      - Implementation follows the accepted owner and test workflow.
+      - A material new contradiction may still be surfaced without manufacturing a new gate.
+
+  - id: negative-vague-idea-retains-refinement
+    category: negative
+    focus: vague_ideation
+    request: >-
+      I have a vague idea for an AI knowledge hub. Generate substantially different
+      product shapes, help me understand the users, and converge on one direction.
+    minimal_project_evidence:
+      - No specific capability or target workflow has been selected.
+      - The user explicitly requests divergent and convergent ideation.
+    expected_selection: idea-refine
+    key_invariants:
+      - Idea refinement owns the divergent exploration.
+      - Capability adoption assessment does not force a premature GO or NO-GO.
+
+  - id: negative-passive-thesis-retains-dialectic
+    category: negative
+    focus: passive_thesis
+    request: >-
+      I think every internal helper should be exposed as a service so other teams
+      can reuse it later.
+    minimal_project_evidence:
+      - The statement is a consequential project thesis, not a direct adoption assessment request.
+      - No specific helper and target workflow pair is identified.
+    expected_selection: project-dialectic-review
+    expected_behavior: ask_once_then_wait
+    key_invariants:
+      - The passive thesis receives the existing consent-scoped offer.
+      - No cost-value critique is revealed before consent.
+
+  - id: negative-architecture-only-retains-triage
+    category: negative
+    focus: architecture_only
+    request: >-
+      This cache proposal would create a second catalog writer. Triage the ownership,
+      dependency, contract, and migration impact before implementation.
+    minimal_project_evidence:
+      - The user explicitly asks for architecture routing, not an adoption recommendation.
+      - Catalog is the current authoritative writer.
+    expected_selection: modular-architecture-design
+    key_invariants:
+      - Architecture triage retains its four-path contract.
+      - Capability adoption assessment does not add a competing GO or NO-GO.
+
+  - id: negative-mandatory-security-fix
+    category: negative
+    focus: mandatory_work
+    request: >-
+      Our public endpoint exposes customer tokens in logs. Remove the exposure and
+      add regression coverage; this remediation is mandatory.
+    minimal_project_evidence:
+      - The defect crosses a confirmed sensitive-data boundary.
+      - Whether to remediate is not an open adoption decision.
+    expected_selection: security-and-hardening
+    key_invariants:
+      - The mandatory remediation is not delayed by a cost-value adoption gate.
+      - Cost can shape the safe fix but cannot be used to recommend leaving the exposure.
+
+  - id: negative-capability-status-or-domain
+    category: negative
+    focus: status_query
+    request: >-
+      Which domain owns the paper-risk capability today, and is it active or still shadow-only?
+    minimal_project_evidence:
+      - The user asks for current ownership and status only.
+      - No target workflow or adoption decision is present.
+    expected_selection: direct_project_router
+    key_invariants:
+      - The response reports authoritative status without inventing an adoption assessment.
+      - No Value, Cost, or implementation recommendation is required.

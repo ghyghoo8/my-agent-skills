@@ -76,6 +76,7 @@ downstream_adaptations:
   - Preserve downstream-narrowed Skill frontmatter descriptions for Codex progressive discovery; never replace them silently with broader upstream descriptions.
   - Keep git-workflow-and-versioning focused on state-changing Git and release operations; code-quality review remains owned by code-review-and-quality.
   - Keep performance guidance measurement-first and environment-safe: database-specific plans, authorized bounded execution, reversible index removal, connection headroom, and explicit cache consistency.
+  - Keep using-agent-skills aware of the downstream-owned capability-adoption-assessment without making it a session-wide or mandatory lifecycle gate.
   - Keep all runtime content inside the single downstream plugin root.
 
 excluded_surface:
@@ -92,6 +93,7 @@ downstream_owned:
   - plugins/my-agent-skills/.codex-plugin/plugin.json
   - plugins/my-agent-skills/LICENSE
   - plugins/my-agent-skills/THIRD_PARTY_NOTICES.md
+  - plugins/my-agent-skills/skills/capability-adoption-assessment
   - plugins/my-agent-skills/skills/modular-architecture-design
   - plugins/my-agent-skills/skills/project-dialectic-review
   - evals

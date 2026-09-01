@@ -1,6 +1,6 @@
 schema_version: 1
 skill: modular-architecture-design
-plugin_version: 0.3.0
+plugin_version: 0.4.0
 evaluation_mode: explicit_skill_invocation
 
 scoring:
@@ -246,3 +246,20 @@ cases:
       - Stops business implementation and requests acceptance of one minimal canonical brief.
       - Rejects Kafka and microservices as predetermined solutions without current evidence.
       - Keeps the brief to the required fields and at most one meaningful alternative.
+
+  - id: boundary-adoption-go-still-requires-ownership-gate
+    category: boundary
+    focus: adoption_handoff
+    request: >-
+      The capability adoption assessment returned GO for the entitlement evaluator.
+      Now triage moving authoritative writes from accounts to checkout before implementation.
+    minimal_project_evidence:
+      - Measured value justifies continuing despite high adoption cost.
+      - Accounts is still the sole authoritative entitlement writer.
+      - No ownership migration, cutover, failure, or rollback brief has been accepted.
+    expected_path: ARCHITECTURE_GATE
+    key_invariants:
+      - A positive adoption decision does not authorize a boundary-changing implementation.
+      - Architecture triage selects exactly one path after the adoption handoff.
+      - Business implementation pauses until one minimal ownership and rollback brief is accepted.
+      - The assessment is not rerun as a competing architecture decision.

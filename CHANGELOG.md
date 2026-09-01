@@ -4,6 +4,18 @@ All notable downstream changes are recorded here.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-09-01
+
+### Added
+
+- Added the original `capability-adoption-assessment` Skill with explicit Value, Cost, net-result, and `GO`/`PILOT`/`DEFER`/`NO-GO` output semantics.
+- Added 13 adoption behavior cases, six cross-skill discovery cases, and one architecture-handoff case.
+
+### Changed
+
+- Routed open capability-to-workflow adoption decisions through the new specialist without making it a universal implementation gate.
+- Added a compact default decision card and preserved the discovery metadata budget for 27 Skills.
+
 ## [0.3.0] - 2026-08-28
 
 ### Added

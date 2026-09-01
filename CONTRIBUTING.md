@@ -14,6 +14,12 @@ Changes derived from an external source must be registered under `upstreams/` an
 
 New or broadened Skill triggers must update `evals/discovery/cases.yaml` and remain within its metadata budget. Prefer improving an existing owner over adding an overlapping Skill.
 
+## Capability Adoption Assessment
+
+Changes to `capability-adoption-assessment` must preserve a specific capability and target workflow, an open adoption decision, separate explicit Value and Cost results, one net result, and exactly one `GO`, `PILOT`, `DEFER`, or `NO-GO`. It must not reopen accepted work, delay mandatory fixes, or infer authorization for a pilot, migration, architecture change, or implementation. Boundary-sensitive positive recommendations hand off to `modular-architecture-design` without choosing its path.
+
+Update `evals/capability-adoption-assessment/cases.yaml` and the cross-skill discovery cases whenever trigger, decision, output, or handoff semantics change.
+
 ## Architecture Gate
 
 Changes to `modular-architecture-design` must preserve:

@@ -4,7 +4,7 @@
 
 `my-agent-skills` is a new Codex plugin maintained in this repository. It is not a GitHub fork, does not reuse the upstream plugin identity or version, and does not contain upstream Git history.
 
-The plugin manifest, Marketplace entry, Codex-specific packaging, `modular-architecture-design` and `project-dialectic-review` Skills, their contracts, and their evals were authored for this repository.
+The plugin manifest, Marketplace entry, Codex-specific packaging, `capability-adoption-assessment`, `modular-architecture-design`, and `project-dialectic-review` Skills, their contracts, and their evals were authored for this repository.
 
 ## Upstream Skill Snapshot
 

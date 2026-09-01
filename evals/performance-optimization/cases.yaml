@@ -1,6 +1,6 @@
 schema_version: 1
 skill: performance-optimization
-plugin_version: 0.3.0
+plugin_version: 0.4.0
 evaluation_mode: explicit_skill_invocation
 
 scoring:
