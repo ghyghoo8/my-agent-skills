@@ -4,6 +4,13 @@ All notable downstream changes are recorded here.
 
 ## [Unreleased]
 
+### Fixed
+
+- Made architecture route actions explicitly subordinate to task authorization, including analysis-only and planning-only requests; preserved all four routes and acceptance gates.
+- Removed redundant approval for verified, authorized dead-code cleanup while keeping review-only tasks read-only and uncertain deletions protected.
+- Kept review findings scoped to the change instead of requiring unrelated cleanup or unrequested issue creation and assignment.
+- Added five behavior regression cases for these existing 1.0.0 authorization boundaries. No trigger or output contract changed.
+
 ## [1.0.0] - 2026-09-05
 
 ### Changed

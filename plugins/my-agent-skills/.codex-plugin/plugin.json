@@ -1,6 +1,6 @@
 {
   "name": "my-agent-skills",
-  "version": "1.0.0",
+  "version": "1.0.0+codex.20260905121510",
   "description": "Codex-native engineering workflows with capability adoption decisions, architecture triage, and project-grounded dialectical review.",
   "author": {
     "name": "ghyghoo8",

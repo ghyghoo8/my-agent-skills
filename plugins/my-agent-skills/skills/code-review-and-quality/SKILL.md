@@ -230,20 +230,20 @@ Flag any issues as Critical, Required, Optional, or Nit.
 
 ## Dead Code Hygiene
 
-After any refactoring or implementation change, check for orphaned code:
+Review the affected scope for code orphaned by the change:
 
-1. Identify code that is now unreachable or unused
-2. List it explicitly
-3. **Ask before deleting:** "Should I remove these now-unused elements: [list]?"
+1. Identify candidates and verify callers, exports, and relevant runtime or configuration references; a name search alone is not proof.
+2. List confirmed unused elements and the evidence.
+3. In a review-only task, report findings without deleting code. When implementation or cleanup is authorized, remove verified dead code within that scope without repeating approval. Ask only when uncertainty or a scope expansion makes the deletion consequential.
 
-Don't leave dead code lying around — it confuses future readers and agents. But don't silently delete things you're not sure about. When in doubt, ask.
+Do not turn a focused review into a repository-wide cleanup or silently remove uncertain code.
 
 ```
 DEAD CODE IDENTIFIED:
 - formatLegacyDate() in src/utils/date.ts — replaced by formatDate()
 - OldTaskCard component in src/components/ — replaced by TaskCard
 - LEGACY_API_URL constant in src/config.ts — no remaining references
-→ Safe to remove these?
+→ Review-only: recommend removal with evidence. Authorized cleanup: remove confirmed in-scope elements and verify affected behavior.
 ```
 
 ## Review Speed
@@ -264,7 +264,7 @@ When resolving review disputes, apply this hierarchy:
 3. **Software design** must be evaluated on engineering principles, not personal preference
 4. **Codebase consistency** is acceptable if it doesn't degrade overall health
 
-**Don't accept "I'll clean it up later."** Experience shows deferred cleanup rarely happens. Require cleanup before submission unless it's a genuine emergency. If surrounding issues can't be addressed in this change, require filing a bug with self-assignment.
+Require correction of Critical or Required defects introduced by the change, or an explicit justified disposition under project policy. A review-only task reports those findings; it does not authorize repairs. Separate unrelated pre-existing cleanup from merge requirements and note it without expanding the change. Create or assign an issue only when existing authorization includes that external action.
 
 ## Honesty in Review
 
@@ -357,7 +357,7 @@ For triaging `npm audit` findings and supply-chain risk (typosquatting, compromi
 |---|---|
 | "It works, that's good enough" | Working code that's unreadable, insecure, or architecturally wrong creates debt that compounds. |
 | "I wrote it, so I know it's correct" | Authors are blind to their own assumptions. Every change benefits from another set of eyes. |
-| "We'll clean it up later" | Later never comes. The review is the quality gate — use it. Require cleanup before merge, not after. |
+| "We'll clean it up later" | Require a disposition for defects introduced by this change; unrelated pre-existing cleanup is not automatically a merge blocker. |
 | "AI-generated code is probably fine" | AI code needs more scrutiny, not less. It's confident and plausible, even when wrong. |
 | "The tests pass, so it's good" | Tests are necessary but not sufficient. They don't catch architecture problems, security issues, or readability concerns. |
 | "The refactor makes it cleaner" | Relocating complexity isn't reducing it. If the reader still holds the same number of concepts, the structure didn't improve — look for the version where branches disappear. |
@@ -374,7 +374,7 @@ For triaging `npm audit` findings and supply-chain risk (typosquatting, compromi
 - Large PRs that are "too big to review properly" (split them)
 - No regression tests with bug fix PRs
 - Review comments without severity labels — makes it unclear what's required vs optional
-- Accepting "I'll fix it later" — it never happens
+- Leaving introduced Critical or Required defects without an explicit disposition
 - A refactor that moves code around without reducing the number of concepts a reader must hold
 - A change that grows an already-large file instead of decomposing it
 - New conditionals scattered into unrelated code paths (a missing abstraction)

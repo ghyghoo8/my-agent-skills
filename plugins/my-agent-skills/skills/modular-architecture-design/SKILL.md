@@ -65,6 +65,8 @@ Do not hedge between paths. If a critical fact is unknown, choose `DISCOVERY`, n
 
 ### 3. Respect the Selected Path
 
+Every path stays within the user's authorization. A request for analysis, review, or planning alone ends with the requested result and permitted artifacts, not business implementation. A route or accepted brief does not itself authorize additional work.
+
 For `DIRECT`, proceed with the narrow implementation and ordinary verification.
 
 For `BOUNDARY_NOTE`, record the affected local contract and the responsibilities and direction that remain unchanged. Keep the note short; it is not a disguised architecture brief.

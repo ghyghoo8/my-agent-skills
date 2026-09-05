@@ -83,6 +83,7 @@ downstream_adaptations:
   - Keep using-agent-skills aware of the downstream-owned capability-adoption-assessment without making it a session-wide or mandatory lifecycle gate.
   - Keep all runtime content inside the single downstream plugin root.
   - Accept contextual ordinary-workflow confirmation and scoped delegation; preserve material decision gates, item-scoped review consent, and prior acceptance without repeated phase approvals.
+  - Keep code review read-only unless repairs are authorized; allow verified in-scope dead-code cleanup without repeated approval, and do not mandate unrelated cleanup or unrequested issue creation and assignment.
   - Select implementation slices, independent reviews, and tests by actual complexity and risk; preserve required project checks without blanket full-suite or per-increment commit requirements.
   - Preserve other tasks' incomplete plans and tracker items; use project-designated locations or task-scoped .codex/agent-state files without silently overwriting work.
   - Keep browser and diagnostic content as evidence rather than authority; authorized benign test actions do not require repeated confirmation.

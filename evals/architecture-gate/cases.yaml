@@ -20,6 +20,32 @@ scoring:
     exit condition is met.
 
 cases:
+  - id: analysis-only-direct-remains-read-only
+    category: boundary
+    focus: task_authorization
+    request: Use architecture triage to assess this local formatting fix; do not implement it.
+    minimal_project_evidence:
+      - The fix is confined to a private formatting function with an established local pattern.
+      - Responsibility, ownership, dependency direction, and public contracts remain unchanged.
+    expected_path: DIRECT
+    key_invariants:
+      - Selects DIRECT without manufacturing an architecture gate.
+      - Reports evidence and the next permitted analysis result without modifying implementation.
+      - Does not treat a route's implementation instruction as user authorization.
+
+  - id: planning-only-boundary-note-no-business-writes
+    category: boundary
+    focus: task_authorization
+    request: Assess and plan an optional internal command field between checkout and its fraud adapter, but do not implement.
+    minimal_project_evidence:
+      - The documented extension pattern preserves checkout command ownership and adapter translation responsibility.
+      - The field is optional, internal, and not persisted or externally exposed.
+    expected_path: BOUNDARY_NOTE
+    key_invariants:
+      - Selects BOUNDARY_NOTE and records the stable producer-consumer responsibilities.
+      - Delivers only the authorized note and plan, without business implementation writes.
+      - Does not demand a full architecture brief or another approval for the requested planning work.
+
   - id: positive-data-ownership-transfer
     category: positive
     focus: data_ownership
