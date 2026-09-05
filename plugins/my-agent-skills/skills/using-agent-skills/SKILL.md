@@ -28,9 +28,9 @@ Task arrives
     │   with material project relevance? ───→ project-dialectic-review
     ├── Proposed change may shift ownership,
     │   dependencies, contracts, or migration? → modular-architecture-design
-    ├── New project/feature/change? ──→ spec-driven-development
+    ├── Requirements need definition? ─→ spec-driven-development
     ├── Have a spec, need tasks? ──────→ planning-and-task-breakdown
-    ├── Implementing code? ────────────→ incremental-implementation
+    ├── Implementation needs staged delivery? → incremental-implementation
     │   ├── UI work? ─────────────────→ frontend-ui-engineering
     │   ├── API work? ────────────────→ api-and-interface-design
     │   ├── Need better context? ─────→ context-engineering
@@ -78,10 +78,12 @@ Don't silently fill in ambiguous requirements. The most common failure mode is m
 
 When you encounter inconsistencies, conflicting requirements, or unclear specifications:
 
-1. **STOP.** Do not proceed with a guess.
-2. Name the specific confusion.
-3. Present the tradeoff or ask the clarifying question.
-4. Wait for resolution before continuing.
+1. Check current instructions, prior decisions, and existing authorization.
+2. Name any material uncertainty that remains.
+3. For reversible details within scope, state a reasonable assumption and proceed.
+4. Ask only when the missing decision materially blocks the outcome or required authorization; pause dependent work and continue independent authorized work.
+
+Existing consent remains valid for its scope. Silence never grants required approval. Preserve the owning workflow's item-scoped consent and architecture routes (`DIRECT`, `BOUNDARY_NOTE`, `ARCHITECTURE_GATE`, `DISCOVERY`), including their no-write gates.
 
 **Bad:** Silently picking one interpretation and hoping it's right.
 **Good:** "I see X in the spec but Y in the existing code. Which takes precedence?"
@@ -126,7 +128,7 @@ Your job is surgical precision, not unsolicited renovation.
 
 Every skill includes a verification step. A task is not complete until verification passes. "Seems right" is never sufficient — there must be evidence (passing tests, build output, runtime data).
 
-Per-skill verification is the local check. The project-wide bar that applies to *every* change, regardless of which skill is active, is the Definition of Done: tests pass, no regressions, behavior verified at runtime, docs updated. See `../../references/definition-of-done.md`. It complements each task's acceptance criteria rather than replacing them.
+Use the owning skill, task acceptance criteria, and project requirements to choose relevant verification. See `../../references/definition-of-done.md` for applicable completion criteria, not a universal full-suite or runtime mandate. After focused checks and required checks pass, stop unless new changes, failures, or unresolved risks justify broader verification. Report checks not run and material limits honestly.
 
 ## Failure Modes to Avoid
 
@@ -140,22 +142,22 @@ These are the subtle errors that look like productivity but create problems:
 6. Overcomplicating code and APIs
 7. Modifying code or comments orthogonal to the task
 8. Removing things you don't fully understand
-9. Building without a spec because "it's obvious"
+9. Implementing materially unclear requirements without resolving the relevant gap
 10. Skipping verification because "it looks right"
 
 ## Skill Rules
 
 1. **Check for an applicable skill before starting work.** Skills encode processes that prevent common mistakes.
 
-2. **Skills are workflows, not suggestions.** Follow the steps in order. Don't skip verification steps.
+2. **Follow the owning workflow within its trigger and scope.** Honor required gates and applicable verification, while retaining prior authorization.
 
-3. **Multiple skills can apply.** A feature implementation might involve `idea-refine` → `spec-driven-development` → `planning-and-task-breakdown` → `incremental-implementation` → `test-driven-development` → `code-review-and-quality` → `code-simplification` → `shipping-and-launch` in sequence.
+3. **Multiple skills can apply when independently relevant.** Use the smallest set needed; the lifecycle below is an example, not a mandatory chain.
 
-4. **When in doubt, start with a spec.** If the task is non-trivial and there's no spec, begin with `spec-driven-development`.
+4. **Resolve the actual gap.** Sufficient existing requirements allow direct work. Use `spec-driven-development` when requirements need definition, not merely because a task is non-trivial.
 
 ## Lifecycle Sequence
 
-For a complete feature, the typical skill sequence is:
+For a complete feature, possible stages are listed below. Enter only the stages the task needs; routing does not activate them all or become a session-wide workflow:
 
 ```
 1.  interview-me                → Extract what the user actually wants
@@ -191,7 +193,7 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
 | Build | incremental-implementation | Thin vertical slices, test each before expanding |
 | Build | source-driven-development | Verify against official docs before implementing |
-| Build | doubt-driven-development | Adversarial fresh-context review of every non-trivial decision |
+| Build | doubt-driven-development | Fresh-context review of material uncertain decisions |
 | Build | context-engineering | Right context at the right time |
 | Build | frontend-ui-engineering | Production-quality UI with accessibility |
 | Build | api-and-interface-design | Stable interfaces with clear contracts |

@@ -4,6 +4,22 @@ All notable downstream changes are recorded here.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-05
+
+### Changed
+
+- Accepted contextual confirmation and scoped delegation in ordinary workflows; reused settled requirements and approvals instead of asking again at every phase.
+- Chose implementation slices and verification by complexity, affected behavior, and project-required checks, removing blanket file-count, full-suite, and per-increment commit requirements.
+- Preserved architecture routing, no-write gates, adoption decision contracts, and item-scoped dialectical-review consent.
+- Adapted upstream shared rate-limit guidance, performance regression guards, incomplete-plan protection, and production-schema / dependency-audit discovery vocabulary through `1c760d643497e9da289300e5eb2f5aca861503f7`.
+- Kept the 27-Skill inventory; did not import the new constraint workflow, tooling, or packaging. See the [sync review](upstreams/addyosmani-agent-skills/reviews/2026-09-05.md).
+
+### Migration
+
+- Projects requiring repeated human checkpoints or full-suite tests must state those requirements explicitly. Existing mandatory gates remain binding.
+- Plan and task files follow project authority; new defaults are `.codex/agent-state/plan.md` and `.codex/agent-state/todo.md`. Existing incomplete plans are preserved, not moved automatically.
+- This major version changes ordinary pause semantics; it is a model-neutral instruction update, not a GPT-6 runtime adapter.
+
 ## [0.4.0] - 2026-09-01
 
 ### Added

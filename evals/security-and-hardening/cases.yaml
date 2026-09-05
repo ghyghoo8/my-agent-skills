@@ -1,0 +1,45 @@
+schema_version: 1
+skill: security-and-hardening
+plugin_version: 1.0.0
+evaluation_mode: clean_context_behavior_contracts
+scoring:
+  observe:
+    - limiter_scope
+    - atomicity_when_shared
+    - existing_dependencies
+    - proportional_infrastructure
+  ignore:
+    - exact_wording
+    - heading_style
+    - equivalent_reasoning_order
+  error_balance: Penalize both unnecessary workflow interception and missing material safeguards. All
+    key invariants must hold; fluent explanations do not compensate for unauthorized effects or insufficient
+    verification.
+cases:
+
+  - id: multi-instance-shared-rate-limit
+    category: boundary
+    focus: rate_limit_scope
+    request: Harden the rate limit on this public login endpoint.
+    minimal_project_evidence:
+      - Requests are served by three stateless instances behind a load balancer.
+      - The account limit must hold across instances; a shared atomic datastore is already available.
+    expected_behavior: enforce_global_limit_with_existing_shared_state
+    key_invariants:
+      - Does not rely on an in-memory counter per worker for a cross-instance limit.
+      - Uses an appropriate shared atomic limit and verifies requests across workers.
+      - Reuses suitable existing infrastructure instead of mandating Redis by name.
+
+  - id: single-local-no-unjustified-redis
+    category: boundary
+    focus: rate_limit_scope
+    request: Add a simple request cap to this single-process local development tool.
+    minimal_project_evidence:
+      - The tool is bound to localhost and has one process.
+      - The cap is best-effort local load control; no cross-instance or restart-persistence requirement
+        exists.
+    expected_behavior: use_proportionate_local_limiter
+    key_invariants:
+      - Does not introduce Redis or another service without a present shared-state requirement.
+      - Uses a bounded local mechanism sufficient for the stated cap.
+      - Does not claim that local counters enforce distributed or persistent quotas.

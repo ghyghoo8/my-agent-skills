@@ -1,6 +1,6 @@
 schema_version: 1
 skill: project-dialectic-review
-plugin_version: 0.4.0
+plugin_version: 1.0.0
 evaluation_mode: implicit_and_explicit_invocation
 
 scoring:
@@ -260,3 +260,33 @@ cases:
       - Does not fabricate flaws or pad the response with generic objections.
       - Reports no meaningful project-specific tension because the supplied evidence contains none.
       - Still identifies remaining uncertainty and one bounded validation, or explicitly states that neither remains.
+
+
+  - id: general-autonomy-not-item-consent
+    category: boundary
+    focus: item_scoped_consent
+    request: I think every module should become a separate plugin.
+    minimal_project_evidence:
+      - The user earlier asked the agent to work autonomously on routine implementation.
+      - The current message is a new passive thesis affecting the one-plugin boundary.
+      - No review consent exists for this item.
+    expected_action: OFFER_ONCE
+    expected_behavior: offer_once_without_review
+    key_invariants:
+      - General autonomy is not item-scoped consent for unsolicited critique.
+      - Offers once and waits for review consent.
+      - Does not implement or repeat a declined offer.
+
+  - id: ordinary-assent-to-specific-review-offer
+    category: boundary
+    focus: contextual_item_consent
+    request: Sounds good, go ahead.
+    minimal_project_evidence:
+      - The immediately preceding neutral offer was to review one named plugin-split thesis.
+      - No other pending question makes the assent ambiguous.
+    expected_action: REVIEW_NOW
+    expected_behavior: review_consented_item
+    key_invariants:
+      - Accepts ordinary assent in the clear offer context without requesting a special phrase.
+      - Reviews only the named item.
+      - Review consent does not authorize implementation or external actions.

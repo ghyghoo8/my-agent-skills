@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 0.4.0
+plugin_version: 1.0.0
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,7 +14,7 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 0.4.0
+    plugin_version: 1.0.0
     skill_count: 27
     maximum_raw_characters: 7000
   checks:
@@ -550,3 +550,93 @@ cases:
       - Modular architecture design retains its four-path contract.
       - Capability adoption assessment does not add a competing GO or NO-GO.
       - Business implementation remains unchanged until the architecture brief is accepted.
+
+
+  - id: negative-mechanical-multifile-no-increment-gate
+    category: negative
+    focus: increment_scope
+    request: Correct a typo in a component and its help text.
+    minimal_project_evidence:
+      - Only presentation text changes in two files.
+    expected_selection: direct_implementation
+    expected_behavior: direct_scoped_edit
+    key_invariants:
+      - File count alone does not invoke incremental implementation.
+      - Does not add phase approvals, mandatory commits, or behavior tests.
+
+  - id: positive-complex-change-incremental
+    category: positive
+    focus: increment_scope
+    request: Implement the approved import workflow with parsing, validation, and a review screen.
+    minimal_project_evidence:
+      - Several independently verifiable behaviors are specified.
+      - Ownership and contracts are already accepted.
+    expected_selection: incremental-implementation
+    expected_behavior: implement_working_slices
+    key_invariants:
+      - Uses small verified increments that keep the product working.
+      - Does not reopen accepted architecture or mandate a commit per increment.
+
+  - id: positive-context-setup-task
+    category: positive
+    focus: context_scope
+    request: Fix this project's context setup so agents can find the authoritative commands.
+    minimal_project_evidence:
+      - Project instructions conflict with an obsolete command note.
+      - The user explicitly asks to improve agent context.
+    expected_selection: context-engineering
+    expected_behavior: repair_focused_context
+    key_invariants:
+      - Context engineering owns the context setup task.
+      - Distinguishes authoritative commands from stale notes without expanding to unrelated cleanup.
+
+  - id: negative-ordinary-session-no-context-routing
+    category: negative
+    focus: context_scope
+    request: Update the label in the existing settings component.
+    minimal_project_evidence:
+      - Current instructions and the target component are sufficient.
+      - No context setup problem or context optimization request exists.
+    expected_selection: direct_implementation
+    expected_behavior: direct_scoped_edit
+    key_invariants:
+      - Does not invoke context engineering simply because a session has started.
+      - Uses focused existing project context.
+
+  - id: negative-routine-condition-no-doubt-routing
+    category: negative
+    focus: doubt_scope
+    request: Show the existing empty-state component when the list is empty.
+    minimal_project_evidence:
+      - The local pattern and expected behavior are already established.
+    expected_selection: direct_implementation
+    expected_behavior: focused_implementation
+    key_invariants:
+      - Does not equate every conditional with a material decision.
+      - Relevant verification remains required without mandatory independent review.
+
+  - id: positive-dependency-audit-security-owner
+    category: positive
+    focus: security_audit
+    request: Audit our existing dependencies for known vulnerabilities.
+    minimal_project_evidence:
+      - The user requests a security audit of the installed dependency set.
+    expected_selection: security-and-hardening
+    expected_behavior: bounded_dependency_audit
+    key_invariants:
+      - Security and hardening owns the vulnerability review.
+      - Does not treat audit authorization as permission for unrelated upgrades or migrations.
+
+  - id: positive-production-schema-migration-owner
+    category: positive
+    focus: deprecation_schema
+    request: Plan a backward-compatible migration of this production schema.
+    minimal_project_evidence:
+      - Existing clients read the old column.
+      - Deployment needs coexistence, cutover, and rollback planning.
+    expected_selection: deprecation-and-migration
+    expected_behavior: plan_live_migration
+    key_invariants:
+      - Deprecation and migration owns the migration work.
+      - Respects architecture triage when ownership or public semantics change.
+      - Planning does not authorize running a production migration.

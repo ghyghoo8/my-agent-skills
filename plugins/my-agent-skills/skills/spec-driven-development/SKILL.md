@@ -7,29 +7,21 @@ description: Defines requirements and acceptance criteria before a new project, 
 
 ## Overview
 
-Write a structured specification before writing any code. The spec is the shared source of truth between you and the human engineer — it defines what we're building, why, and how we'll know it's done. Code without a spec is guessing.
+Define unclear requirements before dependent implementation. Reuse an existing specification or a sufficiently concrete user request as the source of truth for scope and acceptance. Write only the specification detail needed to resolve the actual gaps.
 
 ## When to Use
 
-- Starting a new project or feature
-- Requirements are ambiguous or incomplete
-- The change touches multiple files or modules
-- You're about to make an architectural decision
-- The task would take more than 30 minutes to implement
+- Defining a new project or feature whose desired behavior is not yet concrete
+- Missing requirements would materially change scope or success criteria
+- A request bundles independently testable capabilities that need a shared contract
 
 **When NOT to use:** Single-line fixes, typo corrections, or changes where requirements are unambiguous and self-contained.
 
-## The Gated Workflow
+## Workflow and Acceptance
 
-Spec-driven development has four phases, preceded by a scope check (Phase 0) that activates only when one request bundles several independently testable capabilities. Do not advance to the next phase until the current one is validated.
+Specify → Plan → Tasks → Implement, with a capability scope check only when needed. Reuse existing requirements and acceptance instead of restarting completed phases. A planning-only request authorizes the specification and plan, not implementation. For an implementation request, proceed through ordinary preparation within the accepted scope; do not require a separate human approval at each phase.
 
-```
-SPECIFY ──→ PLAN ──→ TASKS ──→ IMPLEMENT
-   │          │        │          │
-   ▼          ▼        ▼          ▼
- Human      Human    Human      Human
- reviews    reviews  reviews    reviews
-```
+Ask when a missing decision materially affects the outcome and cannot be resolved from project evidence or delegated judgment. Continue independent work while waiting. For changes that may materially alter ownership, dependencies, contracts, or migration boundaries, hand off to `modular-architecture-design`. Preserve its single selected route, `ARCHITECTURE_GATE` / `DISCOVERY` no-write boundary, and documented exit condition; a spec or general delegation does not bypass them.
 
 ### Phase 0: Scope Check
 
@@ -60,13 +52,13 @@ Build order: identity → billing, notifications → reporting
 - **Dependency direction, no cycles.** Arrows point one way. If two modules each need the other, they are one module.
 - **Interfaces live at the boundary.** The map records that `billing` depends on `identity`; the contract between them belongs in the provider module's spec (see `api-and-interface-design` for designing it).
 
-**The map is gated like every phase.** The human reviews module boundaries, dependency direction, and build order before any module spec is written. Getting the map wrong is expensive; reviewing ten lines is not.
+Validate the map against existing ownership and accepted boundaries. Seek acceptance for a material unresolved boundary decision through the architecture owner; an already accepted map does not need another approval before writing module specs.
 
-**Then recurse per module.** Run Specify → Plan → Tasks → Implement for each module in dependency order. Each module gets its own spec, scoped to that module's objective, boundaries, and success criteria. Save the approved map at the project root and each module's spec alongside it, named by module id (`SPEC-identity.md`, `SPEC-billing.md`) — the map, not filename guessing, is the index of what exists.
+**Then work per capability.** Use dependency order and scope each spec to its objective, boundaries, and success criteria. Use the project's canonical spec location; otherwise keep the map and needed specs under `.codex/`. Reuse an existing authoritative document and preserve other tasks' incomplete work.
 
 ### Phase 1: Specify
 
-Start with a high-level vision. Ask the human clarifying questions until requirements are concrete.
+Start from the user's requested outcome and available evidence. Ask only for missing information that could materially change the result; state reasonable assumptions for reversible details and continue.
 
 **Surface assumptions immediately.** Before writing any spec content, list what you're assuming:
 
@@ -107,10 +99,7 @@ Don't silently fill in ambiguous requirements. The spec's entire purpose is to s
 
 5. **Testing Strategy** — What framework, where tests live, coverage expectations, which test levels for which concerns.
 
-6. **Boundaries** — Three-tier system:
-   - **Always do:** Run tests before commits, follow naming conventions, validate inputs
-   - **Ask first:** Database schema changes, adding dependencies, changing CI config
-   - **Never do:** Commit secrets, edit vendor directories, remove failing tests without approval
+6. **Boundaries** — Record applicable project requirements, existing authorization, and material unresolved decisions. A schema, dependency, or CI file is not by itself a reason to ask again. Preserve explicit architecture gates, destructive-action boundaries, and the prohibition on weakening checks merely to pass.
 
 **Spec template:**
 
@@ -173,7 +162,7 @@ With the validated spec, generate a technical implementation plan:
 
 > Follow `planning-and-task-breakdown` for the dependency-graph mapping and vertical-slicing mechanics behind these steps; it is the canonical source. The bullets above are a lightweight summary; if they ever diverge, `planning-and-task-breakdown` takes precedence.
 >
-> **Output convention:** Save the plan to `tasks/plan.md` and record the task list in the task list target defined by `planning-and-task-breakdown` (default `tasks/todo.md`; projects may designate an external tracker instead). Create `tasks/` if it does not exist. The `$incremental-implementation` workflow and later implementation steps expect these defaults.
+> **Output convention:** Use the canonical plan and task list targets defined by `planning-and-task-breakdown`, including its protection for existing incomplete plans. Project-designated locations take precedence over defaults.
 
 The plan should be reviewable: the human should be able to read it and say "yes, that's the right approach" or "no, change X."
 
@@ -185,7 +174,7 @@ Break the plan into discrete, implementable tasks:
 - Each task has explicit acceptance criteria
 - Each task includes a verification step (test, build, manual check)
 - Tasks are ordered by dependency, not by perceived importance
-- No task should require changing more than ~5 files
+- Split by independent outcomes, uncertainty, and verification boundaries rather than a file-count limit
 
 > Follow `planning-and-task-breakdown` for the full task-sizing and dependency-ordering mechanics; it is the canonical source. The template below is a lightweight inline form; if they ever diverge, `planning-and-task-breakdown` takes precedence.
 
@@ -199,7 +188,7 @@ Break the plan into discrete, implementable tasks:
 
 ### Phase 4: Implement
 
-Execute tasks one at a time with `$incremental-implementation` and `$test-driven-development`. Use `$context-engineering` to load the right spec sections and source files at each step rather than flooding the agent with the entire spec.
+Continue authorized implementation using incremental delivery when complexity warrants it and meaningful tests for affected behavior. Load focused spec sections and source files. Do not turn the related Skills into a mandatory lifecycle for every task.
 
 ## Keeping the Spec Alive
 
@@ -230,16 +219,16 @@ The spec is a living document, not a one-time artifact:
 - Making architectural decisions without documenting them
 - Skipping the spec because "it's obvious what to build"
 - One spec whose requirements span several independently testable capabilities
-- Module boundaries or build order decided implicitly during implementation because no capability map was approved up front
+- Material module boundaries changed without satisfying the architecture owner's exit condition
 
 ## Verification
 
 Before proceeding to implementation, confirm:
 
 - [ ] The spec covers all six core areas
-- [ ] The human has reviewed and approved the spec
+- [ ] Material unresolved decisions are accepted; prior acceptance for the same scope is preserved
 - [ ] Success criteria are specific and testable
 - [ ] Boundaries (Always/Ask First/Never) are defined
 - [ ] The spec is saved to a file in the repository
-- [ ] If the request bundles several independently testable capabilities, a capability map (module ids, dependency direction, build order) was approved before any module spec was written
-- [ ] Every module spec traces to a module id in the approved map
+- [ ] Bundled capabilities have a coherent map and any required architecture acceptance
+- [ ] Each module spec traces to the canonical map, when one is needed

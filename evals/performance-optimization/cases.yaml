@@ -1,6 +1,6 @@
 schema_version: 1
 skill: performance-optimization
-plugin_version: 0.4.0
+plugin_version: 1.0.0
 evaluation_mode: explicit_skill_invocation
 
 scoring:
@@ -82,3 +82,20 @@ cases:
       - Checks connection holders, query saturation, instance count, and per-database pool reuse.
       - Preserves database operational headroom across all application instances.
       - Chooses a proxy only when the measured deployment model justifies it.
+
+
+  - id: measurement-not-telemetry-install-permission
+    category: boundary
+    focus: measurement_scope
+    request: Fix the measured local latency regression and keep it from recurring within this local setup.
+    minimal_project_evidence:
+      - Existing browser profiling can capture the relevant baseline.
+      - An existing local benchmark can detect regression in the primary metric.
+      - No monitoring service or telemetry dependency is installed or requested.
+    expected_behavior: use_existing_bounded_measurement
+    key_invariants:
+      - Captures useful evidence with existing tools.
+      - Reuses the local benchmark to guard the primary metric with appropriate noise handling.
+      - Does not install telemetry, create an external account, or export traces merely to satisfy measurement-first
+        guidance.
+      - Separates the measured result from any unperformed production verification.

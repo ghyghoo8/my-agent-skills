@@ -17,20 +17,20 @@ Decompose work into small, verifiable tasks with explicit acceptance criteria. G
 - You need to communicate scope to a human
 - The implementation order isn't obvious
 
-**When NOT to use:** Single-file changes with obvious scope, or when the spec already contains well-defined tasks.
+**When NOT to use:** Bounded changes with obvious scope, regardless of file count, or when the spec already contains well-defined tasks.
 
 ## The Planning Process
 
-### Step 1: Enter Plan Mode
+### Step 1: Establish the Plan
 
-Before writing any code, operate in read-only mode:
+During initial evidence gathering, operate in read-only mode:
 
 - Read the spec and relevant codebase sections
 - Identify existing patterns and conventions
 - Map dependencies between components
 - Note risks and unknowns
 
-**Do NOT write code during planning.** The output is a plan document saved to `tasks/plan.md` and a task list recorded in the task list target (see Output Files; default `tasks/todo.md`), not implementation.
+For a planning-only request, keep business implementation unchanged and deliver the plan. When planning is part of an authorized implementation task, complete this preparation and continue without asking again unless a material unresolved decision or an applicable project gate requires acceptance. This Skill does not switch the host's collaboration mode. Preserve `ARCHITECTURE_GATE` and `DISCOVERY` write boundaries and their exit conditions.
 
 ### Step 2: Identify the Dependency Graph
 
@@ -89,7 +89,7 @@ Each task follows this structure, whether it lands in the markdown task list or 
 - [ ] [Specific, testable condition]
 - [ ] [Specific, testable condition]
 
-**Verification:**
+**Verification (include only applicable checks and project requirements):**
 - [ ] Tests pass: [the repository's focused-test command]
 - [ ] Build succeeds: [the repository's build command]
 - [ ] Manual check: [description of what to verify]
@@ -100,7 +100,7 @@ Each task follows this structure, whether it lands in the markdown task list or 
 - `src/path/to/file.ts`
 - `tests/path/to/test.ts`
 
-**Estimated scope:** [Small: 1-2 files | Medium: 3-5 files | Large: 5+ files]
+**Estimated scope:** [Complexity, uncertainty, and independently verifiable outcomes]
 ```
 
 ### Step 5: Order and Checkpoint
@@ -109,52 +109,39 @@ Arrange tasks so that:
 
 1. Dependencies are satisfied (build foundation first)
 2. Each task leaves the system in a working state
-3. Verification checkpoints occur after every 2-3 tasks
+3. Verification checkpoints cover meaningful integration or risk boundaries
 4. High-risk tasks are early (fail fast)
 
 Add explicit checkpoints to the task list target:
 
 ```markdown
 ## Checkpoint: After Tasks 1-3
-- [ ] All tests pass
-- [ ] Application builds without errors
-- [ ] Core user flow works end-to-end
-- [ ] Review with human before proceeding
+- [ ] Relevant tests and project-required checks pass
+- [ ] Affected integration or user flow is verified
+- [ ] Any required acceptance is satisfied, including existing approval for this scope
 ```
 
 ## Task Sizing Guidelines
 
-| Size | Files | Scope | Example |
-|------|-------|-------|---------|
-| **XS** | 1 | Single function or config change | Add a validation rule |
-| **S** | 1-2 | One component or endpoint | Add a new API endpoint |
-| **M** | 3-5 | One feature slice | User registration flow |
-| **L** | 5-8 | Multi-component feature | Search with filtering and pagination |
-| **XL** | 8+ | **Too large — break it down further** | — |
-
-If a task is L or larger, it should be broken into smaller tasks. An agent performs best on S and M tasks.
-
-**When to break a task down further:**
-- It would take more than one focused session (roughly 2+ hours of agent work)
-- You cannot describe the acceptance criteria in 3 or fewer bullet points
-- It touches two or more independent subsystems (e.g., auth and billing)
-- You find yourself writing "and" in the task title (a sign it is two tasks)
+Split work when outcomes can be verified independently, uncertainty needs a bounded experiment, or integration risk makes a single change difficult to review or recover. Keep coherent mechanical changes together even when they span many files. File counts, line counts, elapsed-time estimates, and the word "and" are hints to inspect scope, not automatic splitting rules.
 
 ## Output Files
 
-- **Plan document:** Save the implementation plan to `tasks/plan.md`. This is always a markdown file — design decisions, risks, and open questions don't map cleanly onto individual tracker issues.
+- **Plan document:** Use the project's designated plan location; otherwise use `.codex/agent-state/plan.md`. Keep one canonical plan for this task.
 - **Task list:** Record each task in the **task list target** (defined below).
 
-Create the `tasks/` directory if it does not exist.
+Create the designated parent directory only when a durable plan is useful for the task.
+
+**Preserve incomplete plans.** Inspect the plan and task target before writing. For the same work being revised, update in place within the user's request. For different work, preserve the existing files and open tracker items. Use a distinct task-scoped path under the project-designated state directory when allowed; ask only if the fixed target conflicts and no permitted separate location exists. Continue independent work while that conflict is resolved. Never delete, rename, overwrite, or bulk-close another task's work to make room without authorization.
 
 ### Task List Target
 
 The task list target is where tasks and checkpoints are recorded. It is defined once, here; every other reference in this skill defers to it.
 
-- **Default: a checklist-style markdown file at `tasks/todo.md`.** This is the convention the `$incremental-implementation` workflow and later implementation steps expect. Use it unless the project says otherwise.
-- **External tracker:** if the project's agent rules (`CLAUDE.md`, `AGENTS.md`, etc.) or the user designate an issue tracker (e.g. GitHub Issues, Jira, Linear, `bd`/beads), create one tracker item per task instead of writing `tasks/todo.md`. Map the Step 4 structure onto the tracker's fields: acceptance criteria and verification steps in the item body, dependencies via the tracker's linking mechanism (`bd dep add`, "blocked by", etc.). Record Step 5 checkpoints as tracker items too, or as a checklist in the plan document if the tracker has no natural equivalent.
+- **Default: a checklist-style markdown file at `.codex/agent-state/todo.md`.** Project instructions and an existing task-specific location take precedence.
+- **External tracker:** if project rules or the user designate and authorize an issue tracker, record each task there instead of creating a duplicate markdown checklist. Map acceptance criteria, verification, and dependencies onto the tracker's fields. Record applicable checkpoints there too, or in the plan if the tracker has no natural equivalent.
 
-When using an external tracker, note it in `tasks/plan.md` (e.g. "Tasks tracked in Linear project FOO") so downstream steps and future sessions know where to look, and keep the plan document's Task List section as an ordered index of tracker item IDs or links rather than a duplicate checklist.
+When using an authorized external tracker, note it in the canonical plan so downstream steps know where to look, and keep an ordered index of item IDs or links rather than a duplicate checklist. A tracker example does not authorize sending messages or creating external items.
 
 ## Plan Document Template
 
@@ -205,7 +192,7 @@ When tasks live in an external tracker, keep the Task List section above as an o
 
 ## Parallelization Opportunities
 
-When multiple agents or sessions are available:
+When delegation is available and authorized, assign bounded independent tasks with non-overlapping write ownership; keep dependencies and final reconciliation in the main session:
 
 - **Safe to parallelize:** Independent feature slices, tests for already-implemented features, documentation
 - **Must be sequential:** Database migrations, shared state changes, dependency chains
@@ -223,10 +210,10 @@ When multiple agents or sessions are available:
 ## Red Flags
 
 - Starting implementation without a written task list
-- Writing `tasks/todo.md` when the project has designated an external tracker (or scattering tasks across both)
+- Overwriting another task's incomplete plan or scattering duplicate checklists across files and a tracker
 - Tasks that say "implement the feature" without acceptance criteria
 - No verification steps in the plan
-- All tasks are XL-sized
+- Independent outcomes bundled into one task with no useful verification boundary
 - No checkpoints between tasks
 - Dependency order isn't considered
 
@@ -237,10 +224,11 @@ Before starting implementation, confirm:
 - [ ] Every task has acceptance criteria
 - [ ] Every task has a verification step
 - [ ] Task dependencies are identified and ordered correctly
-- [ ] Tasks are recorded in the task list target (default `tasks/todo.md`)
-- [ ] No task touches more than ~5 files
+- [ ] Tasks are recorded in the designated task list target
+- [ ] Existing incomplete plans and unrelated tracker items are preserved
+- [ ] Each task has a coherent scope and a useful verification boundary
 - [ ] Checkpoints exist between major phases
-- [ ] The human has reviewed and approved the plan
+- [ ] Required approvals are satisfied; already accepted scope is not reopened without new material evidence
 
 ## See Also
 

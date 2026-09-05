@@ -39,10 +39,10 @@ Measure before optimizing. Performance work without measurement is guessing — 
 
 ### Step 1: Measure
 
-Two complementary approaches — use both:
+Two complementary approaches — select evidence suited to the claim and authorized scope:
 
 - **Synthetic (Lighthouse, DevTools Performance tab):** Controlled conditions, reproducible. Best for CI regression detection and isolating specific issues.
-- **RUM (web-vitals library, CrUX):** Real user data in real conditions. Required to validate that a fix actually improved user experience.
+- **RUM (web-vitals library, CrUX):** Real user data in real conditions. Use available, authorized field evidence to validate actual user impact. Without it, report the controlled measurement improvement and leave production user impact unverified; do not install telemetry merely to finish local work.
 
 **Frontend:**
 ```bash
@@ -380,14 +380,14 @@ Then decide, strictly:
 
 | Result vs. baseline | Action |
 |---|---|
-| Past the threshold, tests green | **Keep.** Commit with the before/after numbers in the message. |
+| Past the threshold, tests green | **Keep.** Record the measured before/after numbers. Commit only within user authorization or the applicable project workflow. |
 | Within noise (no measurable change) | **Revert.** |
 | Worse | **Revert.** |
 | Improved, but a test went red | **Revert.** A regression wearing a win's clothing. |
 
 **"Neutral" is a revert, not a keep.** This is the step teams skip: the change is already written, throwing it away feels wasteful, so it lands unmeasured, and the codebase accretes complexity that never bought anything. Code you keep, you maintain forever. Make it pay for itself.
 
-**Correctness gates the metric.** The suite stays green *and* the number moves. An "optimization" that wins by dropping work the product needed (skipping a validation, caching something that must be fresh, removing an `await` that was load-bearing) is a regression, not a win.
+**Correctness gates the metric.** Relevant regression tests and required project checks pass *and* the measured number improves beyond noise. An "optimization" that wins by dropping work the product needed (skipping a validation, caching something that must be fresh, removing an `await` that was load-bearing) is a regression, not a win.
 
 #### Log every attempt, including the reverted ones
 
@@ -399,11 +399,17 @@ Reverted work leaves no trace in git history, which is exactly why the same dead
 | Virtualize the list | INP 240ms → 90ms | kept | Long tasks gone from the trace. |
 | Preconnect to the API origin | LCP 2.8s → 2.8s | reverted | Already same-origin. |
 
-A section in the PR description or a `PERF.md` in the repo both work. What matters is that the next person (or the next agent) reads it before proposing an experiment, and doesn't re-run one that already failed.
+Use the existing project documentation or task-note location, or a section in an authorized PR description; follow project rules for note placement. What matters is that the next person (or the next agent) reads it before proposing an experiment, and doesn't re-run one that already failed.
 
-## Performance Budget
+### Step 5: Guard Against Regression
 
-Set budgets and enforce them:
+Guard the primary metric that justified the fix: for example LCP, INP, or API p95 latency. Reuse a representative synthetic check or existing field monitor. Repeat noisy measurements or compare a median/trend so normal variance does not become a flaky gate.
+
+For production user-facing paths, synthetic checks and field monitoring are complementary when both are available and in scope. Use a meaningful field percentile and attribution suited to the metric; CrUX's rolling window is confirmation rather than an immediate alert. Do not install telemetry, add services, or expand CI merely to finish a local optimization. If a guard needs separate authorization or infrastructure, record the remaining gap and a concrete follow-up without claiming protection exists.
+
+When a guard fires, return to Step 1 and establish a fresh baseline before proposing another fix.
+
+**Example budgets, to replace with measured project targets:**
 
 ```
 JavaScript bundle: < 200KB gzipped (initial load)
@@ -456,7 +462,7 @@ For detailed performance checklists, optimization commands, and anti-pattern ref
 - List endpoints without pagination
 - Images without dimensions, lazy loading, or responsive sizes
 - Bundle size growing without review
-- No performance monitoring in production
+- Claiming production regression protection without verified monitoring or another applicable guard
 - `React.memo` and `useMemo` everywhere (overusing is as bad as underusing)
 - Optimizations kept without a re-measurement that justifies them
 - Several optimizations bundled into one measurement, so no single change can be attributed
@@ -465,7 +471,7 @@ For detailed performance checklists, optimization commands, and anti-pattern ref
 
 ## Verification
 
-After any performance-related change:
+After a performance change, verify the measured target and applicable impact checks. Project-required checks still apply; unrelated metrics do not become new acceptance criteria:
 
 - [ ] Before and after measurements exist (specific numbers)
 - [ ] The result was re-measured the same way as the baseline (same command, same conditions)
@@ -473,10 +479,10 @@ After any performance-related change:
 - [ ] Changes that didn't beat the baseline were reverted, not kept as neutral
 - [ ] Attempts are logged, kept and reverted alike, so a dead idea isn't re-run
 - [ ] The specific bottleneck is identified and addressed
-- [ ] Core Web Vitals are within "Good" thresholds
-- [ ] Bundle size hasn't increased significantly
-- [ ] No N+1 queries in new data fetching code
+- [ ] Targeted Core Web Vitals meet the agreed goal when they are in scope; other user-impact claims are limited to available evidence
+- [ ] Bundle impact is checked when the change affects frontend assets
+- [ ] New data fetching avoids unnecessary repeated queries when relevant to the change
 - [ ] Any new index is justified by a query plan before and after, and its write cost was considered
 - [ ] Any new cache states what it keys on and how it goes stale
-- [ ] Performance budget passes in CI (if configured)
-- [ ] Existing tests still pass (optimization didn't break behavior)
+- [ ] The primary metric has a verified, in-scope regression check or a clearly reported protection gap
+- [ ] Relevant regression tests and required project checks pass; run broader tests only when required or justified by unresolved impact

@@ -1,6 +1,6 @@
 ---
 name: security-and-hardening
-description: Reviews and hardens trust boundaries. Use for untrusted input, authentication, authorization, sensitive data, external integrations, or privacy obligations. Do not use for changes with no security or privacy boundary.
+description: Reviews trust boundaries, dependency vulnerabilities, package audit findings, and supply-chain risk. Use for security or privacy work involving input, auth, sensitive data, or integrations.
 ---
 
 # Security and Hardening
@@ -329,6 +329,10 @@ app.use('/api/auth/', rateLimit({
 }));
 ```
 
+**Share counters across serving instances.** An in-memory limiter counts per process; multiple instances can each admit the configured maximum, and ephemeral runtimes may reset counters. For a deployment-wide auth limit, use the existing shared gateway or a supported shared store. Verify the installed limiter's store interface and runtime transport before changing configuration. A single-process development setup does not justify installing Redis or another service.
+
+Check that the client identity used as the key remains trustworthy behind the actual proxy configuration, and define behavior when the shared store is unavailable. Use atomic shared limit updates rather than a racy read-then-write counter. Verify the aggregate limit across instances rather than testing only one process.
+
 ## Secrets Management
 
 ```
@@ -472,7 +476,7 @@ For detailed security checklists and pre-commit verification steps, see `../../r
 - Secrets in source code or commit history
 - API endpoints without authentication or authorization checks
 - Missing CORS configuration or wildcard (`*`) origins
-- No rate limiting on authentication endpoints
+- No rate limiting on authentication endpoints, or independent in-memory counters where a deployment-wide limit is required
 - Stack traces or internal errors exposed to users
 - Dependencies with known critical vulnerabilities, competing lockfiles at one installation boundary, non-reproducible installs, or blanket-approved scripts
 - Server fetches user-supplied URLs without an allowlist (SSRF)
@@ -492,7 +496,7 @@ After implementing security-relevant code:
 - [ ] Authentication and authorization checked on every protected endpoint
 - [ ] Security headers present in response (check with browser DevTools)
 - [ ] Error responses don't expose internal details
-- [ ] Rate limiting active on auth endpoints
+- [ ] Auth limits hold across serving instances, using shared counters or an equivalent gateway when required
 - [ ] Server-side URL fetches validated against an allowlist (no SSRF)
 - [ ] LLM/model output validated and encoded before use (if AI features present)
 - [ ] Personal data is classified, minimized to a stated purpose, and has a retention limit

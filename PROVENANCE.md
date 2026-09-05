@@ -22,6 +22,7 @@ Codex adaptations:
 - removed the `idea-refine` initializer script and expressed its behavior as instructions;
 - removed active dependencies on host-specific tools, slash commands, rule files, personas, and orchestration, while retaining compatibility mentions where they are useful context;
 - kept Chrome DevTools MCP optional and user-configured rather than bundling it.
+- adapted ordinary approval, planning, and verification rules for proportional execution while retaining project gates and scoped consent; these downstream behavior changes are recorded in the [2026-09-05 sync review](upstreams/addyosmani-agent-skills/reviews/2026-09-05.md).
 
 Not imported as product surface: upstream history, identity/version manifests, Claude/Gemini/OpenCode packaging, slash commands, personas, hooks, CI, runtime helpers, repository documentation, or upstream eval infrastructure.
 

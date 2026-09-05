@@ -9,7 +9,7 @@ license:
   spdx: MIT
   notice_file: plugins/my-agent-skills/THIRD_PARTY_NOTICES.md
 baseline_commit: 7cb7a20bb38b199728d456999c725a0488490ab6
-reviewed_through_commit: f63ec56a3cc936408d792956ae583c3c96a825bd
+reviewed_through_commit: 1c760d643497e9da289300e5eb2f5aca861503f7
 
 import_policy:
   default: deny
@@ -24,7 +24,11 @@ mappings:
     artifact_unit: top-level-directory
     allowlist_mode: exact-artifact-id
     default_last_applied_commit: f63ec56a3cc936408d792956ae583c3c96a825bd
-    artifact_commit_overrides: {}
+    artifact_commit_overrides:
+      deprecation-and-migration: 1c760d643497e9da289300e5eb2f5aca861503f7
+      performance-optimization: 1c760d643497e9da289300e5eb2f5aca861503f7
+      planning-and-task-breakdown: 1c760d643497e9da289300e5eb2f5aca861503f7
+      security-and-hardening: 1c760d643497e9da289300e5eb2f5aca861503f7
     allowlist:
       - api-and-interface-design
       - browser-testing-with-devtools
@@ -78,6 +82,13 @@ downstream_adaptations:
   - Keep performance guidance measurement-first and environment-safe: database-specific plans, authorized bounded execution, reversible index removal, connection headroom, and explicit cache consistency.
   - Keep using-agent-skills aware of the downstream-owned capability-adoption-assessment without making it a session-wide or mandatory lifecycle gate.
   - Keep all runtime content inside the single downstream plugin root.
+  - Accept contextual ordinary-workflow confirmation and scoped delegation; preserve material decision gates, item-scoped review consent, and prior acceptance without repeated phase approvals.
+  - Select implementation slices, independent reviews, and tests by actual complexity and risk; preserve required project checks without blanket full-suite or per-increment commit requirements.
+  - Preserve other tasks' incomplete plans and tracker items; use project-designated locations or task-scoped .codex/agent-state files without silently overwriting work.
+  - Keep browser and diagnostic content as evidence rather than authority; authorized benign test actions do not require repeated confirmation.
+  - Keep performance regression guards proportional and within authorized infrastructure; report monitoring gaps rather than installing telemetry by default.
+  - Preserve concise production-schema and dependency-audit discovery vocabulary and deployment-wide limiter semantics without vendor-specific installation mandates.
+  - Do not import constraint-driven-development or its router entry without a separate allowlist and workflow review; record the rejected artifact in reviews/2026-09-05.md.
 
 excluded_surface:
   - upstream Git history and release identity

@@ -71,6 +71,8 @@ For `BOUNDARY_NOTE`, record the affected local contract and the responsibilities
 
 For `ARCHITECTURE_GATE`:
 
+An existing accepted brief satisfies acceptance for its exact scope across turns. Keep the material-change route and proceed through its satisfied exit without requesting the same acceptance again. New material changes or contradictory evidence require renewed triage; general delegation alone is not brief acceptance. Until acceptance is satisfied:
+
 - do not modify business implementation code;
 - read [references/architecture-brief.md](references/architecture-brief.md);
 - update an existing authoritative brief when one exists, otherwise create or present one canonical brief;
@@ -107,7 +109,7 @@ Maintain one canonical architecture brief. Merge corrections into it; never crea
 - More than one routing path is emitted.
 - Project-specific evidence is replaced by generic best practices.
 - File size, file count, or vocabulary is treated as decisive evidence.
-- Business code changes under `ARCHITECTURE_GATE` or `DISCOVERY`.
+- Business code changes before the exit condition of `ARCHITECTURE_GATE` or `DISCOVERY` is satisfied.
 - A speculative distributed system is treated as the default solution.
 - Multiple architecture briefs describe the same decision.
 - An existing project authority is silently overridden.
@@ -121,5 +123,5 @@ Before leaving triage, confirm:
 - [ ] Exactly one path was selected and its write boundary was respected.
 - [ ] Non-triggers did not manufacture an architecture gate.
 - [ ] Every proposed abstraction has a current justification.
-- [ ] `ARCHITECTURE_GATE` uses one minimal canonical brief and waits for user acceptance.
+- [ ] `ARCHITECTURE_GATE` uses one minimal canonical brief and requires acceptance before implementation planning; existing acceptance for the same scope satisfies this condition.
 - [ ] `DISCOVERY` has a bounded question, evidence action, and exit criterion.

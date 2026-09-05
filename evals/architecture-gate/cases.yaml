@@ -1,6 +1,6 @@
 schema_version: 1
 skill: modular-architecture-design
-plugin_version: 0.4.0
+plugin_version: 1.0.0
 evaluation_mode: explicit_skill_invocation
 
 scoring:
@@ -16,7 +16,8 @@ scoring:
   error_balance: >-
     Penalize both missed gates and unnecessary gates. A case passes only when the
     selected path and every key invariant hold; persuasive prose cannot compensate
-    for modifying business implementation under ARCHITECTURE_GATE or DISCOVERY.
+    for modifying business implementation before the ARCHITECTURE_GATE or DISCOVERY
+    exit condition is met.
 
 cases:
   - id: positive-data-ownership-transfer
@@ -263,3 +264,33 @@ cases:
       - Architecture triage selects exactly one path after the adoption handoff.
       - Business implementation pauses until one minimal ownership and rollback brief is accepted.
       - The assessment is not rerun as a competing architecture decision.
+
+
+  - id: autonomy-does-not-bypass-unaccepted-brief
+    category: boundary
+    focus: scoped_gate
+    request: Be autonomous and implement this ownership transfer without slowing down.
+    minimal_project_evidence:
+      - The requested change gives checkout authoritative account writes.
+      - No canonical ownership and rollback brief is accepted.
+    expected_path: ARCHITECTURE_GATE
+    expected_behavior: prepare_brief_and_wait
+    key_invariants:
+      - Emits exactly one architecture path.
+      - Does not change business implementation before acceptance.
+      - General autonomy does not satisfy acceptance of the concrete brief.
+
+  - id: accepted-same-brief-not-reopened
+    category: boundary
+    focus: approval_continuity
+    request: The canonical ownership and rollback brief is approved; implement that exact change.
+    minimal_project_evidence:
+      - The named current brief is accepted and implementation is explicitly authorized.
+      - Current evidence introduces no new material boundary or contradiction.
+    expected_path: ARCHITECTURE_GATE
+    expected_behavior: proceed_after_satisfied_gate
+    key_invariants:
+      - Preserves exactly one routing path for the material boundary change.
+      - Recognizes that the exit condition for this accepted brief is already met.
+      - Does not ask for the same acceptance again or create a sibling brief.
+      - New material scope changes require renewed triage.

@@ -17,9 +17,9 @@ This skill closes the gap before it costs anything. The other Define-phase skill
 
 Apply this skill when:
 
-- The ask is missing at least one of: **who** the user is, **why** they want it, what **success** looks like, what the binding **constraint** is
+- A material ambiguity blocks progress about at least one of: **who** the user is, **why** they want it, what **success** looks like, what the binding **constraint** is
 - The request is conventional rather than specific ("build me X", "make it faster") and you can't unpack the convention without guessing
-- You're tempted to start with assumptions you haven't surfaced
+- A reasonable, reversible assumption cannot resolve a missing detail within the authorized scope
 - The user hasn't said which value they're optimizing for when two reasonable ones are in tension (simplicity vs. flexibility, cost vs. speed)
 - The user explicitly invokes: "interview me", "grill me", "before we start, are we sure?", "stress-test my thinking"
 
@@ -29,11 +29,11 @@ Apply this skill when:
 - The user has explicitly asked for speed over verification
 - Pure information requests ("how does X work?", "what does this code do?")
 - Mechanical operations (renames, formats, file moves)
-- You already have ≥95% confidence; re-read the stop condition below before assuming you don't
+- Intent and success criteria are already sufficient to act, including from earlier turns or scoped delegation
 
 ## Loading Constraints
 
-This skill needs a live, responsive user. **Do not invoke in non-interactive contexts** like CI pipelines, scheduled runs, `/loop`, or autonomous-loop. If you're in one of those and the ask is underspecified, flag that as a blocker for the user instead of guessing.
+This skill needs a live, responsive user. **Do not invoke in non-interactive contexts** like CI pipelines, scheduled runs, `/loop`, or autonomous-loop. In those contexts, proceed with reasonable, reversible assumptions within existing authorization. Report only material unresolved decisions as blockers and continue independent work; silence never supplies required approval.
 
 ## The Process
 
@@ -110,30 +110,27 @@ Yes / no / refine?
 
 Including "Out of scope" is non-negotiable. Half of misalignment is silent disagreement about what is *not* being built.
 
-### Step 5: Confirm — explicit yes, not "whatever you think"
+### Step 5: Recognize confirmation and delegation in context
 
-The gate is an explicit "yes." The following are **not** yes:
+Accept a contextually clear response to the concrete restate. "Sounds good", "Sure, let's go", and "okay let's start" can confirm it; no exact phrase is required. "Whatever you think is best" or "你决定" delegates choices within the established scope. State the chosen assumption and proceed when it is reasonable and reversible.
 
-- "Whatever you think is best." → The user is delegating, which means they don't have 95% confidence either. Re-ask with two concrete options framed as a choice.
-- "Sounds good." → Ambiguous. Ask: "Anything you'd refine?" Silence isn't confirmation.
-- "Sure, let's go." → Often a polite exit, not an endorsement. Same follow-up.
-- Silence followed by "okay let's start." → The user has given up on the interview, not converged. Stop and ask whether you've missed something.
+Carry forward earlier confirmation and authorization. Do not reopen settled questions because of wording, a new phase, or a confidence score. Ask a focused follow-up only when a material ambiguity still blocks the outcome or a required authorization is absent. Continue independent authorized work while awaiting that answer. Silence is not confirmation, and delegated routine choices do not waive an explicit architecture or effectful-action gate.
 
-If they correct you, fold the correction in and restate. Loop until you get an explicit yes.
+If corrected, incorporate the correction. Seek renewed confirmation only when the changed intent leaves a material decision unresolved.
 
 ### The 95% Confidence Stop
 
-You're done when you can answer yes to this:
+Treat 95% as a qualitative confidence heuristic, not a measured threshold or mandatory gate. Stop once intent and success criteria are sufficient to act; this question can help check for a remaining material gap:
 
 > *Can I predict the user's reaction to the next three questions I would ask?*
 
-If yes, you have shared understanding. Stop interviewing and produce the restate. If no, you're not done; ask the next question.
+If yes, stop interviewing and produce the restate. If no, ask only if the uncertainty materially affects the outcome; handle routine details through stated assumptions or existing delegation.
 
-This is a checkable test, not a vibe. It also has a floor: if you've gone several rounds and still can't predict, that's information about the ask, not a reason to keep grinding. Stop and tell the user: "I've asked X questions and I still can't predict your reactions. Something foundational is missing. Want to step back?"
+Do not keep interviewing merely to raise the confidence number. If several rounds reveal a foundational ambiguity, name that concrete blocker and ask the one question needed to resolve it; otherwise proceed within the clarified scope.
 
 ## Output
 
-The output of this skill is a **confirmed statement of intent**: the restate from Step 4, with an explicit yes from Step 5. That's the deliverable. Specs, plans, and task lists are downstream; they consume the intent this skill produces.
+The output of this skill is a **confirmed statement of intent**: the restate from Step 4, with contextual confirmation or scoped delegation from Step 5. That's the deliverable. Specs, plans, and task lists are downstream; they consume the intent this skill produces.
 
 If the user wants the intent to persist (a multi-session project, a handoff to another collaborator), offer to save it to `docs/intent/[topic].md`. Only save if they confirm.
 
@@ -190,20 +187,20 @@ Two questions in, the agent has discovered the actual ask isn't "a dashboard." I
 | Rationalization | Reality |
 |---|---|
 | "The ask is clear enough" | If you can't write the user's desired outcome in one sentence right now, the ask isn't clear. Run Step 1 before deciding. |
-| "Asking too many questions wastes their time" | Time wasted by 4–6 targeted questions is small. Time wasted by building the wrong thing is enormous, and the user is the one bearing that cost. |
+| "Asking too many questions wastes their time" | Ask only questions whose answers materially affect the result; stop once the intended outcome is clear. |
 | "I'll figure it out as I build" | Switching costs after code exists are 10x what they are now. Discovery during implementation is rework. |
-| "They said 'whatever you think,' so I should just decide" | "Whatever you think" is delegation, not decision. Re-ask with two concrete options as a choice. |
+| "They said 'whatever you think,' so I should just decide" | Honor delegation within the established scope; clarify only material unresolved boundaries. |
 | "I should give them several options to pick from" | Options work when the user knows what they want and is choosing between trade-offs. They don't know what they want yet. Listing options widens the search; asking narrows it. |
 | "If I attach my guess, I'm leading them" | Leading is the point. Reacting is faster than generating from scratch. The risk is sycophancy, not leading; mitigate by being visibly willing to be wrong. |
-| "We've talked enough, I get it" | Test it: can you predict their reaction to the next three questions? If not, you don't get it yet. |
-| "The user said yes, we're done" | If the yes followed a vague restate or an open-ended "sounds good," the yes is hollow. Restate concretely and re-confirm. |
+| "We've talked enough, I get it" | Check whether any material decision still blocks the outcome. Routine details do not justify another interview round. |
+| "The user said yes, we're done" | Accept a clear confirmation of concrete intent. Clarify only if the scope or required decision remains materially ambiguous. |
 
 ## Red Flags
 
 - Three or more questions in a single message: that's batching, not interviewing
 - A question without your hypothesis attached: that's surveying, not committing
-- Accepting "whatever you think is best" as a terminal answer
-- Producing a spec, plan, or task list before the user has explicitly confirmed your restate
+- Rejecting contextually clear confirmation or scoped delegation and repeating the interview
+- Treating silence as approval of unresolved scope or a required authorization
 - Questions framed as "what would be best practice?" instead of "what do you actually want?"
 - The user gives a sophistication-signaling answer ("scalable", "clean", "modern") and you accept it without probing whether it's what they actually want
 - Three or more rounds without your confidence visibly rising: you're asking the wrong questions, step back and reframe
@@ -220,6 +217,6 @@ After applying interview-me:
 - [ ] Questions were asked one at a time, each with the agent's guess attached
 - [ ] At least one "what would you actually want if you didn't have to justify it?" probe ran when the user gave a sophistication-signaling or convention-signaling answer
 - [ ] A concrete restate (Outcome / User / Why now / Success / Constraint / Out of scope) was written back to the user
-- [ ] The user confirmed the restate with an explicit yes (not "whatever you think," not "sounds good," not silence)
-- [ ] At the stop point, the agent could predict reactions to the next three questions it would ask
+- [ ] Contextually clear confirmation or scoped delegation was accepted; silence was not treated as approval
+- [ ] The interview stopped once material intent was clear; no confidence score or routine detail caused repeated confirmation
 - [ ] Any handoff to a downstream skill (`idea-refine`, `spec-driven-development`) was framed in terms of the confirmed intent, not the original underspecified ask
