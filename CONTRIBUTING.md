@@ -38,6 +38,44 @@ Changes to `project-dialectic-review` must preserve one neutral offer before uns
 
 ## Validation
 
-Run the current bundled Codex validators against every Skill and the plugin root, parse JSON and YAML, check links and private data, and review `git diff --check` before committing. Include the commands and results in the change review.
+Before committing, complete these static checks:
+
+1. Run the bundled Codex Skill quick validator for every Skill and the Plugin validator for `plugins/my-agent-skills/`, using the commands below.
+2. Parse all repository JSON and YAML, including hidden paths such as `.agents/plugins/marketplace.json`.
+3. Validate upstream source IDs, descriptor paths, exact allowlists, unique primary ownership, and 40-character hexadecimal commit IDs against [UPSTREAM.md](UPSTREAM.md).
+4. Check relative reference links, unfinished placeholders, private absolute paths, and likely secrets. Check Skill inventory, unique names, and the discovery metadata budget in [the discovery cases](evals/discovery/cases.yaml).
+5. Run `git diff --check` and review the complete diff, including newly added files.
+
+Run from the repository root. The validators belong to the local Codex system Skills, not this repository. Use an existing project `.venv/bin/python` when available; otherwise use an existing Python 3 with PyYAML. The example defaults to `python3` outside a project environment. To select another existing interpreter, set `validation_python` to its executable path before running the block.
+
+```sh
+(
+  set -eu
+  validation_codex_dir="${CODEX_HOME:-$HOME/.codex}"
+  if [ -z "${validation_python:-}" ]; then
+    if [ -x .venv/bin/python ]; then
+      validation_python=.venv/bin/python
+    else
+      validation_python=python3
+    fi
+  fi
+  validation_system_skills="$validation_codex_dir/skills/.system"
+  validation_quick="$validation_system_skills/skill-creator/scripts/quick_validate.py"
+  validation_plugin="$validation_system_skills/plugin-creator/scripts/validate_plugin.py"
+  test -f "$validation_quick"
+  test -f "$validation_plugin"
+  "$validation_python" -c 'import yaml'
+  for validation_skill in plugins/my-agent-skills/skills/*/SKILL.md; do
+    "$validation_python" "$validation_quick" "${validation_skill%/SKILL.md}"
+  done
+  "$validation_python" "$validation_plugin" plugins/my-agent-skills
+)
+```
+
+If an interpreter, PyYAML, or a bundled validator is unavailable, report the missing check; do not install tools by default or claim validation passed. These validator commands cover item 1 only.
+
+When behavior or trigger semantics change, update and review the affected cases selected from [the eval inventory](evals/README.md); this includes the performance, workflow-proportionality, and security groups when relevant. New or broadened triggers must also update discovery cases. Follow the eval guide's clean-context interception and non-interception review, and distinguish contract review from full-model execution. Ordinary documentation edits do not require a full behavioral evaluation.
+
+Include the commands, results, and checks not performed in the change review. Static validator success is not evidence that model behavior passed.
 
 By contributing, you agree that your contribution is licensed under the repository's MIT License.
