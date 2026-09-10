@@ -256,6 +256,17 @@ Special consideration for AI agent context:
 - **ADRs** — Help agents understand why past decisions were made (prevents re-deciding)
 - **Inline gotchas** — Prevent agents from falling into known traps
 
+### Development Handoff
+
+When the current request prepares a substantial module, refactor or milestone handoff,
+finish the requested documentation, then consult the planning owner's
+[Execution Readiness Choice](../planning-and-task-breakdown/references/execution-readiness-choice.md)
+for an existing execution package. It owns whole-scope feasibility, manual/automatic
+entry and the optional Goal execution choice; documents alone do not prove readiness.
+General handoffs do not inherit milestone-only prerequisites. Ordinary documentation,
+explicit document-only scope, and already authorized execution retain their
+existing workflow without an additional offer.
+
 ## Common Rationalizations
 
 | Rationalization | Reality |

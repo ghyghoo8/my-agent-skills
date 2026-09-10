@@ -182,6 +182,15 @@ Each increment should be independently revertable:
 
 ## Working with Agents
 
+For multiple independent modules, use the shared
+[parallel execution contract](../../references/orchestration-patterns.md#parallel-module-execution).
+One controller selects a bounded set of authorized READY tasks, assigns disjoint
+write/resource ownership and integrates verified results through the existing
+queue. Each worker applies the increment cycle to its own task; one logical
+change per increment does not require all independent modules to run serially.
+Dependent work waits for the specified integration evidence, and a worker's
+self-reported completion cannot pass a milestone or complete the shared Goal.
+
 When directing an agent to implement incrementally:
 
 ```

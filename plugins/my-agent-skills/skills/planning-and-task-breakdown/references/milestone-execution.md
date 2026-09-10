@@ -52,6 +52,12 @@ Do not create a second technical authority or copy architecture chapters into de
 
 ## 3. Refine Tasks Against the Existing Milestones
 
+Treat each milestone as a delivery acceptance node: define the deliverables,
+observable criteria, dependency evidence and responsible acceptance mechanism.
+Preparation stages are not milestones unless their documents are agreed
+deliverables. A Goal may span several milestones; task completion alone does
+not establish a node's acceptance or the Goal's completion.
+
 Read the existing roadmap and preserve its milestone identities, outcomes, and gates. Start task refinement at its first relevant demonstrable value. Respect supplied dates and capacity; otherwise order by dependencies and evidence without inventing calendar commitments. Product maturity phases and delivery milestones differ: map between them without renaming or weakening product gates.
 
 For an existing milestone mapping, preserve equivalent project fields or use this view; task IDs are added as decomposition proceeds:
@@ -137,7 +143,22 @@ Use existing project states. If none exist, these meanings suffice:
 
 A planning-only request may produce complete execution specifications without dispatch authorization: record the pending implementation authorization explicitly and do not mark them READY. Readiness is not inferred from document existence. Code plus unit tests cannot close a task that requires missing real integration or human acceptance.
 
-Use one `current_task` by default. Preserve an existing project concurrency and file-ownership contract; otherwise keep dispatch serial. Subagents may work on independent parts of the current task when available and authorized, with a named integration owner. Dependency parallelism does not imply concurrent writes to shared migrations, generated contracts, or release activation.
+For a manual readiness check or a completed current-task handoff, use
+[Execution Readiness Choice](execution-readiness-choice.md) to assess the whole
+delegated scope before offering sustained execution. Three documents permit
+queue planning; a READY first task does not prove the whole delivery path is
+feasible. Explicit check/planning-only scope suppresses the offer; already
+authorized execution continues within its scope. Keep READY's authorization
+requirement unchanged.
+
+Use one controller and one canonical queue. For authorized parallel module work,
+dispatch independent READY tasks to distinct subagents under the
+[parallel execution contract](../../../references/orchestration-patterns.md#parallel-module-execution).
+Respect project concurrency limits and observed host capacity. Each active task
+has one owner; an existing `current_task` can remain a navigation focus without
+becoming a global serial lock. Do not create a second active-task ledger.
+Coupled changes to shared contracts, migrations, generated output or release
+activation retain one writer or run serially.
 
 ## 6. Assign Roles and Apply the Quality-First Model Policy
 
@@ -217,10 +238,16 @@ Respect [named decision/release boundaries]; return [evidence and next action].
 
 This packet does not create a host Goal, automation, monitor, or new task. Use those facilities only when explicitly requested and follow their tool/state rules. In authorized execution, task boundaries and context handoffs do not create new approval requirements.
 
+For explicitly authorized Goal execution, apply the readiness reference's
+[Goal startup and resume contract](execution-handoff.md#2-start-or-resume-the-authorized-goal)
+before dispatch. Reuse a matching unfinished Goal; do not replace a conflicting
+one or infer Goal authorization from a planning request. The Goal describes the
+delegated acceptance endpoint; the queue remains the business progress authority.
+
 Preserve this execution loop:
 
 1. Reconcile the queue with current authority, evidence, dependencies, worktree changes, named responsibility/decision boundaries, and the approved effective model/effort for each dispatched role.
-2. Select an authorized READY task; implement, investigate ordinary failures, repair within scope, and verify.
+2. Select an authorized READY task, or a mutually independent READY set for approved parallel execution; implement, diagnose ordinary failures, repair within scope, and verify. Respect bounded write ownership and actual host capacity.
 3. Record actual commands, results, configuration evidence, limitations, and changed files; distinguish verification facts from review findings. Mark DONE only when integration and the project's required acceptance hold.
 4. Re-evaluate eligible tasks, refine the next DRAFT card when inputs suffice, and continue within accepted scope.
 

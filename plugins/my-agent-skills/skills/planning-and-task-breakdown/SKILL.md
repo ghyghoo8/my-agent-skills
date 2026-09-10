@@ -1,6 +1,6 @@
 ---
 name: planning-and-task-breakdown
-description: Plans tasks from accepted specs. Milestone queues require an authoritative document, a detailed development document, and an explicit milestone roadmap. Skip obvious edits and already executable plans.
+description: Plans accepted specs into tasks and checks substantial development handoffs for autonomous execution. Milestones require authority, development docs, and a roadmap. Skip local edits and routine authorized execution.
 ---
 
 # Planning and Task Breakdown
@@ -10,24 +10,26 @@ Turn accepted requirements into verifiable outcomes, exact dependencies, and a c
 ## Choose the Planning Depth
 
 - **Compact plan:** For a bounded feature needing decomposition, use a short plan and the task list target below. Several changed files do not require a document hierarchy.
-- **Milestone execution package:** For delivery against a milestone roadmap, sustained execution, or multi-session handoff, first verify all three entry prerequisites below. Then read [Milestone Execution](references/milestone-execution.md) to derive task cards, the executable queue, and model-strength options from those documents. Detail near-term tasks; keep distant milestones coarse until their inputs stabilize.
-- **Already executable:** Reuse an adequate plan and queue. Do not replan before authorized implementation, a status query, or an obvious local edit unless new evidence invalidates the relevant plan.
+- **Milestone execution package:** For delivery against a milestone roadmap, read [Milestone Execution](references/milestone-execution.md) and verify its three entry inputs before deriving the package. Use it to derive task cards, the executable queue, and model-strength options from those documents. Detail near-term tasks; keep distant milestones coarse until their inputs stabilize. Sustained execution or a multi-session handoff alone does not require a milestone structure.
+- **Already executable:** Reuse a valid plan and queue; do not replan for authorized work, status or local edits. Ordinary authorized execution goes to `incremental-implementation` without loading readiness, handoff or milestone references. Only new material evidence triggers affected reassessment.
+- **Execution readiness:** For a requested readiness check or a completed development handoff for a substantial module, refactor, or milestone, read [Execution Readiness](references/execution-readiness-choice.md), following its execution handoff reference only when the assessment passes and execution is in scope. Assess the entire delegated scope for sustained execution with reduced human decision-making; a runnable first task is insufficient. This owner handles manual/automatic entry, a scoped native choice, and explicitly authorized Goal startup. Routine authorized execution continues without another offer.
 
 When core outcomes or requirements are unresolved, use `spec-driven-development` for that uncertainty; do not invent requirements in task cards. `incremental-implementation` owns execution of approved slices. `documentation-and-adrs` records normative decisions; a delivery plan links accepted decisions rather than making new architecture policy. These are scoped handoffs, not a mandatory Skill sequence.
 
-## Milestone Workflow Entry Prerequisites
+## Milestone-Specific Rules
 
-Enter the milestone execution workflow only when all three already exist and are usable for the selected scope:
+Only requested milestone work loads [Milestone Execution](references/milestone-execution.md).
+It requires current authority, a substantive development document and an explicit
+roadmap before queue derivation; their content matters, not file count. Missing
+inputs stay in authorized preparation. Do not bypass this requirement by calling
+the same milestone work a compact plan; valid inputs need no ritual re-approval.
 
-1. **An authoritative document:** The project identifies the current normative document, its applicable scope, and precedence.
-2. **At least one detailed development document:** In addition to the authority, a document explains relevant implementation responsibilities, flows or interfaces, and verification for the selected scope. A title, outline, high-level README, command list, or bare TODO list does not qualify.
-3. **An explicit milestone roadmap:** Identifiable milestones have observable outcomes, dependency/order information, and exit or acceptance conditions. A vague sequence such as “foundation -> features -> polish” does not qualify.
-
-Record paths and relevant sections for all three, and check consistency with authority. These are three content requirements, not a demand for three new files; a clearly identified roadmap section may live in an existing development document.
-
-If an input is missing, insufficient, or materially conflicting, stay in prerequisite preparation: identify the exact gap and complete or repair the source documents within existing documentation authorization before rechecking entry. Resolve missing requirements through the appropriate specification/decision workflow. Do not derive an executable queue first, count its generated cards as the missing input, or bypass this entry condition by calling the same requested milestone work a compact plan. Existing valid documents do not require ritual re-approval. Once the prerequisites are met, continue within the user's scope; entry itself does not authorize implementation.
-
-For this milestone workflow, prioritize delivery quality and trustworthiness over token usage and speed. Assign five core responsibilities: control, solution/task planning, implementation/integration, verification, and independent review. These are responsibilities, not five mandatory agents; add dedicated investigation, integration, or recovery ownership only when needed. **Terra ultra remains the minimum admitted execution baseline; Astra ultra owns control, planning, and key independent review.** Prefer Astra xhigh for implementation, with Sol xhigh as the second choice; retain Sol ultra for enhanced execution and Astra ultra for high uncertainty. Read the reference's [role and model policy](references/milestone-execution.md#6-assign-roles-and-apply-the-quality-first-model-policy) for role boundaries, verification, exact admitted pairs, and configuration checks. Apply it to all participants and retries; do not equate effort labels across models, introduce an economical tier, or silently substitute a selected configuration. Recommendations do not themselves switch the active model or grant decision authority.
+That reference owns the five core responsibilities and exact role/model policy:
+Terra ultra is the minimum admitted execution baseline; Astra ultra owns control,
+planning and key independent review. Read the full policy before assigning any
+milestone participant or retry. Quality remains primary; recommendations never
+activate models or authorize work. General module/refactor handoffs do not inherit
+these milestone-only requirements.
 
 ## Establish Authority and Scope
 
@@ -39,6 +41,12 @@ Start with read-only evidence gathering: project instructions, designated specif
 - Distinguish requested outcomes, accepted scope, observed implementation, unverified claims, and deferred capabilities. Design acceptance is not runtime or release evidence.
 
 For planning-only requests, write the requested planning artifacts and keep business implementation unchanged. For planning within authorized implementation, continue after preparation without re-asking for the same scope. Preserve `ARCHITECTURE_GATE` and `DISCOVERY` write boundaries and exit conditions. Planning does not switch the host's collaboration mode, create a Goal or automation, launch another task, change models, or authorize external writes.
+
+Document prerequisites permit milestone queue planning; sustained execution has
+the separate whole-scope readiness check above. General module/refactor handoffs
+use their accepted requirements, plan, and executable development documentation
+without inheriting milestone-only roadmap or model requirements. Do not relabel
+an explicitly requested milestone workflow to bypass its prerequisites.
 
 ## Decompose and Order
 
@@ -84,7 +92,7 @@ Create parent directories only when durable artifacts are useful. Compact plans 
 
 ## Review the Plan
 
-- For milestone work, all three entry documents/content roles are identified, sufficient for the selected scope, and consistent before queue derivation.
+- For milestone work, the three required input content roles are identified, sufficient for the selected scope, and consistent before queue derivation.
 - Authority links, expected revisions, source obligations, and existing acceptance are consistent.
 - Each near-term executable task has an observable outcome, sufficient inputs, exact dependencies, scoped steps, and applicable verification commands.
 - Dependencies are acyclic and resolvable. Optional enhancements are not hidden prerequisites for the accepted baseline.

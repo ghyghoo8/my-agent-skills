@@ -2,6 +2,33 @@
 
 All notable downstream changes are recorded here.
 
+## [5.0.0] - 2026-09-10
+
+### Changed
+
+- Assess the entire delegated delivery scope before sustained execution with reduced human decisions. Manual checks and current-task automatic handoffs share one planning-owned assessment; substantial module and refactor work can use it without inheriting milestone-only roadmap or model requirements.
+- Define milestones as delivery acceptance nodes. Check consequential decisions, actual dependencies and environment, decision delegation, verification/recovery, and expected human checkpoints; a runnable first task or all-DONE task list cannot establish delivery acceptance.
+- Prefer explicitly authorized Goal execution after a passing assessment. Inspect and reuse a compatible unfinished Goal, preserve conflicts and uncertain outcomes, and keep Goal lifecycle separate from the canonical business queue. Goal completion requires the actual agreed endpoint and acceptance evidence.
+- Enable bounded parallel execution of independent READY module tasks under one controller, Goal and queue. Partition shared write/resource ownership, respect host/project limits, and require integration evidence before dependent dispatch or milestone acceptance.
+
+### Performance
+
+- Load readiness assessment separately from execution choices and Goal lifecycle. Keep milestone-specific detail in its existing reference; check-only and insufficient-readiness paths avoid execution-only instructions. Preserve admission and acceptance rules, with context-size measurements and targeted behavior regressions recorded in the [delivery report](evals/planning-and-task-breakdown/execution-handoff-5.0.0.md).
+
+### Migration
+
+- Replace the 4.2 first-task readiness check with the whole delegated-scope assessment and scoped Goal choice. This revises the admission and handoff contract, so the plugin uses a major version.
+- Preserve existing plans, queue states, accepted decisions and ordinary execution authorization. Do not infer Goal consent from a plain start request; existing explicit Goal preferences remain applicable. Check-only, planning-only, decline and view-plan choices retain their limits.
+- The plugin remains skills-only. Automatic detection and selection-card rendering are host-dependent; missing Goal support is disclosed without silent substitution. Source validation does not install or publish the plugin.
+
+## [4.2.0] - 2026-09-10
+
+### Added
+
+- Add a scoped execution choice after a current-task milestone handoff is complete and implementation authorization is the only missing prerequisite. Prefer a permitted native selection card with execute, view-plan, and defer options; fall back to a concise text question when no suitable host tool is available.
+- Keep eligibility with `planning-and-task-breakdown`; specification, milestone documentation, and explicit routing link to that owner after completing their requested work. Document existence alone never establishes executable readiness.
+- Preserve READY's authorization contract, single queue ownership, prior authorization, explicit planning-only scope, decline suppression, and stale-reply rechecks. The compatible trigger addition does not add a hook, watcher, runtime dependency, automatic model switch, or background task.
+
 ## [4.1.0] - 2026-09-10
 
 ### Fixed

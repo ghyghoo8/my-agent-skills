@@ -53,6 +53,14 @@ Task arrives
 
 Direct implementation, summary, translation, status, and explicit workflow requests keep their normal owner. An accepted adoption decision is not reopened by `capability-adoption-assessment`. Do not route these tasks through `project-dialectic-review` merely because they contain an idea, claim, or external material.
 
+For a manual execution-readiness check or a completed substantial development
+handoff in the current task, `planning-and-task-breakdown`
+owns the [execution readiness choice](../planning-and-task-breakdown/references/execution-readiness-choice.md)
+and whole-scope feasibility assessment. Milestones are delivery acceptance nodes;
+general modules/refactors do not require a milestone structure. Finish the current owner's deliverable first;
+do not turn this into session-wide monitoring, a start offer for document-only
+requests, or a repeated approval before already authorized execution.
+
 For a proposed change to an existing inter-module contract, resolve
 `modular-architecture-design` routing before interface design. Stable owners and
 an additive internal field can justify `BOUNDARY_NOTE`, then

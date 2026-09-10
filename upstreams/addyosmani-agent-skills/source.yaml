@@ -72,6 +72,7 @@ mappings:
       - testing-patterns.md
 
 downstream_adaptations:
+  - Load readiness assessment, execution handoff and milestone-only detail by stage; retain full authorization, model and acceptance contracts while reducing unrelated instruction loading.
   - Keep idea-refine instruction-only; do not restore its shell helper.
   - Keep Chrome DevTools MCP optional and user-authorized.
   - Use AGENTS.md as the Codex rules file in context-engineering, code-simplification, and documentation-and-adrs.
@@ -88,6 +89,8 @@ downstream_adaptations:
   - Select implementation slices, independent reviews, and tests by actual complexity and risk; preserve required project checks without blanket full-suite or per-increment commit requirements.
   - Preserve other tasks' incomplete plans and tracker items; use project-designated locations or task-scoped .codex/agent-state files without silently overwriting work.
   - Keep the optional milestone execution package in planning-and-task-breakdown and its local reference; require an authoritative document, at least one detailed development document, and an explicit existing milestone roadmap before deriving task cards and the queue; retain exact dependencies, one mutable state target, compact planning, and accepted authorization.
+  - Keep manual and current-task development-readiness checks owned by planning-and-task-breakdown, with whole delegated-scope feasibility, milestone acceptance nodes, narrow specification/documentation/router handoffs, explicit Goal authorization/lifecycle handling, one scoped native prompt, READY authorization, decline suppression, and stale-response rechecks; do not restore hooks, watchers, document-existence triggers, or repeated approval before authorized work.
+  - Preserve parallel independent module execution in orchestration-patterns.md and its planning/implementation handoffs; use one controller and business queue, disjoint write/resource ownership, real host/project limits, and integrated evidence before dependent dispatch or milestone/Goal completion.
   - >-
     Preserve the milestone workflow's five core responsibilities and separate decision authority,
     verification facts, review findings, and project acceptance. Combine compatible responsibilities;

@@ -115,11 +115,38 @@ This is a soft, instruction-only routing behavior. It cannot guarantee intercept
 
 ## Current verifiable slice
 
-The current slice adds `capability-adoption-assessment` as a downstream-owned
-decision specialist, routes only open capability-to-workflow adoption questions
-to it, preserves adjacent workflow ownership, and covers its output, discovery,
-and architecture-handoff boundaries with eval cases. It does not synchronize
-newer upstream content or turn adoption assessment into a global gate.
+### Development execution handoff boundary note (2026-09-10)
+
+`BOUNDARY_NOTE`: manual readiness questions and completed development handoffs
+use `planning-and-task-breakdown` to assess the entire delegated delivery scope.
+The accepted scope covers whole-scope feasibility, Goal-first execution with explicit
+authorization, milestones as delivery acceptance nodes, and parallel independent
+module execution. The planner retains readiness and queue
+ownership; the host renders questions and owns Goal lifecycle. The controller
+coordinates one delivery objective and reconciles the canonical business queue;
+`incremental-implementation` owns scoped execution and integration.
+
+The milestone document prerequisites still permit preparation of the queue.
+General module/refactor work does not inherit milestone-only requirements.
+Independent workers receive bounded tasks and disjoint write/resource ownership;
+the shared orchestration reference defines dispatch and integration handoffs.
+Worker reports cannot accept a milestone or complete the controller's Goal.
+
+Existing authority, READY authorization, project concurrency rules and acceptance
+requirements remain intact. The 5.0 contract adds whole-scope readiness evidence,
+expected human checkpoints, explicit Goal startup/resume/conflict handling, and
+parallel execution handoffs. It does not add a background watcher, global router,
+second progress ledger, runtime dependency, or approval at each task boundary.
+
+Planning, discovery and proportionality evals cover interception, ordinary
+workflow continuity, response handling, Goal lifecycle, acceptance and parallel
+integration. Static checks establish packaging and consistency only; behavioral
+samples and their limitations are recorded separately. Host rendering and
+automatic discovery do not become guaranteed runtime hooks.
+
+Readiness assessment, execution choice/Goal lifecycle and milestone-specific
+procedures load by the current phase. Their owners and contracts stay unchanged;
+context-size measurements are a static proxy, not evidence of lower latency.
 
 ## Alternative considered
 

@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 4.1.0
+plugin_version: 5.0.0
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,7 +14,7 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 4.1.0
+    plugin_version: 5.0.0
     skill_count: 27
     maximum_raw_characters: 7000
   checks:
@@ -35,6 +35,7 @@ scoring:
     - adjacent_skill_ownership
     - external_content_instruction_boundary
     - metadata_budget
+    - substantial_development_handoff_without_session_wide_interception
   ignore:
     - exact_wording
     - heading_style
@@ -900,3 +901,147 @@ cases:
     - Specification owns the consequential mixed-batch rule and resulting acceptance; asks a focused decision question or exposes the required decision without inventing an accepted answer.
     - May draft independently supportable specification sections while holding acceptance and task detail that depend on the missing rule.
     - Does not manufacture three sufficient milestone inputs, READY tasks, implementation or external-action evidence.
+
+  - id: manual-execution-readiness-routes-to-planning-owner
+    category: explicit
+    focus: manual_whole_scope_admission
+    request: Can the agreed operations export module now enter execution with minimal further human involvement?
+    minimal_project_evidence:
+      - >-
+        Accepted export-requirements.md r3 defines filtered-row CSV quoting,
+        formula-prefix escaping, progress and cancellation before local download.
+        export-development.md specifies csv.ts serialization, ExportPanel.tsx and
+        the stable filter snapshot interface. export-plan.md and complete E1-E3
+        cards order serializer, cancellation and integration, with root export
+        tests/typecheck and local download acceptance. export-status.md owns state.
+      - >-
+        Current evidence confirms every in-scope dependency, fixture, installed
+        runtime, assigned executor's effective setting and acceptance capability.
+        No unresolved product or architecture decision exists across E1-E3; deployment
+        is excluded. This is a module delivery with no milestone roadmap or fixed
+        milestone model policy. No implementation or Goal authorization has been given.
+      - Goal tools and a native choice surface permitted for this scenario are available; a current get_goal read reports no active Goal. No prior offer or decline exists, and the user has not restricted this request to assessment only.
+    expected_selection: planning-and-task-breakdown
+    expected_behavior: assess_full_scope_and_optionally_offer_goal_execution_once
+    key_invariants:
+      - Routes the manual readiness question to the same owner/checker used after automatic substantial handoff completion.
+      - First reports whether the whole E1-E3 scope meets execution admission and why; it does not equate first-task feasibility with full-scope readiness.
+      - May offer one scoped Goal execution choice after the passing assessment while keeping the proposal distinct from authorization.
+      - Does not create a queue, Goal or implementation from a readiness question, invent a milestone roadmap or activate a universal session gate.
+
+  - id: completed-module-spec-hands-to-execution-readiness-owner
+    category: implicit
+    focus: specification_to_substantial_module_handoff
+    request: Finish the accepted export module's requirements-to-development handoff and summarize what is ready.
+    minimal_project_evidence:
+      - >-
+        spec-driven-development owns the current task and has completed the requested
+        accepted specification and development handoff. Requirements r3 cover local
+        filtered CSV quoting/formula escaping, progress and cancellation. The plan
+        orders E1 serialization, E2 cancellation and E3 download integration;
+        development cards name csv.ts/ExportPanel.tsx, stable filter inputs, exact
+        tests, dependencies and acceptance. export-status.md is the only queue.
+      - >-
+        Current root export tests/typecheck support, fixtures, dependencies and
+        effective assigned-executor configuration are verified. All E1-E3 decisions
+        and acceptance paths are settled; release is excluded. There is no milestone
+        roadmap and no unresolved boundary change. Implementation is not authorized;
+        the user did not explicitly limit the final response to planning only.
+      - Permitted native choices and host Goal tools are available; a current get_goal read reports no active Goal. No equivalent offer has been made or declined in this task.
+    expected_selection: spec-driven-development then planning-and-task-breakdown
+    expected_behavior: finish_owned_spec_work_then_apply_shared_readiness_checker
+    key_invariants:
+      - Completes and presents the specification task before handing the completed substantial development package to the planning readiness owner.
+      - Applies whole-scope admission and may offer Goal execution, assessment/plan display, or deferral once; no implementation or Goal starts from the handoff alone.
+      - Does not require a milestone roadmap, the milestone-only model policy, another blanket spec approval or reopening settled product requirements.
+      - Does not route every specification response or ordinary session through this checker; the trigger is the completed relevant handoff.
+
+  - id: completed-large-refactor-docs-hand-to-same-owner
+    category: implicit
+    focus: documentation_to_accepted_refactor_handoff
+    request: Finish the development handoff documentation for the accepted order-storage refactor.
+    minimal_project_evidence:
+      - >-
+        documentation-and-adrs owns the requested work, now completed. Accepted
+        refactor-contract.md r2 retains order API behavior and fixes repository,
+        adapter and service ownership. The previously accepted architecture route
+        permits implementation; no unresolved gate remains. Legacy duplicate IDs
+        are explicitly retained, migration uses a reversible shadow table, and
+        rollback-before-cutover is specified; destructive cutover is excluded.
+      - >-
+        refactor-development.md and R1 adapter, R2 shadow-copy and R3 parity cards
+        define current interfaces, data preservation, dependencies, fixtures and
+        root repository/migration tests. R1 is detailed; R2-R3 retain bounded technical
+        choices under stable contracts and acceptance. refactor-status.md is the
+        single queue. The whole agreed endpoint is tested read/write parity before cutover.
+      - >-
+        Actual local database/fixture/runtime and effective assigned-role evidence
+        establishes the full scope's capabilities. No external service or unplanned
+        Owner decision remains. This is substantial refactor delivery without a
+        milestone roadmap. Goal tools and an allowed native choice surface are
+        available and get_goal reports no active Goal; execution is still unapproved
+        and no prior offer was declined.
+    expected_selection: documentation-and-adrs then planning-and-task-breakdown
+    expected_behavior: complete_refactor_docs_then_offer_ready_full_scope_goal
+    key_invariants:
+      - Preserves documentation ownership until its work is complete, then uses the shared checker for the actual R1-R3 delegation scope.
+      - Recognizes settled migration/rollback decisions and acceptance evidence without reopening a new architecture or specification phase.
+      - Can offer the whole pre-cutover refactor as a Goal once while retaining its exact endpoint and exclusions.
+      - Does not force a milestone roadmap or freeze all low-level future coding decisions as an artificial prerequisite.
+
+  - id: unresolved-substantial-requirements-stay-with-specification
+    category: boundary
+    focus: unfinished_requirements_not_execution_handoff
+    request: Finish requirements and a development plan for the reporting module; perhaps we can delegate the implementation afterward.
+    minimal_project_evidence:
+      - >-
+        The reporting audience is accepted as internal operators, but the owner
+        has not decided whether exported files include personal customer details
+        or only anonymized aggregates. That choice controls authorization, field
+        definitions and acceptance. A draft plan defines a serializer first task
+        but leaves export data and access policy as alternatives.
+      - >-
+        Existing csv.ts fixtures and pnpm tests can verify quoting, but no current
+        authority resolves the sensitive field rule. The user asked to finish
+        requirements and planning; no implementation, Goal or data-policy decision
+        has been delegated. No explicit architecture route has yet exited for any
+        consequential ownership change.
+    expected_selection: spec-driven-development
+    expected_behavior: resolve_material_requirement_before_dependent_admission
+    key_invariants:
+      - Keeps the unresolved functional/data rule with specification and asks only for the materially necessary decision while continuing independent preparation.
+      - Does not label the handoff complete or ready merely because serializer mechanics and a first task are executable.
+      - Does not show a Goal start choice, invent a data policy, silently reduce the module to a serializer or create an executable full-scope queue from undecided requirements.
+      - A possible later handoff is not credited as an observed readiness evaluation in the current unfinished specification task.
+
+  - id: local-private-refactor-does-not-trigger-delegation-admission
+    category: negative
+    focus: proportional_nontrigger
+    request: Simplify this private formatLabel helper using the existing nullable-label utility.
+    minimal_project_evidence:
+      - >-
+        The helper in src/labels.ts repeats the same trim-and-empty check already
+        implemented by normalizeOptionalLabel. Inputs, output and tests are fixed,
+        ownership is private and no public interface or module dependency changes.
+        The accepted edit is a small local simplification with a focused unit check.
+      - The repository also contains an unrelated complete export development package, but this task is not preparing, assessing or handing off that work.
+    expected_selection: code-simplification
+    expected_behavior: perform_local_refactor_without_substantial_handoff_gate
+    key_invariants:
+      - Keeps the narrow code-simplification owner and carries out the authorized change with proportional verification.
+      - Does not perform full-scope delegation admission, request a roadmap or show a Goal execution choice because the user used the word refactor.
+      - Does not scan unrelated handoff documents or treat their existence as a trigger for another workflow.
+
+  - id: ordinary-doc-edit-does-not-scan-for-execution-handoffs
+    category: negative
+    focus: documentation_handoff_nontrigger
+    request: Correct the README's local development command from npm start to pnpm dev.
+    minimal_project_evidence:
+      - package.json and the current contributing guide both identify pnpm dev as the local command. The README edit changes no product scope, plan, implementation instructions or acceptance condition.
+      - Other repository documents happen to include an accepted module plan, a detailed guide and an explicit milestone roadmap. This task does not prepare their execution handoff or request a readiness assessment.
+    expected_selection: direct_documentation_edit
+    expected_behavior: finish_requested_doc_edit_without_execution_prompt
+    key_invariants:
+      - Makes the narrow documentation correction and verifies the affected text without a new lifecycle.
+      - Does not load unrelated delivery documents, synthesize a queue, assess all project work or show a start-execution choice.
+      - Does not turn documentation-and-adrs or using-agent-skills into a background hook or session-wide readiness monitor.

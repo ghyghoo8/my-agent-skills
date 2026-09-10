@@ -43,9 +43,23 @@ codex plugin add my-agent-skills@my-agent-skills
 
 模型选择以交付可信度和质量优先：**Astra ultra 负责主控、规划和关键独立审查；执行首选 Astra xhigh，次选 Sol xhigh；Terra ultra 保留为最低认可执行基线，Sol ultra 保留增强执行选项**。使用明确认可的模型与强度组合，不能按跨模型的 effort 名称推断质量高低。不设置经济档；子代理、验证、复核、重试及替代配置均须符合职责要求并核验生效设置。执行主机缺少 ultra 不会自动排除合规 xhigh 执行，关键角色配置缺口则保留为局部阻塞；次选不授权静默替换已指定的配置。详见[角色与模型策略](plugins/my-agent-skills/skills/planning-and-task-breakdown/references/milestone-execution.md#6-assign-roles-and-apply-the-quality-first-model-policy)。
 
+**里程碑是交付验收节点**：明确交付物、验收标准、依赖证据，以及验收责任人或机制。Goal 表达本次委托的交付目标，可覆盖多个里程碑；开发任务产出成果，现有队列记录进度与证据。任务完成仍须满足节点验收条件，必须真人验收的节点提前标明。
+
+当前任务完成中大型模块、较大重构或里程碑的开发交接准备后，或者用户主动询问能否进入执行，规划 Skill 按[执行准入与选择规则](plugins/my-agent-skills/skills/planning-and-task-breakdown/references/execution-readiness-choice.md)检查**整个委托范围**在减少人工决策参与后是否可行：核对需求与关键决策、开发规划和交付文档、实际依赖与环境、可委托决策、验证与恢复路径、预期人工介入点。只有首个任务可开工不足以证明全范围就绪；普通模块或重构不强制套用里程碑 Roadmap 和专属模型策略。
+
+评估通过且执行意向仍开放时，优先提供一次宿主选择卡：**以 Goal 执行约定范围／查看评估与执行方案／暂不进入**。明确选择 Goal 或已有适用的 Goal 授权后，核对并创建或复用同范围目标，再执行；遇到其他未完成 Goal 或能力不可用时报告具体限制。预选、无回复、查看方案和单纯询问可行性都不授权开工。明确仅检查／仅规划、已拒绝同一范围、普通编辑不触发启动卡；已授权执行持续推进。
+
+执行层支持[并行协作](plugins/my-agent-skills/references/orchestration-patterns.md#parallel-module-execution)：主控从同一队列派发依赖满足、写入及共享资源不冲突的模块任务给多个子 agent。共享契约、迁移与集成配置由单一负责人修改或串行推进；下游等待所需集成证据，主控统一完成里程碑验收。并发数量服从实际宿主容量及项目限制。
+
+这项交互仅发生在当前任务内，由宿主决定显示样式；不支持选择组件时使用简短文字询问。它保持 skills-only 边界，不监听后台文件变化，也不保证像运行时 hook 一样必定触发。
+
+规则按阶段加载：仅检查就绪时读取评估规则，决定执行后再读取选择与 Goal 生命周期；里程碑专属细则只用于相应工作。[5.0 交付验证](evals/planning-and-task-breakdown/execution-handoff-5.0.0.md)记录行为样例、上下文体积测量和未验证边界。
+
 ```text
 $using-agent-skills 为这个任务选择合适的工程工作流。
 $planning-and-task-breakdown 先检查权威文档、至少一份详细开发文档和明确的里程碑 Roadmap；缺项先补齐，齐备后按既定里程碑细化可执行任务队列、开发任务卡和模型强度建议。保留当前状态入口，本次仅规划。
+$planning-and-task-breakdown 仅检查这个模块是否具备减少人工参与后持续执行到约定验收终点的条件，给出证据、缺口和人工介入点，本次不实施。
+$planning-and-task-breakdown 检查已约定的 M1–M2 交付范围；可行后以 Goal 模式执行，按现有队列对独立模块使用子 agent 并行协作，直到约定验收终点或遇到必须由我决定的阻塞。
 $capability-adoption-assessment 评估这个能力是否值得接入目标流程，并明确成本与价值结论。
 $modular-architecture-design 判断这次改动是否改变架构边界。
 $project-dialectic-review 结合当前项目辩证并修订这个主张。
@@ -102,6 +116,10 @@ flowchart LR
 - 架构与来源：[`ARCHITECTURE.md`](ARCHITECTURE.md)、[`PROVENANCE.md`](PROVENANCE.md)
 
 当前版本见[唯一 Plugin manifest](plugins/my-agent-skills/.codex-plugin/plugin.json)：PATCH 不改变分流语义，MINOR 增加兼容能力或触发场景，MAJOR 改变路径、暂停或输出契约。参见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [SECURITY.md](SECURITY.md)。项目采用 [MIT License](LICENSE)，不代表 OpenAI 或任何上游项目，也未获其背书。
+
+### 从 4.2.0 升级
+
+准入判断从“下一任务可执行”改为“整个委托范围具有可行的交付验收路径”。已有合格材料可复用；只在关键条件改变时重评受影响工作。Goal 需要明确适用授权，普通开工指令不会自动创建 Goal。原有队列和项目验收要求保留，通用模块／重构不继承里程碑专属门槛。独立模块允许按主控分工并行执行，项目明确的串行或并发限制继续有效。
 
 ### 从 0.4.0 升级
 

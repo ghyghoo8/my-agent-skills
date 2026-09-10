@@ -188,6 +188,14 @@ Break the plan into discrete, implementable tasks:
 
 ### Phase 4: Implement
 
+At a completed substantial module, refactor or milestone handoff, consult the planning owner's
+[Execution Readiness Choice](../planning-and-task-breakdown/references/execution-readiness-choice.md)
+when the existing package appears complete and the decision to start remains
+open. It owns whole-scope feasibility and the optional Goal execution choice.
+A spec or runnable first task alone is insufficient; general handoffs do not
+inherit milestone-only prerequisites. Explicit planning-only requests receive no start offer, and
+already authorized implementation continues directly.
+
 Continue authorized implementation using incremental delivery when complexity warrants it and meaningful tests for affected behavior. Load focused spec sections and source files. Do not turn the related Skills into a mandatory lifecycle for every task.
 
 ## Keeping the Spec Alive
