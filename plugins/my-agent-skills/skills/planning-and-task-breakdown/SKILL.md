@@ -1,235 +1,97 @@
 ---
 name: planning-and-task-breakdown
-description: Breaks work into ordered tasks. Use when you have a spec or clear requirements and need to break work into implementable tasks. Use when a task feels too large to start, when you need to estimate scope, or when parallel work is possible.
+description: Plans tasks from accepted specs. Milestone queues require an authoritative document, a detailed development document, and an explicit milestone roadmap. Skip obvious edits and already executable plans.
 ---
 
 # Planning and Task Breakdown
 
-## Overview
+Turn accepted requirements into verifiable outcomes, exact dependencies, and a clear next executable task. Keep the plan subordinate to project authority and proportional to the work.
 
-Decompose work into small, verifiable tasks with explicit acceptance criteria. Good task breakdown is the difference between an agent that completes work reliably and one that produces a tangled mess. Every task should be small enough to implement, test, and verify in a single focused session.
+## Choose the Planning Depth
 
-## When to Use
+- **Compact plan:** For a bounded feature needing decomposition, use a short plan and the task list target below. Several changed files do not require a document hierarchy.
+- **Milestone execution package:** For delivery against a milestone roadmap, sustained execution, or multi-session handoff, first verify all three entry prerequisites below. Then read [Milestone Execution](references/milestone-execution.md) to derive task cards, the executable queue, and model-strength options from those documents. Detail near-term tasks; keep distant milestones coarse until their inputs stabilize.
+- **Already executable:** Reuse an adequate plan and queue. Do not replan before authorized implementation, a status query, or an obvious local edit unless new evidence invalidates the relevant plan.
 
-- You have a spec and need to break it into implementable units
-- A task feels too large or vague to start
-- Work needs to be parallelized across multiple agents or sessions
-- You need to communicate scope to a human
-- The implementation order isn't obvious
+When core outcomes or requirements are unresolved, use `spec-driven-development` for that uncertainty; do not invent requirements in task cards. `incremental-implementation` owns execution of approved slices. `documentation-and-adrs` records normative decisions; a delivery plan links accepted decisions rather than making new architecture policy. These are scoped handoffs, not a mandatory Skill sequence.
 
-**When NOT to use:** Bounded changes with obvious scope, regardless of file count, or when the spec already contains well-defined tasks.
+## Milestone Workflow Entry Prerequisites
 
-## The Planning Process
+Enter the milestone execution workflow only when all three already exist and are usable for the selected scope:
 
-### Step 1: Establish the Plan
+1. **An authoritative document:** The project identifies the current normative document, its applicable scope, and precedence.
+2. **At least one detailed development document:** In addition to the authority, a document explains relevant implementation responsibilities, flows or interfaces, and verification for the selected scope. A title, outline, high-level README, command list, or bare TODO list does not qualify.
+3. **An explicit milestone roadmap:** Identifiable milestones have observable outcomes, dependency/order information, and exit or acceptance conditions. A vague sequence such as “foundation -> features -> polish” does not qualify.
 
-During initial evidence gathering, operate in read-only mode:
+Record paths and relevant sections for all three, and check consistency with authority. These are three content requirements, not a demand for three new files; a clearly identified roadmap section may live in an existing development document.
 
-- Read the spec and relevant codebase sections
-- Identify existing patterns and conventions
-- Map dependencies between components
-- Note risks and unknowns
+If an input is missing, insufficient, or materially conflicting, stay in prerequisite preparation: identify the exact gap and complete or repair the source documents within existing documentation authorization before rechecking entry. Resolve missing requirements through the appropriate specification/decision workflow. Do not derive an executable queue first, count its generated cards as the missing input, or bypass this entry condition by calling the same requested milestone work a compact plan. Existing valid documents do not require ritual re-approval. Once the prerequisites are met, continue within the user's scope; entry itself does not authorize implementation.
 
-For a planning-only request, keep business implementation unchanged and deliver the plan. When planning is part of an authorized implementation task, complete this preparation and continue without asking again unless a material unresolved decision or an applicable project gate requires acceptance. This Skill does not switch the host's collaboration mode. Preserve `ARCHITECTURE_GATE` and `DISCOVERY` write boundaries and their exit conditions.
+For this milestone workflow, prioritize delivery quality and trustworthiness over token usage and speed. Assign five core responsibilities: control, solution/task planning, implementation/integration, verification, and independent review. These are responsibilities, not five mandatory agents; add dedicated investigation, integration, or recovery ownership only when needed. **Terra ultra remains the minimum admitted execution baseline; Astra ultra owns control, planning, and key independent review.** Prefer Astra xhigh for implementation, with Sol xhigh as the second choice; retain Sol ultra for enhanced execution and Astra ultra for high uncertainty. Read the reference's [role and model policy](references/milestone-execution.md#6-assign-roles-and-apply-the-quality-first-model-policy) for role boundaries, verification, exact admitted pairs, and configuration checks. Apply it to all participants and retries; do not equate effort labels across models, introduce an economical tier, or silently substitute a selected configuration. Recommendations do not themselves switch the active model or grant decision authority.
 
-### Step 2: Identify the Dependency Graph
+## Establish Authority and Scope
 
-Map what depends on what:
+Start with read-only evidence gathering: project instructions, designated specification, development guide, current plan/task target, and relevant code, types, tests, and commands.
 
-```
-Database schema
-    │
-    ├── API models/types
-    │       │
-    │       ├── API endpoints
-    │       │       │
-    │       │       └── Frontend API client
-    │       │               │
-    │       │               └── UI components
-    │       │
-    │       └── Validation logic
-    │
-    └── Seed data / migrations
-```
+- Identify the designated primary authority, its actual revision/status, and governing sections. Record which subordinate docs it accepts and what each governs. Follow existing project precedence rather than imposing a new hierarchy.
+- Bind derived tasks to that authority and minimum section references. A newer plan, status note, chat, or backup does not supersede the specification. Expected versions in the queue detect drift; they never select the authoritative version.
+- If authority is absent, contradictory, or materially out of date, expose the exact gap and affected tasks. For milestone work, remain in prerequisite preparation until the entry conditions hold; independent document repair may continue within scope. For compact planning, keep independent plan sections explicit about assumptions. Do not rewrite normative requirements to fit the roadmap.
+- Distinguish requested outcomes, accepted scope, observed implementation, unverified claims, and deferred capabilities. Design acceptance is not runtime or release evidence.
 
-Implementation order follows the dependency graph bottom-up: build foundations first.
+For planning-only requests, write the requested planning artifacts and keep business implementation unchanged. For planning within authorized implementation, continue after preparation without re-asking for the same scope. Preserve `ARCHITECTURE_GATE` and `DISCOVERY` write boundaries and exit conditions. Planning does not switch the host's collaboration mode, create a Goal or automation, launch another task, change models, or authorize external writes.
 
-### Step 3: Slice Vertically
+## Decompose and Order
 
-Instead of building all the database, then all the API, then all the UI — build one complete feature path at a time:
+1. Name observable outcomes and the first useful end-to-end slice. Build only its required foundations, not every database table, then every API, then every screen.
+2. Map exact task dependencies and the integration evidence each consumer needs. Put a bounded experiment early when it resolves a material unknown; give it a decision-changing exit condition.
+3. Size tasks by independently verifiable results, uncertainty, and recovery impact. File counts, lines, fixed hours, and session boundaries are not splitting rules. Keep coherent mechanical changes together.
+4. Add checkpoints at meaningful integration, acceptance, or risk boundaries. Use project-required checks plus the smallest checks that establish affected behavior.
+5. Identify the next executable task and why its prerequisites are satisfied; otherwise record the missing input and independent work that remains possible.
 
-**Bad (horizontal slicing):**
-```
-Task 1: Build entire database schema
-Task 2: Build all API endpoints
-Task 3: Build all UI components
-Task 4: Connect everything
-```
+Parallelize bounded independent work only when delegation is available and authorized. Fix shared contracts first, assign non-overlapping write ownership, and keep dependent operations and final reconciliation sequential. Parallel branches in a graph do not authorize concurrent dispatch or external actions.
 
-**Good (vertical slicing):**
-```
-Task 1: User can create an account (schema + API + UI for registration)
-Task 2: User can log in (auth schema + API + UI for login)
-Task 3: User can create a task (task schema + API + UI for creation)
-Task 4: User can view task list (query + API + UI for list view)
-```
+## Compact Task Contract
 
-Each vertical slice delivers working, testable functionality.
-
-### Step 4: Write Tasks
-
-Each task follows this structure, whether it lands in the markdown task list or as an item in an external tracker (see Output Files):
+Keep each definition in one place: the task list target or a linked task card. Populate applicable details:
 
 ```markdown
-## Task [N]: [Short descriptive title]
+## T1: [Observable result]
 
-**Description:** One paragraph explaining what this task accomplishes.
-
-**Acceptance criteria:**
-- [ ] [Specific, testable condition]
-- [ ] [Specific, testable condition]
-
-**Verification (include only applicable checks and project requirements):**
-- [ ] Tests pass: [the repository's focused-test command]
-- [ ] Build succeeds: [the repository's build command]
-- [ ] Manual check: [description of what to verify]
-
-**Dependencies:** [Task numbers this depends on, or "None"]
-
-**Files likely touched:**
-- `src/path/to/file.ts`
-- `tests/path/to/test.ts`
-
-**Estimated scope:** [Complexity, uncertainty, and independently verifiable outcomes]
+- Authority and input: [spec revision/sections; relevant guide/code/tests]
+- Scope: [included behavior; exclusions; likely files/interfaces]
+- Dependencies: [exact task IDs and required evidence, or none]
+- Implementation: [concrete ordered steps following existing project patterns]
+- Acceptance: [testable outcome, including relevant failure paths]
+- Verification: [repository commands and working directory; required manual checks]
+- Evidence and recovery: [deliverables, evidence location, rollback/stop condition if applicable]
+- Open inputs: [unresolved fact/decision, affected work and resolution owner, or none]
 ```
 
-### Step 5: Order and Checkpoint
+The queue owns mutable task status. Cards contain specifications, not another set of live progress fields. Acceptance checklists express criteria; actual results belong in the queue's evidence entry. Do not mark checks as passed while planning them.
 
-Arrange tasks so that:
+## Output Files and Task List Target
 
-1. Dependencies are satisfied (build foundation first)
-2. Each task leaves the system in a working state
-3. Verification checkpoints cover meaningful integration or risk boundaries
-4. High-risk tasks are early (fail fast)
+Use project-designated locations and existing task IDs. Otherwise:
 
-Add explicit checkpoints to the task list target:
+- **Canonical plan:** `.codex/agent-state/plan.md`, holding scope, authority links, outcome/dependency order, risks, and a link to the task list target.
+- **Task list target:** `.codex/agent-state/todo.md`, holding ordered tasks/checkpoints and their progress. This is the default queue/status authority for this task. The plan uses links or task IDs rather than copying live checkboxes.
 
-```markdown
-## Checkpoint: After Tasks 1-3
-- [ ] Relevant tests and project-required checks pass
-- [ ] Affected integration or user flow is verified
-- [ ] Any required acceptance is satisfied, including existing approval for this scope
-```
+Create parent directories only when durable artifacts are useful. Compact plans can use inline task definitions in the queue; milestone packages may use linked development cards as described in the reference.
 
-## Task Sizing Guidelines
+**Preserve incomplete plans.** Inspect targets before writing. Revise the same work in place within the user's request. Preserve other tasks' incomplete files and tracker items; use a permitted task-scoped location under the project state directory when available. Ask only if a mandatory fixed target conflicts and no permitted separate location exists. Do not delete, rename, overwrite, or bulk-close unrelated work to make room.
 
-Split work when outcomes can be verified independently, uncertainty needs a bounded experiment, or integration risk makes a single change difficult to review or recover. Keep coherent mechanical changes together even when they span many files. File counts, line counts, elapsed-time estimates, and the word "and" are hints to inspect scope, not automatic splitting rules.
+**External tracker:** If designated and authorized by the user or project rules, it replaces the Markdown queue. Map tasks, acceptance, dependencies, checkpoints, evidence, and status into its fields. Keep an ordered link/ID index in the plan without a second checklist. A tracker example or planning request alone does not authorize external item creation or messages.
 
-## Output Files
+## Review the Plan
 
-- **Plan document:** Use the project's designated plan location; otherwise use `.codex/agent-state/plan.md`. Keep one canonical plan for this task.
-- **Task list:** Record each task in the **task list target** (defined below).
+- For milestone work, all three entry documents/content roles are identified, sufficient for the selected scope, and consistent before queue derivation.
+- Authority links, expected revisions, source obligations, and existing acceptance are consistent.
+- Each near-term executable task has an observable outcome, sufficient inputs, exact dependencies, scoped steps, and applicable verification commands.
+- Dependencies are acyclic and resolvable. Optional enhancements are not hidden prerequisites for the accepted baseline.
+- One mutable queue/status target and a concrete next action exist; unrelated work is preserved.
+- Integration, human acceptance, and release evidence remain distinct from implementation and automated checks.
+- Planning depth fits the request; no unnecessary hierarchy, full-suite gate, or repeated approval was added.
+- Milestone cards identify responsibility, permitted decisions, integration ownership, verification/review evidence, and the project's acceptance responsibility without creating mandatory extra agents or approval steps.
+- Milestone model options preserve the named Terra ultra baseline and role-appropriate admitted pairs, including approved Astra/Sol xhigh execution. Required Astra ultra control and key review remain distinct. Subagents and retries cannot silently substitute configurations; unsupported or unverified role settings block only affected work.
 
-Create the designated parent directory only when a durable plan is useful for the task.
-
-**Preserve incomplete plans.** Inspect the plan and task target before writing. For the same work being revised, update in place within the user's request. For different work, preserve the existing files and open tracker items. Use a distinct task-scoped path under the project-designated state directory when allowed; ask only if the fixed target conflicts and no permitted separate location exists. Continue independent work while that conflict is resolved. Never delete, rename, overwrite, or bulk-close another task's work to make room without authorization.
-
-### Task List Target
-
-The task list target is where tasks and checkpoints are recorded. It is defined once, here; every other reference in this skill defers to it.
-
-- **Default: a checklist-style markdown file at `.codex/agent-state/todo.md`.** Project instructions and an existing task-specific location take precedence.
-- **External tracker:** if project rules or the user designate and authorize an issue tracker, record each task there instead of creating a duplicate markdown checklist. Map acceptance criteria, verification, and dependencies onto the tracker's fields. Record applicable checkpoints there too, or in the plan if the tracker has no natural equivalent.
-
-When using an authorized external tracker, note it in the canonical plan so downstream steps know where to look, and keep an ordered index of item IDs or links rather than a duplicate checklist. A tracker example does not authorize sending messages or creating external items.
-
-## Plan Document Template
-
-```markdown
-# Implementation Plan: [Feature/Project Name]
-
-## Overview
-[One paragraph summary of what we're building]
-
-## Architecture Decisions
-- [Key decision 1 and rationale]
-- [Key decision 2 and rationale]
-
-## Task List
-
-### Phase 1: Foundation
-- [ ] Task 1: ...
-- [ ] Task 2: ...
-
-### Checkpoint: Foundation
-- [ ] Tests pass, builds clean
-
-### Phase 2: Core Features
-- [ ] Task 3: ...
-- [ ] Task 4: ...
-
-### Checkpoint: Core Features
-- [ ] End-to-end flow works
-
-### Phase 3: Polish
-- [ ] Task 5: ...
-- [ ] Task 6: ...
-
-### Checkpoint: Complete
-- [ ] All acceptance criteria met
-- [ ] Ready for review
-
-## Risks and Mitigations
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| [Risk] | [High/Med/Low] | [Strategy] |
-
-## Open Questions
-- [Question needing human input]
-```
-
-When tasks live in an external tracker, keep the Task List section above as an ordered index of tracker item IDs or links instead of a duplicate checklist.
-
-## Parallelization Opportunities
-
-When delegation is available and authorized, assign bounded independent tasks with non-overlapping write ownership; keep dependencies and final reconciliation in the main session:
-
-- **Safe to parallelize:** Independent feature slices, tests for already-implemented features, documentation
-- **Must be sequential:** Database migrations, shared state changes, dependency chains
-- **Needs coordination:** Features that share an API contract (define the contract first, then parallelize)
-
-## Common Rationalizations
-
-| Rationalization | Reality |
-|---|---|
-| "I'll figure it out as I go" | That's how you end up with a tangled mess and rework. 10 minutes of planning saves hours. |
-| "The tasks are obvious" | Write them down anyway. Explicit tasks surface hidden dependencies and forgotten edge cases. |
-| "Planning is overhead" | Planning is the task. Implementation without a plan is just typing. |
-| "I can hold it all in my head" | Context windows are finite. Written plans survive session boundaries and compaction. |
-
-## Red Flags
-
-- Starting implementation without a written task list
-- Overwriting another task's incomplete plan or scattering duplicate checklists across files and a tracker
-- Tasks that say "implement the feature" without acceptance criteria
-- No verification steps in the plan
-- Independent outcomes bundled into one task with no useful verification boundary
-- No checkpoints between tasks
-- Dependency order isn't considered
-
-## Verification
-
-Before starting implementation, confirm:
-
-- [ ] Every task has acceptance criteria
-- [ ] Every task has a verification step
-- [ ] Task dependencies are identified and ordered correctly
-- [ ] Tasks are recorded in the designated task list target
-- [ ] Existing incomplete plans and unrelated tracker items are preserved
-- [ ] Each task has a coherent scope and a useful verification boundary
-- [ ] Checkpoints exist between major phases
-- [ ] Required approvals are satisfied; already accepted scope is not reopened without new material evidence
-
-## See Also
-
-Acceptance criteria are per-task and answer "did we build the right thing?". They sit on top of the project-wide Definition of Done, the standing bar every task clears before it counts as done. See `../../references/definition-of-done.md`.
+Acceptance criteria describe each task's outcome and supplement applicable project-wide completion rules. See [Definition of Done](../../references/definition-of-done.md).

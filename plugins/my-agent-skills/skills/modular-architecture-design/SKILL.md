@@ -1,6 +1,6 @@
 ---
 name: modular-architecture-design
-description: Performs read-only architecture triage when explicitly requested or when a feature or structural refactor may change responsibility, ownership, dependency direction, public contracts, or migration boundaries. Do not invoke implicitly for local fixes, presentation edits, mechanical file moves, stable multi-file changes, or speculative scale alone; if triage is already active, route them DIRECT.
+description: Performs read-only triage for existing inter-module contract changes, including additive fields with stable owners, or changes to responsibilities, ownership, dependencies, public contracts, or migration boundaries. Skip private helpers, edits with unchanged boundaries and contracts, presentation changes, mechanical file moves, and speculative scale alone. Explicit triage can still select DIRECT.
 ---
 
 # Modular Architecture Design
@@ -15,13 +15,15 @@ Ordinary local work is not an implicit trigger. If the user explicitly requests 
 
 ## Operating Boundary
 
-Use this workflow when a proposed feature or structural refactor may materially change at least one of these dimensions:
+Use this workflow when a proposed change affects an existing inter-module contract or may materially change at least one of these dimensions:
 
 - module responsibility;
 - ownership of data or critical side effects;
 - dependency direction, including a new cycle;
 - a public or cross-team contract, including errors and state semantics;
 - a live migration, replacement, cutover, or rollback boundary.
+
+A contained internal-contract change, including an additive optional field, can use `BOUNDARY_NOTE` even when responsibilities and ownership remain stable. Resolve this route before interface design or implementation; a new architecture brief is not required for a sufficient boundary note. A private helper signature change inside one module is not an inter-module contract change.
 
 The following facts are not sufficient by themselves: many files, a long file, a request for "modularity," possible future reuse, an external API, or imagined future scale.
 

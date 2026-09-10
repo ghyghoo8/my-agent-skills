@@ -2,7 +2,76 @@
 
 All notable downstream changes are recorded here.
 
-## [Unreleased]
+## [4.1.0] - 2026-09-10
+
+### Fixed
+
+- Made internal producer-consumer contract changes discoverable by `modular-architecture-design`, including contained changes with stable owners. Its existing `BOUNDARY_NOTE` route remains sufficient; private helpers and edits with unchanged boundaries and contracts remain outside implicit triage.
+- Added the corresponding API/router handoff so a general interface-design match does not hide an existing inter-module contract change; documenting an accepted unchanged API stays with its explicit owner.
+- Reconciled the architecture entry description with its existing routing reference. This compatible trigger correction uses a minor version; the four paths, implementation authorization, and gate exit conditions are unchanged.
+
+### Evaluation
+
+- Completed the original 73 behavior cases, preserved all first-pass results, independently graded factual and routing followups, and verified all 15 primary coding runs. See the [evaluation report](evals/planning-and-task-breakdown/model-evaluation-2026-09-10.md) for the final audit and sample limits.
+
+- Retained the frozen 4.0.0 behavioral baseline and added separate affected-case reruns for this correction. Supplemented missing facts in planning and summary fixtures without replacing original results or relaxing their invariants.
+- Corrected an overstrict discovery owner assertion after independent adjudication, preserving legitimate initial intent interviews and adding explicit-interview and settled-intent specification contrasts. Original FAIL records remain intact; no interview/specification runtime change was made.
+- Kept model-comparison contract revisions and independent grading separate from Skill behavior results. The evaluation report records executed coverage and remaining evidence limits.
+
+## [4.0.0] - 2026-09-10
+
+### Changed
+
+- Organize milestone delivery around five core responsibilities: control, solution/task planning, implementation/integration, verification, and independent review. Permit compatible roles to share an owner, with dedicated investigation, integration, or recovery only when needed; preserve one queue owner and existing decision/acceptance authority.
+- Admit Astra xhigh as the first implementation choice and Sol xhigh as the second. Keep Terra ultra as the minimum admitted execution baseline, Sol ultra as an enhanced execution option, and Astra ultra for control, planning, key independent review, and high-uncertainty work. These are named role choices, not a cross-model performance ranking.
+- Add responsibility, integration ownership, decision scope, verification/review evidence, and project acceptance responsibility to task cards and launch/resume handoffs. Self-tests and component success cannot substitute for required independent review or working integration.
+- Evaluate configuration availability per role. An execution host can use admitted xhigh workers under compliant ultra control/review elsewhere; missing required-role settings block affected work only. Preserve effective-configuration checks and prohibit silent retry substitutions even between admitted pairs.
+
+### Migration
+
+- This major version revises the execution configuration and handoff output contract. Replace universal ultra checks with the exact admitted pairs and their role constraints; Astra xhigh and Sol xhigh are now explicit choices, while unlisted efforts or models remain unapproved.
+- Preserve existing assignments and state ownership. Do not create five agents or new human approval gates to populate role fields; use the project's acceptance and release rules. Initial second-choice selection does not authorize changing an already selected worker due to cost, latency, rate limits, or failure.
+- The three document prerequisites and authorized work scope remain unchanged. Source updates do not install the plugin, change active models, or launch project implementation.
+
+## [3.0.0] - 2026-09-10
+
+### Changed
+
+- Replaced the milestone workflow's economical/balanced profiles with the approved quality-first policy: Terra ultra is the hard configuration floor, Astra ultra the default controller and key reviewer, and Sol ultra an option for complex implementation.
+- Applied the floor to all participating roles, including subagents, reviewers, retries, and fallback workers. Availability, token cost, and speed do not authorize a lower model, lower effort, another provider, or an unverified equivalent.
+- Require supported/effective configurations to be established before worker dispatch, including inherited settings. Preserve planning artifacts and explicit execution blockers when no compliant executor is available; do not silently map Codex ultra to API max.
+- Kept the three document prerequisites, one task-state authority, and actual acceptance evidence. Stronger models and subscription access do not establish quality or unlimited capacity.
+
+### Migration
+
+- This major version changes model recommendations and the execution configuration contract. Replace old economic/medium task profiles and inspect child-agent, retry, and fallback settings before continuing the milestone queue.
+- The approved named combinations are `gpt-5.6-terra`, `gpt-5.6-sol`, and `gpt-6-astra`, each with `ultra`. Future replacements require an explicit policy update. This instruction-only change does not install a plugin, switch the active model, or launch implementation.
+
+## [2.0.0] - 2026-09-10
+
+### Changed
+
+- Require three existing inputs before entering the milestone execution workflow: a current authoritative document, at least one detailed development document, and an explicit milestone roadmap with outcomes, dependency/order information, and exit conditions.
+- Prepare or repair missing inputs within authorized documentation work before deriving task cards and the executable queue. Do not count an outline, command list, vague phase list, or newly generated task cards as satisfying the entry prerequisites.
+- Derive execution work from the existing roadmap and maintain its identities and gates; retain model-strength recommendations and the single state target. Existing valid documents do not require repeated approval.
+
+### Migration
+
+- This major version changes the milestone workflow's entry and pause contract. Provide the three input references or complete prerequisite preparation first. They need not be three separate files; an explicit roadmap section in a detailed development document is sufficient.
+- Ordinary compact planning and existing implementation authorization retain their prior scope. A milestone request cannot bypass its prerequisites by being relabeled as compact planning. No plugin installation or model switch is implied by this source update.
+
+## [1.1.0] - 2026-09-10
+
+### Added
+
+- Extended the existing planning Skill with an optional authority-grounded milestone roadmap, detailed development cards, one executable queue, and a bounded launch/resume contract.
+- Added four model-strength profiles with separate reasoning effort, task-fit and escalation guidance; concrete model mappings are verified and dated when a plan needs them.
+- Added 12 planning behavior cases and four discovery cases for the milestone package and adjacent workflow boundaries.
+
+### Changed
+
+- Kept compact planning, existing output locations, accepted authorization, and project gates; the roadmap references task IDs instead of duplicating mutable queue progress.
+- Recorded the planning extension as a downstream adaptation. The updated local upstream planning Skill is unchanged from the already recorded source revision; no upstream commit state was advanced.
 
 ### Fixed
 

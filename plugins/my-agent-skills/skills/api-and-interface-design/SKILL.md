@@ -1,6 +1,6 @@
 ---
 name: api-and-interface-design
-description: Designs stable APIs and module interfaces. Use for public endpoints, type contracts, frontend-backend boundaries, or dependency-facing interfaces. Do not use for private local helpers.
+description: Designs stable APIs and module interfaces. Use for public endpoints, type contracts, frontend-backend boundaries, or dependency-facing interfaces. Do not use for private local helpers. Existing inter-module contract changes first use modular-architecture-design.
 ---
 
 # API and Interface Design
@@ -16,6 +16,18 @@ Design stable, well-documented interfaces that are hard to misuse. Good interfac
 - Creating component prop interfaces
 - Establishing database schema that informs API shape
 - Changing existing public interfaces
+
+## Architecture Handoff
+
+Before designing a change to an existing contract shared by modules, use
+`modular-architecture-design` to establish the route. This includes additive
+internal fields with unchanged owners: a short `BOUNDARY_NOTE` can be sufficient,
+then this Skill handles the interface detail within the authorized work. Interface
+design does not replace architecture triage or waive its exit condition.
+
+Describing an already accepted interface without changing its behavior or module
+boundaries stays here. A public endpoint or shared type alone does not require a
+new architecture decision, brief, or approval.
 
 ## Core Principles
 

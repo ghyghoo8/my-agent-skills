@@ -1,6 +1,6 @@
 schema_version: 1
 skill: modular-architecture-design
-plugin_version: 1.0.0
+plugin_version: 4.1.0
 evaluation_mode: explicit_skill_invocation
 
 scoring:
@@ -192,6 +192,22 @@ cases:
       - Uses the local pattern as evidence and avoids a new abstraction.
       - Does not pause for an architecture brief.
 
+  - id: negative-private-signature-within-module
+    category: negative
+    focus: private_contract_non_trigger
+    request: >-
+      Pass the existing locale option explicitly into the private report formatting
+      helper and update its local callers and tests.
+    minimal_project_evidence:
+      - The helper and all callers are private to the reporting module.
+      - Module exports, external consumers, behavior, ownership, and dependencies are unchanged.
+      - The project already uses explicit options for nearby private helpers.
+    expected_path: DIRECT
+    key_invariants:
+      - A private signature change does not manufacture an inter-module contract impact.
+      - Does not require a boundary note, architecture brief, or additional approval.
+      - Allows the authorized local change and focused verification.
+
   - id: negative-hypothetical-million-users
     category: negative
     focus: speculative_scale
@@ -221,8 +237,27 @@ cases:
     expected_path: BOUNDARY_NOTE
     key_invariants:
       - Records the touched producer-consumer boundary and unchanged ownership briefly.
+      - Stable responsibilities do not erase the changed internal contract or imply DIRECT.
       - Allows implementation after the note without requiring a full architecture brief.
       - Does not route solely by the number of modules touched.
+
+  - id: boundary-internal-result-rename-stable-owners
+    category: boundary
+    focus: local_contract_delta
+    request: >-
+      Rename lineText to text in the internal layout result and update the editor
+      coordinator and layout module together, preserving behavior.
+    minimal_project_evidence:
+      - The layout module produces the result and the editor coordinator is its only consumer.
+      - The shared result type is an existing inter-module contract with no public or cross-team consumers.
+      - Layout ownership, coordinator responsibility, data ownership, and dependency direction remain unchanged.
+      - The two modules ship together; no live migration or compatibility transition is needed.
+    expected_path: BOUNDARY_NOTE
+    key_invariants:
+      - Recognizes the changed internal producer-consumer contract despite unchanged behavior and ownership.
+      - Records a short boundary note and permits the authorized coordinated edit.
+      - Does not treat a contract rename as only a mechanical file move or route it DIRECT.
+      - Does not require a full architecture brief solely because two modules change.
 
   - id: boundary-performance-constraint-unknown
     category: boundary

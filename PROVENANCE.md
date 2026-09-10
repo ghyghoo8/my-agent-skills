@@ -23,6 +23,12 @@ Codex adaptations:
 - removed active dependencies on host-specific tools, slash commands, rule files, personas, and orchestration, while retaining compatibility mentions where they are useful context;
 - kept Chrome DevTools MCP optional and user-configured rather than bundling it.
 - adapted ordinary approval, planning, and verification rules for proportional execution while retaining project gates and scoped consent; these downstream behavior changes are recorded in the [2026-09-05 sync review](upstreams/addyosmani-agent-skills/reviews/2026-09-05.md).
+- extended the existing planning workflow with a downstream-authored [milestone execution reference](plugins/my-agent-skills/skills/planning-and-task-breakdown/references/milestone-execution.md), requiring authority, a detailed development document, and an explicit milestone roadmap before deriving development cards and one executable queue. Its downstream role policy separates control, planning, implementation/integration, verification, and independent review from decision authority; its quality-first named configurations retain the Terra ultra baseline, admit Astra/Sol xhigh execution, and use Astra ultra for control, planning, and key review. No additional upstream content or source revision was imported for this extension.
+
+The downstream API/router handoff also preserves architecture triage for actual
+changes to existing inter-module contracts, while accepted unchanged interface
+documentation retains its API owner. This local correction imports no upstream
+content and advances no tracked source commit.
 
 Not imported as product surface: upstream history, identity/version manifests, Claude/Gemini/OpenCode packaging, slash commands, personas, hooks, CI, runtime helpers, repository documentation, or upstream eval infrastructure.
 

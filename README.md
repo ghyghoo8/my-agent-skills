@@ -23,8 +23,9 @@ codex plugin add my-agent-skills@my-agent-skills
 ## 能力
 
 - 24 个工程 Skill：覆盖定义、规划、实现、测试、审查与交付。
+- `$planning-and-task-breakdown`：里程碑执行流程须先具备**权威文档、至少一份详细开发文档、明确的里程碑 Roadmap**；缺项先补齐，再按既定里程碑细化开发任务卡、唯一可执行队列及模型强度建议。Roadmap 可作为已有开发文档中的明确章节，文档标题、空提纲或笼统阶段列表不算满足条件。完整范式见[里程碑执行参考](plugins/my-agent-skills/skills/planning-and-task-breakdown/references/milestone-execution.md)。
 - `$capability-adoption-assessment`：针对“特定能力是否值得接入特定流程”的开放决策，分别给出 `Value`、`Cost`、净结果以及唯一的 `GO`、`PILOT`、`DEFER` 或 `NO-GO`；采用评估本身不授权试点或实施。
-- `$modular-architecture-design`：在职责、所有权、依赖、公共契约或迁移边界可能实质变化时，先做只读架构分流。
+- `$modular-architecture-design`：在职责、所有权、依赖、模块间或公共契约、迁移边界可能变化时，先做只读架构分流。
 - `$project-dialectic-review`：遇到可能实质影响当前项目的新思路、主张或外部资料时，显式请求则直接审视，否则先询问；基于项目证据保留有效部分，指出关键矛盾或不确定性，并给出更稳健的修订与最小验证。
 
 架构分流只选择一条路径：
@@ -38,8 +39,13 @@ codex plugin add my-agent-skills@my-agent-skills
 
 文件数量、文件长度、未来复用、外部 API、“模块化”或想象中的规模，都不能单独触发门禁。
 
+里程碑流程按五类核心职责组织：**主控协调、方案与任务规划、实现与集成、验证取证、独立审查**。兼容职责可以兼任，调查、集成和恢复专职按实际需要指定；角色不增加决策或发布权限，验证结果与审查结论分别记录，任务状态仍只有一个权威入口。
+
+模型选择以交付可信度和质量优先：**Astra ultra 负责主控、规划和关键独立审查；执行首选 Astra xhigh，次选 Sol xhigh；Terra ultra 保留为最低认可执行基线，Sol ultra 保留增强执行选项**。使用明确认可的模型与强度组合，不能按跨模型的 effort 名称推断质量高低。不设置经济档；子代理、验证、复核、重试及替代配置均须符合职责要求并核验生效设置。执行主机缺少 ultra 不会自动排除合规 xhigh 执行，关键角色配置缺口则保留为局部阻塞；次选不授权静默替换已指定的配置。详见[角色与模型策略](plugins/my-agent-skills/skills/planning-and-task-breakdown/references/milestone-execution.md#6-assign-roles-and-apply-the-quality-first-model-policy)。
+
 ```text
 $using-agent-skills 为这个任务选择合适的工程工作流。
+$planning-and-task-breakdown 先检查权威文档、至少一份详细开发文档和明确的里程碑 Roadmap；缺项先补齐，齐备后按既定里程碑细化可执行任务队列、开发任务卡和模型强度建议。保留当前状态入口，本次仅规划。
 $capability-adoption-assessment 评估这个能力是否值得接入目标流程，并明确成本与价值结论。
 $modular-architecture-design 判断这次改动是否改变架构边界。
 $project-dialectic-review 结合当前项目辩证并修订这个主张。
@@ -95,7 +101,7 @@ flowchart LR
 - 行为评测：[`evals/`](evals/)
 - 架构与来源：[`ARCHITECTURE.md`](ARCHITECTURE.md)、[`PROVENANCE.md`](PROVENANCE.md)
 
-当前版本为 `1.0.0`：PATCH 不改变分流语义，MINOR 增加兼容能力或触发场景，MAJOR 改变路径、暂停或输出契约。参见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [SECURITY.md](SECURITY.md)。项目采用 [MIT License](LICENSE)，不代表 OpenAI 或任何上游项目，也未获其背书。
+当前版本见[唯一 Plugin manifest](plugins/my-agent-skills/.codex-plugin/plugin.json)：PATCH 不改变分流语义，MINOR 增加兼容能力或触发场景，MAJOR 改变路径、暂停或输出契约。参见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [SECURITY.md](SECURITY.md)。项目采用 [MIT License](LICENSE)，不代表 OpenAI 或任何上游项目，也未获其背书。
 
 ### 从 0.4.0 升级
 

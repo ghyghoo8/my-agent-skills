@@ -29,7 +29,7 @@ Task arrives
     ├── Proposed change may shift ownership,
     │   dependencies, contracts, or migration? → modular-architecture-design
     ├── Requirements need definition? ─→ spec-driven-development
-    ├── Have a spec, need tasks? ──────→ planning-and-task-breakdown
+    ├── Spec to tasks; milestone inputs ready? → planning-and-task-breakdown
     ├── Implementation needs staged delivery? → incremental-implementation
     │   ├── UI work? ─────────────────→ frontend-ui-engineering
     │   ├── API work? ────────────────→ api-and-interface-design
@@ -52,6 +52,12 @@ Task arrives
 ```
 
 Direct implementation, summary, translation, status, and explicit workflow requests keep their normal owner. An accepted adoption decision is not reopened by `capability-adoption-assessment`. Do not route these tasks through `project-dialectic-review` merely because they contain an idea, claim, or external material.
+
+For a proposed change to an existing inter-module contract, resolve
+`modular-architecture-design` routing before interface design. Stable owners and
+an additive internal field can justify `BOUNDARY_NOTE`, then
+`api-and-interface-design` can handle the details; they do not erase the contract
+change. Documenting an accepted unchanged interface retains its explicit API owner.
 
 ## Core Operating Behaviors
 
@@ -190,7 +196,7 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Define | project-dialectic-review | Offer or perform a consent-scoped, project-grounded dialectical review |
 | Define | modular-architecture-design | Route boundary-changing work before implementation |
 | Define | spec-driven-development | Requirements and acceptance criteria before code |
-| Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
+| Plan | planning-and-task-breakdown | Plan tasks; for milestone queues first require authority, detailed development docs, and an explicit roadmap |
 | Build | incremental-implementation | Thin vertical slices, test each before expanding |
 | Build | source-driven-development | Verify against official docs before implementing |
 | Build | doubt-driven-development | Fresh-context review of material uncertain decisions |
