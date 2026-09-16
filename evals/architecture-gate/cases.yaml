@@ -1,6 +1,6 @@
 schema_version: 1
 skill: modular-architecture-design
-plugin_version: 4.1.0
+plugin_version: 5.0.1
 evaluation_mode: explicit_skill_invocation
 
 scoring:
@@ -10,6 +10,7 @@ scoring:
     - evidence_use
     - speculative_abstraction_control
     - canonical_architecture_brief
+    - accepted_revision_and_material_delta
   ignore:
     - exact_wording
     - heading_style
@@ -355,3 +356,57 @@ cases:
       - Recognizes that the exit condition for this accepted brief is already met.
       - Does not ask for the same acceptance again or create a sibling brief.
       - New material scope changes require renewed triage.
+
+  - id: accepted-brief-material-delta-needs-scoped-decision
+    category: boundary
+    focus: material_delta_after_acceptance
+    request: Continue the approved refund change; account for the newly observed failover requirement.
+    minimal_project_evidence:
+      - Accepted refunds-brief.md r2 and implementation authorization cover payment as the sole refund executor and owner of provider attempt state; support may submit commands only.
+      - A new failover requirement would let support execute provider refunds while payment is unavailable. This changes side-effect and deduplication ownership; r2 acceptance does not cover it.
+      - Read-only evidence identifies the affected support/payment contract and existing provider idempotency rule. No revised ownership or failure proposal has been accepted.
+    expected_path: ARCHITECTURE_GATE
+    expected_behavior: present_material_delta_and_request_one_scoped_acceptance
+    key_invariants:
+      - Compares the proposed ownership change with accepted r2 and names the exact unsupported delta instead of treating all prior acceptance as absent.
+      - Emits exactly ARCHITECTURE_GATE and keeps affected business implementation unchanged until its exit condition is met.
+      - Updates or presents one canonical brief with a concrete ownership proposal, consequences and a recommended choice; offers acceptance and continuation within existing authority, adjustment, or deferral.
+      - Explains why the decision is required and identifies the applicable gate instruction rather than asking an unexplained broad permission question.
+      - A reply applies only to the displayed revision and delta; unrelated accepted scope, provider changes and external actions do not acquire new authorization.
+
+  - id: accepted-business-rule-delegates-private-calculation
+    category: negative
+    focus: business_rule_vs_technical_computation
+    request: Use architecture triage, then finish the accepted session summary; choose the private calculation approach yourself.
+    minimal_project_evidence:
+      - Accepted summary-spec.md r3 defines average duration as total completed-session seconds divided by completed-session count, excludes timed-out sessions, rounds down, and shows no-data when the count is zero.
+      - Existing fixtures establish these outcomes. The calculation stays in the summary module with unchanged inputs, output, data ownership, dependencies and side effects.
+      - The user authorized implementation and delegated whether the private helper uses a single pass or separate filter/reduce operations.
+    expected_path: DIRECT
+    expected_behavior: implement_delegated_calculation_without_reopening_product_rule
+    key_invariants:
+      - Selects exactly DIRECT because the implementation preserves the accepted business rule and all boundaries.
+      - Chooses the private calculation method and performs relevant verification without requesting another business or architecture approval.
+      - Does not silently change the denominator, exclusion rule, rounding or zero-count behavior to simplify implementation.
+      - Does not treat arithmetic, several internal steps or the need for regression evidence as a material architecture decision.
+
+  - id: review-only-brief-acceptance-does-not-authorize-implementation
+    category: boundary
+    focus: acceptance_scope_without_implementation_authority
+    conversation:
+      - role: user
+        content: Review the proposed ownership brief and finish its documentation only; do not plan or implement the migration.
+      - role: assistant
+        content: Canonical ownership-brief.md r3 proposes one writer, reversible shadow-copy parity and cutover after acceptance. Accept this revision for the documentation review, adjust it, or defer? Acceptance continues only the requested documentation work.
+      - role: user
+        content: Accept r3 and continue the documentation review.
+    minimal_project_evidence:
+      - r3 is the exact displayed canonical brief, its ownership delta is material, and current evidence reveals no new contradiction.
+      - Only review and documentation work is authorized; implementation planning, migration execution and Goal creation are expressly outside this task.
+    expected_path: ARCHITECTURE_GATE
+    expected_behavior: reuse_brief_acceptance_within_documentation_only_scope
+    key_invariants:
+      - Preserves the material-change route and recognizes r3 acceptance without requesting it again.
+      - Records acceptance and completes the authorized review/documentation result without business implementation or an implementation plan.
+      - Does not interpret accept-and-continue wording as broader authority than the displayed proposal and original task.
+      - Does not offer or create a Goal, execute cutover or treat design acceptance as runtime acceptance.

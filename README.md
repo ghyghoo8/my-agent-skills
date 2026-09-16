@@ -51,9 +51,11 @@ codex plugin add my-agent-skills@my-agent-skills
 
 执行层支持[并行协作](plugins/my-agent-skills/references/orchestration-patterns.md#parallel-module-execution)：主控从同一队列派发依赖满足、写入及共享资源不冲突的模块任务给多个子 agent。共享契约、迁移与集成配置由单一负责人修改或串行推进；下游等待所需集成证据，主控统一完成里程碑验收。并发数量服从实际宿主容量及项目限制。
 
+执行中需要你决定时，先核对已接受方案与授权，只就尚未接受的具体变化提出一次选择。既有范围内的技术实现自主推进；改变业务含义或验收标准的决策提前在就绪检查中暴露。等待期间继续独立工作，复用现有证据和待答问题；Goal 的阻塞与恢复仍服从宿主规则，不通过重复扫描或计时轮询凑回合。接受方案不自动扩大实施权限。
+
 这项交互仅发生在当前任务内，由宿主决定显示样式；不支持选择组件时使用简短文字询问。它保持 skills-only 边界，不监听后台文件变化，也不保证像运行时 hook 一样必定触发。
 
-规则按阶段加载：仅检查就绪时读取评估规则，决定执行后再读取选择与 Goal 生命周期；里程碑专属细则只用于相应工作。[5.0 交付验证](evals/planning-and-task-breakdown/execution-handoff-5.0.0.md)记录行为样例、上下文体积测量和未验证边界。
+规则按阶段加载：仅检查就绪时读取评估规则，决定执行后再读取选择与 Goal 生命周期；里程碑专属细则只用于相应工作。[5.0 交付验证](evals/planning-and-task-breakdown/execution-handoff-5.0.0.md)记录行为样例、上下文体积测量和未验证边界；[5.0.1 决策与等待验证](evals/planning-and-task-breakdown/decision-checkpoints-5.0.1.md)补充同范围接受、待答复用和相关开销的检查。
 
 ```text
 $using-agent-skills 为这个任务选择合适的工程工作流。

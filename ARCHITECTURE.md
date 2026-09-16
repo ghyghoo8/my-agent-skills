@@ -115,6 +115,23 @@ This is a soft, instruction-only routing behavior. It cannot guarantee intercept
 
 ## Current verifiable slice
 
+### Decision checkpoints and unchanged waits (2026-09-16)
+
+`BOUNDARY_NOTE`: refine the existing planning-to-architecture handoff without
+changing owners, the four triage paths or gate exits. Before a decision pause,
+compare the concrete proposal with recorded acceptance and execution authority.
+Keep delegated technical choices with the executor; the requirements owner
+handles product choices and architecture triage handles material boundary impact.
+One scoped prompt binds its answer to the displayed proposal. Existing queue or
+decision entries retain pending input and evidence; the host still owns Goal
+lifecycle and recurrence rules. No new ledger, watcher or polling loop is added.
+
+The authorized optimization preserves all existing implementation write gates;
+it does not reopen accepted scopes or bypass unaccepted changes. Verification
+covers both continued authorized work and retained decision pauses, plus an
+unchanged blocked continuation. Source validation is separate from installation
+and live host execution.
+
 ### Development execution handoff boundary note (2026-09-10)
 
 `BOUNDARY_NOTE`: manual readiness questions and completed development handoffs

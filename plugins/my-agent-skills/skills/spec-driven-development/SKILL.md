@@ -23,6 +23,15 @@ Specify → Plan → Tasks → Implement, with a capability scope check only whe
 
 Ask when a missing decision materially affects the outcome and cannot be resolved from project evidence or delegated judgment. Continue independent work while waiting. For changes that may materially alter ownership, dependencies, contracts, or migration boundaries, hand off to `modular-architecture-design`. Preserve its single selected route, `ARCHITECTURE_GATE` / `DISCOVERY` no-write boundary, and documented exit condition; a spec or general delegation does not bypass them.
 
+For an unsettled product rule, first compare the concrete proposal with accepted
+behavior. Show its decision reference, impact and recommendation, then ask once
+through a permitted native choice or text question: accept within the current
+task's authorization, adjust, or defer. Reuse existing acceptance and pending
+questions; a reply binds only the displayed revision and scope. Silence is not
+acceptance, and accepting a specification does not grant missing implementation
+authority. Keep settled technical choices delegated and hold only dependent work;
+a product choice alone does not require an architecture brief.
+
 ### Phase 0: Scope Check
 
 Most requests describe one capability. If this one does, skip this phase and go straight to Specify — Phase 0 exists for the exception, not the rule, and it puts no hierarchy on single-capability features.

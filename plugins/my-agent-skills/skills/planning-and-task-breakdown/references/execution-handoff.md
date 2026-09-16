@@ -87,12 +87,32 @@ dependencies, environment, authorization or Goal scope change. Editorial changes
 alone do not invalidate readiness, reset a decline or reopen accepted decisions.
 Preserve completed evidence and independent authorized work.
 
-Ordinary test failures call for diagnosis and repair. Repeating the same failure
-without new evidence is not progress: retain the blocker and resolution condition
-instead of looping, weakening checks or changing provider/scope. Stop affected
-business work immediately at an unmet authority boundary; update Goal state only
-under the host's actual lifecycle rules. A tool's blocking threshold never grants
-permission to continue prohibited work.
+Ordinary test failures call for diagnosis and repair. Delegated technical choices
+do not need fresh approval. Before waiting for a decision, compare the proposed
+delta with accepted scope and authorization; identify the exact unsettled rule
+and its owner. Reuse existing acceptance and pending questions. For a material
+architecture change, follow the architecture owner's
+[brief and decision prompt](../../modular-architecture-design/references/architecture-brief.md);
+other product decisions stay with their requirements owner. Do not weaken checks
+or silently change provider/scope to escape a blocker.
+
+Stop affected business work immediately at an unmet authority boundary and
+continue independent authorized work. In the existing entry/queue retain the
+blocker, proposal/decision reference, completed evidence, affected work and the
+specific input that would unblock it. Record only needed observed Goal-turn
+history; do not add a parallel ledger or invent elapsed turns.
+
+On an unchanged continuation, check only new replies or relevant state changes.
+Do not rescan the entire conversation, refetch successful history, repeat the
+same prompt or run a known-useless test without an invalidation reason. Do not
+create timers, watches or synthetic turns to reach a blocking threshold. If no
+independent work remains, report that briefly and follow the host's actual Goal
+lifecycle rules. When its required recurrence/no-progress conditions hold,
+mark blocked through the host tool and confirm the result; until then, do not
+claim that status. A threshold neither authorizes prohibited work nor requires
+repeating it. After new input, recheck only affected readiness and preserve the
+original endpoint and evidence; resume a blocked Goal and restart any blocking
+audit only as the host permits. Silence or exhausted time is never acceptance.
 
 At each milestone, reconcile deliverables and required verification, independent
 review and acceptance evidence. Missing Owner acceptance or required integration

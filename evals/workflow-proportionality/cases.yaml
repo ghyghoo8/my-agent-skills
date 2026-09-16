@@ -1,6 +1,6 @@
 schema_version: 1
 skill: cross_skill_workflow
-plugin_version: 5.0.0
+plugin_version: 5.0.1
 evaluation_mode: clean_context_behavior_contracts
 scoring:
   observe:
@@ -12,6 +12,7 @@ scoring:
     - browser_trust_boundary
     - independent_review_proportionality
     - execution_choice_suppression_for_existing_authorization
+    - material_decision_delta_and_scoped_acceptance
   ignore:
     - exact_wording
     - heading_style
@@ -328,3 +329,34 @@ cases:
       - Treats the matching user reply as authorization for ordinary E1-E3 execution and proceeds after the appropriate current recheck.
       - Does not ask again for the same implementation scope, require unavailable Goal support or pretend that ordinary execution created a Goal.
       - Does not switch mode, create an automation/new host task or shrink the agreed acceptance endpoint to make progress.
+
+  - id: accepted-same-scope-resume-reuses-decision-and-authorization
+    category: positive
+    focus: approval_continuity_across_execution_turns
+    request: Resume the approved local import implementation and finish its verification.
+    minimal_project_evidence:
+      - The user previously accepted import-spec.md r4 and parser-brief.md r2, and explicitly authorized ordinary local parser/preview implementation through integration checks.
+      - The next task needs a private loop and fixture organization choice already delegated to the executor. Current authority, boundaries, scope and verification commands are unchanged; there is no new product decision or contradiction.
+      - The canonical queue records completed parser evidence and the pending preview task. The resumed task remains inside the original endpoint and has valid dependencies and runtime access.
+    expected_behavior: continue_unchanged_authorized_scope_without_decision_ritual
+    key_invariants:
+      - Checks the current task against accepted revisions and authorization, reuses valid evidence, and continues the delegated technical work.
+      - Does not ask the user to accept the same spec, brief, plan or implementation scope again merely because a turn or task boundary was crossed.
+      - Does not introduce a Goal choice, full readiness reassessment or architecture gate for unchanged private implementation details.
+      - Preserves ordinary execution and its actual endpoint; approval continuity does not authorize extra features, deployment or external actions.
+
+  - id: unaccepted-business-rule-requires-concrete-versioned-decision
+    category: boundary
+    focus: consequential_rule_vs_delegated_technical_detail
+    request: Finish the session summary; choose the implementation details yourself.
+    minimal_project_evidence:
+      - Accepted summary-spec.md r2 defines labels and completed-session inputs but never decides whether timed-out sessions enter the average-duration denominator. Existing fixtures contain only completed sessions and cannot establish that rule.
+      - Including timed-out sessions changes the user-visible metric and its acceptance results. The summary module and its dependencies would remain unchanged, so this is a product-rule decision rather than an architecture boundary change.
+      - Read-only investigation is complete. A reviewable r3 proposal excludes timed-out sessions from both count and total, shows no-data for zero completed sessions and keeps existing behavior for all completed-only fixtures.
+    expected_behavior: present_one_scoped_product_decision_then_hold_affected_calculation
+    key_invariants:
+      - Distinguishes the missing business rule from delegated loop, data-structure or helper choices; does not silently invent the metric definition.
+      - Presents the r3 rule, its observable impact and recommendation with accept-and-continue, adjust or defer choices, after comparing it with accepted r2.
+      - Holds dependent metric implementation while continuing independent authorized work; does not manufacture an architecture gate solely because the computation matters.
+      - Acceptance applies to the displayed r3 rule and the existing implementation authority; it does not cover later denominator changes or expand the feature scope.
+      - Does not ask a second equivalent question while this concrete decision remains pending or require full-spec reapproval for settled labels and inputs.

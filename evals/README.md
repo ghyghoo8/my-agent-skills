@@ -1,19 +1,23 @@
 # Evals
 
+[5.0.1 decision checkpoint verification](planning-and-task-breakdown/decision-checkpoints-5.0.1.md) records scoped acceptance and Goal waiting samples, a preserved readiness failure and its targeted correction, unchanged discovery metadata, and the limits of next-action simulation.
+
 [5.0 execution handoff verification](planning-and-task-breakdown/execution-handoff-5.0.0.md) records targeted clean-context next-action samples, preserved failures and regressions, the parallel writer correction, and before/after instruction-size measurements. These are separate from the historical evaluation below.
 
 [Completed 2026-09-10 model evaluation](planning-and-task-breakdown/model-evaluation-2026-09-10.md) records all 73 original behavior cases, separately preserved corrections and targeted regressions, the 15-run coding comparison, and final independent review. Its stated coverage and experimental limits apply; static validation alone never establishes model behavior.
 
 The repository keeps structured, wording-independent cases for the public behavior of the plugin:
 
-- `architecture-gate/cases.yaml`: 21 cases for the four exclusive architecture paths, task authorization, write boundary, and adoption handoff.
+- `architecture-gate/cases.yaml`: 24 cases for the four exclusive architecture paths, task authorization, write boundary, and adoption handoff.
 - `capability-adoption-assessment/cases.yaml`: 13 cases for Value, Cost, net result, single recommendation, adjacent ownership, and write boundaries.
 - `project-dialectic-review/cases.yaml`: 18 cases for trigger, consent, project evidence, revision, and untrusted material.
-- `discovery/cases.yaml`: 55 cross-skill routing cases, including manual readiness questions and completed substantial module/refactor handoffs, plus the unchanged 7000-character discovery metadata budget.
-- `planning-and-task-breakdown/cases.yaml`: 53 cases for milestone document prerequisites, executable queues, planning scope, five core responsibilities, exact admitted milestone model pairs, integration and acceptance evidence; current-task execution choices, whole-scope admission, manual assessment/preparation, Goal lifecycle, independent module parallelism, and stopping active stale writers before reassignment.
+- `discovery/cases.yaml`: 56 cross-skill routing cases, including manual readiness questions and completed substantial module/refactor handoffs, plus the unchanged 7000-character discovery metadata budget.
+- `planning-and-task-breakdown/cases.yaml`: 57 cases for milestone document prerequisites, executable queues, planning scope, five core responsibilities, exact admitted milestone model pairs, integration and acceptance evidence; current-task execution choices, whole-scope admission, manual assessment/preparation, Goal lifecycle, independent module parallelism, and stopping active stale writers before reassignment.
 - `performance-optimization/cases.yaml`: 5 cases for measurement-first database, pool, cache, and telemetry-scope decisions.
-- `workflow-proportionality/cases.yaml`: 21 cases for contextual consent, approval continuity, artifact preservation, focused verification, browser safety, scoped review, and execution-choice suppression for already authorized or explicitly non-execution work.
+- `workflow-proportionality/cases.yaml`: 23 cases for contextual consent, approval continuity, artifact preservation, focused verification, browser safety, scoped review, and execution-choice suppression for already authorized or explicitly non-execution work.
 - `security-and-hardening/cases.yaml`: 2 cases for shared and single-process rate-limit requirements.
+
+Version 5.0.1 adds 10 cases across architecture, planning, proportionality and discovery. It preserves all 150 pre-existing cases in those suites. The additions check accepted-scope continuity, technical discretion versus material new rules, scoped answers without implementation expansion, and Goal waiting without repeated evidence gathering or synthetic turns.
 
 Each case records the request or conversation, minimum project evidence, expected observable behavior, and key invariants. Do not score exact wording or heading style.
 

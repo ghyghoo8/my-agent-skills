@@ -72,6 +72,7 @@ mappings:
       - testing-patterns.md
 
 downstream_adaptations:
+  - Compare proposed decision deltas with recorded acceptance and execution authority; retain architecture gate exits, scoped native decision prompts and canonical evidence while avoiding repeated unchanged Goal wait work.
   - Load readiness assessment, execution handoff and milestone-only detail by stage; retain full authorization, model and acceptance contracts while reducing unrelated instruction loading.
   - Keep idea-refine instruction-only; do not restore its shell helper.
   - Keep Chrome DevTools MCP optional and user-authorized.

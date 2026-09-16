@@ -61,3 +61,26 @@ Accepted on: <date or decision reference>
 ```
 
 Keep the brief proportional. Do not add a roadmap, speculative extension points, or a catalog of alternatives. The purpose is to make the current boundary decision testable and reversible.
+
+## Obtain the Missing Decision Once
+
+Before asking, link the concrete brief and identify its revision or decision
+reference, the change from accepted behavior, its impact and your recommended
+option. Complete authorized investigation and independent review first when
+needed; a reviewer passing the brief is evidence, not user acceptance.
+
+Prefer one permitted native selection with options equivalent to **Accept and
+continue the already-authorized scope**, **Adjust the proposal**, and **Defer**.
+If implementation is not authorized, label the first option **Accept the brief
+only** and name the allowed next action. Respect the host tool's rules; use one
+concise text question if no suitable selection tool exists. Do not change modes
+or add a runtime widget merely to show options.
+
+An explicit answer applies to the displayed proposal and scope. Silence, a
+default selection, review success or unrelated acknowledgment is not acceptance.
+Keep a pending or deferred choice in the existing decision/queue entry; do not
+ask again on an unchanged resume. Reopen only for a material new proposal or an
+explicit user request. On acceptance, record its reference, check only relevant
+changes since presentation, and continue within existing authorization without
+another start approval. A stale answer does not accept a materially revised
+proposal; "adjust" authorizes refinement, not its implementation.

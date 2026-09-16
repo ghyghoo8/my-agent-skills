@@ -70,6 +70,19 @@ infeasibility; identify their actual effect on delivery.
 | Can routine failures be handled? | The executor owns ordinary diagnosis and repair within scope; permitted recovery, stop conditions, integration responsibility and review/acceptance ownership are clear. |
 | Where is human participation still needed? | Name remaining decision/acceptance points, their trigger, owner and effect on dependent work. Do not invent a participation percentage or imply those checkpoints have passed. |
 
+Resolve known changes to business meaning or acceptance criteria during this
+preparation, or expose their explicitly agreed decision checkpoint before
+delegation. Link accepted decisions and bounded technical discretion in the
+existing entry/queue; do not postpone a known normative gap until dispatch.
+Implementation choices within those bounds remain delegated, not new approvals.
+
+For a missing decision, show the concrete proposal/reference, consequences and
+an explicit evidence-based recommendation; if evidence cannot support a choice,
+recommend the specific preparation needed instead. Offer accept within existing
+authorization, adjust or defer once through a permitted native choice or text
+question. Reuse a pending question or valid acceptance; acceptance binds only the
+displayed revision and scope and does not grant missing execution authority.
+
 An explicit human acceptance point can coexist with feasible autonomous work up
 to that point. It must be visible in the agreed delivery path; missing acceptance
 evidence still prevents milestone/Goal completion. An unresolved critical product
@@ -99,4 +112,3 @@ authorization, read [Execution Handoff](execution-handoff.md) for the scoped
 choice, Goal handling and ongoing readiness/acceptance rules before dispatch.
 Explicit check-only or planning-only work ends with the assessment; do not load
 that execution reference or inspect Goal state just to report readiness.
-

@@ -75,12 +75,23 @@ For `BOUNDARY_NOTE`, record the affected local contract and the responsibilities
 
 For `ARCHITECTURE_GATE`:
 
-An existing accepted brief satisfies acceptance for its exact scope across turns. Keep the material-change route and proceed through its satisfied exit without requesting the same acceptance again. New material changes or contradictory evidence require renewed triage; general delegation alone is not brief acceptance. Until acceptance is satisfied:
+Before pausing, compare the proposed change with the accepted brief and applicable
+execution authorization. Cite the accepted scope/decision reference and the
+specific remaining delta in the existing brief or triage evidence. If the same
+scope is already accepted, keep the material-change route and proceed through
+its satisfied exit without asking again. A new session, editorial revision or
+missing copy in a status note does not cancel recorded acceptance; locate the
+existing decision before asking the user to repeat it.
+
+New material changes or contradictory evidence require renewed triage of the
+affected work. General delegation alone is not acceptance of a new brief, and
+brief acceptance alone does not expand implementation authorization. Until the
+applicable acceptance is satisfied:
 
 - do not modify business implementation code;
 - read [references/architecture-brief.md](references/architecture-brief.md);
 - update an existing authoritative brief when one exists, otherwise create or present one canonical brief;
-- ask the user to accept the brief before producing an implementation plan or changing business code.
+- use the brief reference's scope-bound decision prompt before producing an implementation plan or changing business code; reuse an outstanding prompt for the same proposal.
 
 For `DISCOVERY`:
 

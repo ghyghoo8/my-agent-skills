@@ -27,6 +27,16 @@ Evidence must describe both the current boundary and the proposed delta. Useful 
 
 Names and layout are clues, not proof. A directory named `services`, a large file, or a user request to "make it modular" does not establish ownership.
 
+Compare observable behavior with the accepted contract, including its existing
+decision delegation. Implementing an agreed metric with a different private
+algorithm is ordinary technical work when results, acceptance, ownership and
+contracts remain unchanged. Redefining a shared metric's denominator or pass
+criterion can change contract semantics even when files and owners stay the
+same. Name that concrete difference rather than gating on words such as "new
+evaluation". A product-rule question with no architectural boundary impact
+belongs to the requirements owner; do not invent an architecture gate, or
+implement an unresolved product choice under a technical-work label.
+
 ## Decision Test
 
 Ask the questions in order:

@@ -182,6 +182,12 @@ Each increment should be independently revertable:
 
 ## Working with Agents
 
+When an existing Goal is waiting on a decision or acceptance, retain execution
+ownership and consult only the handoff's
+[ongoing readiness and waiting rules](../planning-and-task-breakdown/references/execution-handoff.md#3-preserve-readiness-and-acceptance-during-execution).
+This reuses the pending checkpoint; it does not restart admission or offer Goal
+creation for ordinary authorized implementation.
+
 For multiple independent modules, use the shared
 [parallel execution contract](../../references/orchestration-patterns.md#parallel-module-execution).
 One controller selects a bounded set of authorized READY tasks, assigns disjoint

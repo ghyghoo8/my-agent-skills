@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 5.0.0
+plugin_version: 5.0.1
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,7 +14,7 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 5.0.0
+    plugin_version: 5.0.1
     skill_count: 27
     maximum_raw_characters: 7000
   checks:
@@ -1045,3 +1045,19 @@ cases:
       - Makes the narrow documentation correction and verifies the affected text without a new lifecycle.
       - Does not load unrelated delivery documents, synthesize a queue, assess all project work or show a start-execution choice.
       - Does not turn documentation-and-adrs or using-agent-skills into a background hook or session-wide readiness monitor.
+
+  - id: unchanged-goal-blocker-keeps-existing-execution-owner
+    category: negative
+    focus: blocker_continuation_is_not_new_workflow_entry
+    request: Continue the authorized delivery Goal from its existing queue.
+    minimal_project_evidence:
+      - incremental-implementation already owns accepted local export E1-E3 execution under G-EXPORT. export-status.md preserves current readiness evidence, task dependencies and a pending concrete Owner question for E3's retention rule.
+      - No answer, authority change, new boundary or contradictory evidence has arrived. E2 cancellation remains independently executable under its accepted contract, current runtime and original implementation authorization.
+      - This is a continuation of the same scope, not a request for a new readiness check, architecture proposal, adoption decision or workflow-selection exercise. Host Goal lifecycle constraints remain applicable.
+    expected_selection: incremental-implementation
+    expected_behavior: reuse_existing_checkpoint_and_continue_independent_execution
+    key_invariants:
+      - Keeps the existing execution owner and canonical queue, holds gated E3, and continues independently authorized E2 with focused checks.
+      - Reuses the pending question and valid evidence rather than re-entering full planning/readiness assessment or asking the same approval again.
+      - Does not trigger using-agent-skills, capability-adoption-assessment or modular-architecture-design merely because a Goal continuation contains a blocker.
+      - Applies actual host blocking rules without artificial polling, duplicate Goals or a background monitor; unresolved approval remains unresolved.

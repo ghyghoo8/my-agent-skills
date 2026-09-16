@@ -1,6 +1,6 @@
 schema_version: 1
 skill: planning-and-task-breakdown
-plugin_version: 5.0.0
+plugin_version: 5.0.1
 evaluation_mode: clean_context_behavior_contracts
 scoring:
   observe:
@@ -18,6 +18,8 @@ scoring:
     - current_task_execution_choice_and_reply_scope
     - whole_delegated_scope_admission_and_goal_lifecycle
     - conditional_reference_loading
+    - early_human_decision_and_delta_bound_checkpoint
+    - unchanged_blocker_evidence_reuse_and_host_lifecycle
   ignore:
     - exact_wording
     - heading_style
@@ -1483,3 +1485,75 @@ cases:
       - Preserves A's existing changes and receipts as evidence, reconciles them with r3, and reruns the required current-contract checks before accepting or integrating them; old r2 success does not satisfy P1/P2 readiness.
       - Continues unaffected authorized B without a global stop, while retaining a single controller, canonical queue and explicit writer ownership.
       - Does not change or shrink the Goal endpoint, mark the Goal complete, or dispatch dependent preview work before current-contract integration evidence is valid.
+
+  - id: readiness-surfaces-known-human-decision-before-dispatch
+    category: boundary
+    focus: early_decision_checkpoint
+    request: Finish the archive refactor handoff and assess whether its entire scope is ready for delegated execution.
+    minimal_project_evidence:
+      - Accepted archive-contract.md r2 retains original records during shadow-copy parity. R1 adapter and R2 parity are fully specified; R3 cleanup remains part of the requested endpoint.
+      - Preparing the handoff reveals that R3 still lacks an accepted retention and deletion rule. The proposed r3 keeps originals for 30 days after parity, changes rollback availability, and requires an Owner decision before cleanup can be authorized.
+      - archive-status.md is the single queue. R1/R2 technical choices are delegated and their preparation is authorized, but neither execution nor the new deletion rule is approved. Relevant current evidence is already available.
+    expected_behavior: expose_concrete_known_decision_during_readiness
+    key_invariants:
+      - Compares r3 with accepted r2 and surfaces the exact retention/rollback decision while assessing the whole scope, before reaching dependent R3 execution.
+      - Presents the reviewable proposal, its consequences, recommendation and scoped accept-and-continue, adjust or defer choices once through a permitted mechanism.
+      - Names the decision owner, trigger and affected work; does not claim blanket readiness or silently remove cleanup from the endpoint.
+      - Continues independent authorized preparation without reopening settled R1/R2 technical choices.
+      - Acceptance of the proposed rule authorizes only the displayed decision and already authorized preparation; it does not create implementation or Goal authority.
+
+  - id: unchanged-goal-blocker-reuses-pending-question-and-independent-work
+    category: positive
+    focus: productive_wait_and_question_reuse
+    request: Continue the already authorized export delivery Goal from its saved state.
+    minimal_project_evidence:
+      - G-EXPORT is the matching active Goal; export-status.md records E3 blocked on Owner acceptance of retention-brief.md r3 and a still-pending concrete decision question. The question, evidence, affected scope and unblocking condition are preserved from the preceding turn.
+      - No new answer, authority revision, dependency change or contradictory evidence arrived. Recent receipts establish that E3 remains gated; recreating the same proposal or scanning the full repository would add no decision-relevant evidence.
+      - E2 cancellation tests and implementation remain independently authorized under an unchanged accepted contract, with current runtime and fixtures. E2 does not depend on E3's retention decision and has an assigned executor.
+      - Host blocked rules require both the configured consecutive-turn threshold and an impasse with no meaningful independent work. The scenario supplies host facts; evaluation must not operate live Goal or question tools.
+    expected_behavior: reuse_blocker_and_continue_independent_authorized_work
+    key_invariants:
+      - Reuses the matching Goal, canonical queue, valid evidence and existing pending question rather than launching another Goal, question or full readiness scan.
+      - Keeps E3 business implementation stopped and continues E2 using only the focused current checks needed for its own contract.
+      - Does not label the entire Goal blocked while meaningful independent authorized work remains or count repeated inspections as progress.
+      - Does not send another equivalent decision request or treat silence, elapsed time or automatic continuation as acceptance.
+      - Preserves the original endpoint and acceptance requirement; waiting does not authorize a provider change, reduced scope, automation or different task.
+
+  - id: unchanged-goal-impasse-marks-blocked-only-at-host-threshold
+    category: boundary
+    focus: host_blocked_threshold_without_artificial_polling
+    request: Reconcile the active delivery Goal using the saved acceptance blocker.
+    minimal_project_evidence:
+      - G-IMPORT still requires the Owner's mixed-file preview acceptance. All independently authorized implementation, verification and preparation is complete; there is no remaining meaningful work without that input.
+      - import-status.md retains the exact blocker, current receipts, completed work and a pending Owner question. No relevant input or external-state change occurred since the previous reconciliation.
+      - This is the third consecutive actual Goal turn with the same impasse, including the original turn and two host continuations. The current host update_goal contract permits blocked at this threshold; repeated tool calls, sleeps or fabricated continuations are not turns.
+      - The existing pending question already provides the necessary concrete action and effect on acceptance. No additional investigation can resolve the Owner decision.
+    expected_behavior: reuse_saved_impasse_and_apply_host_blocked_transition
+    key_invariants:
+      - Uses the preserved evidence and a focused confirmation of relevant changes, without repeating a full repository, handoff or readiness scan.
+      - Marks the Goal blocked under the actual host contract once both the threshold and lack of meaningful progress hold; does not leave it active merely to repeat the same status.
+      - Does not sleep, poll, self-generate turns or create an automation to accumulate a blocking threshold; before the threshold, affected work would still remain stopped.
+      - Reuses the pending question and unblocking condition rather than asking for the same acceptance on every continuation.
+      - Does not mark the Goal complete, weaken acceptance, invent an Owner receipt or treat blocker status as permission to cross the gate.
+
+  - id: exact-version-answer-resumes-only-affected-authorized-scope
+    category: positive
+    focus: scoped_acceptance_resume_and_fresh_blocked_audit
+    conversation:
+      - role: user
+        content: Execute archive R1-R3 with Goal through the accepted local parity and retention checks; exclude production cutover.
+      - role: assistant
+        content: G-ARCHIVE is waiting on retention-brief.md r3. Keep originals for 30 days after parity and retain rollback until then; this adds bounded storage use. Accept r3 and continue the authorized local scope, adjust it, or defer? I recommend accepting this revision.
+      - role: user
+        content: Accept r3 as proposed and resume the same Goal within the stated local scope.
+    minimal_project_evidence:
+      - The host reports the same G-ARCHIVE resumed and active. Its previous blocked audit is historical; current host rules restart the audit after a user resumes a blocked Goal.
+      - r3 is still the exact displayed proposal. Its acceptance resolves the only missing normative decision; current authority, relevant runtime/fixtures and affected R3 dependencies satisfy the local task contract.
+      - R1/R2 have preserved accepted receipts in archive-status.md, the only queue. No new evidence affects their contracts or results; the authorized endpoint and production-cutover exclusion are unchanged.
+    expected_behavior: apply_matching_acceptance_and_resume_without_reapproval
+    key_invariants:
+      - Binds the reply to r3 and existing R1-R3 authorization, rechecks the affected decision, dependencies and actual Goal state, then resumes permitted execution through the existing owner.
+      - Reuses unchanged R1/R2 evidence and the same Goal; does not restart a full assessment, duplicate the question or require another per-task approval.
+      - Applies the acceptance only to its displayed revision and scope; does not infer permission for production cutover, external deletion, a new provider or a revised r4 proposal.
+      - Does not carry the previous blocked audit's turn count into a new host blocking decision after the user resumes the Goal.
+      - Records actual verification and acceptance evidence in the existing queue; a decision reply alone does not establish task or Goal completion.

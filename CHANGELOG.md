@@ -2,6 +2,15 @@
 
 All notable downstream changes are recorded here.
 
+## [5.0.1] - 2026-09-16
+
+### Fixed
+
+- Compare a proposed decision with existing acceptance and execution authorization before pausing. Reuse same-scope acceptance across sessions; distinguish delegated technical implementation from changes to business meaning or acceptance criteria.
+- Expose known human decisions during readiness preparation. For an unresolved architecture brief, present one concrete, scoped decision using a permitted native choice or text fallback; acceptance does not expand implementation authorization.
+- Reuse pending questions and valid evidence during Goal waits. Continue independent work, avoid unchanged full-history scans and repeated requests, and obey host blocking/resume rules without synthetic turns or a second state ledger.
+- Preserve the four architecture routes, their existing acceptance/write boundaries, Goal tool contracts and discovery metadata. This patch clarifies their application; it does not add a trigger, universal approval step or runtime hook.
+
 ## [5.0.0] - 2026-09-10
 
 ### Changed
