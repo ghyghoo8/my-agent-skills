@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 5.0.1
+plugin_version: 5.1.0
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,7 +14,7 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 5.0.1
+    plugin_version: 5.1.0
     skill_count: 27
     maximum_raw_characters: 7000
   checks:

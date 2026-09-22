@@ -118,6 +118,22 @@ Long conversations accumulate stale context. Manage this:
 - **Summarize progress** when context is getting long: "So far we've completed X, Y, Z. Now working on W."
 - **Compact deliberately** — if the tool supports it, compact/summarize before critical work
 
+### Restartable Session Boundaries
+
+At a completed task boundary, keep a compact handoff in the existing spec, plan,
+or project-designated task record: accepted scope and decision references, current
+status and next task, changed files and working-tree state, exact verification
+commands and outcomes, and unresolved questions or required approvals. Commit only
+when authorized; otherwise record that the changes remain uncommitted.
+
+When resuming, read the relevant rules and handoff, then verify the actual working
+tree and affected dependencies. Reuse verifiable prior acceptance and authority,
+including available conversation evidence; a missing status note alone does not
+invalidate them. Re-run checks when their baseline is missing, has changed, or no
+longer supports the next task. Distinguish task completion from an interrupted
+process. Session restart, compaction, and process supervision belong to the host;
+this Skill does not install a restart loop or create another task automatically.
+
 ## Context Packing Strategies
 
 ### The Brain Dump
@@ -176,6 +192,21 @@ Key files: validation.ts, errors.ts, db.ts
 ```
 
 Load only the relevant section when working on a specific area.
+
+## Context Budget Management
+
+When context grows or relevant evidence becomes difficult to recover, summarize
+before it obscures the active task. Use host-provided compaction or summaries when
+available; do not invent a remaining-capacity percentage or require a fixed token
+threshold.
+
+- Compress resolved attempts, verbose tool output, and superseded drafts into
+  conclusions and evidence pointers. Retain original failure or audit evidence
+  when it remains relevant; this does not authorize deleting files or history.
+- Protect the current objective, scope, accepted decisions and authorization,
+  active error, latest affected source, verification baseline, and pending work.
+- Place the next task and current blocker together in the handoff so a resumed
+  agent can find them without replaying the entire investigation.
 
 ## MCP Integrations
 
@@ -288,3 +319,4 @@ After setting up context, confirm:
 - [ ] Agent output follows the patterns shown in the rules file
 - [ ] Agent references actual project files and APIs (not hallucinated ones)
 - [ ] Context is refreshed when switching between major tasks
+- [ ] A needed handoff preserves scope, decisions, pending work, working-tree state, and verification evidence without inventing acceptance or losing existing authorization

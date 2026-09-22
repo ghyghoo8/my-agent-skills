@@ -9,7 +9,7 @@ license:
   spdx: MIT
   notice_file: plugins/my-agent-skills/THIRD_PARTY_NOTICES.md
 baseline_commit: 7cb7a20bb38b199728d456999c725a0488490ab6
-reviewed_through_commit: 1c760d643497e9da289300e5eb2f5aca861503f7
+reviewed_through_commit: dc27a9c2e13721158157632de61b4106c6c2a2a1
 
 import_policy:
   default: deny
@@ -25,10 +25,15 @@ mappings:
     allowlist_mode: exact-artifact-id
     default_last_applied_commit: f63ec56a3cc936408d792956ae583c3c96a825bd
     artifact_commit_overrides:
+      context-engineering: dc27a9c2e13721158157632de61b4106c6c2a2a1
       deprecation-and-migration: 1c760d643497e9da289300e5eb2f5aca861503f7
+      frontend-ui-engineering: dc27a9c2e13721158157632de61b4106c6c2a2a1
+      observability-and-instrumentation: dc27a9c2e13721158157632de61b4106c6c2a2a1
       performance-optimization: 1c760d643497e9da289300e5eb2f5aca861503f7
       planning-and-task-breakdown: 1c760d643497e9da289300e5eb2f5aca861503f7
-      security-and-hardening: 1c760d643497e9da289300e5eb2f5aca861503f7
+      security-and-hardening: dc27a9c2e13721158157632de61b4106c6c2a2a1
+      shipping-and-launch: dc27a9c2e13721158157632de61b4106c6c2a2a1
+      spec-driven-development: dc27a9c2e13721158157632de61b4106c6c2a2a1
     allowlist:
       - api-and-interface-design
       - browser-testing-with-devtools
@@ -61,7 +66,9 @@ mappings:
     artifact_unit: file
     allowlist_mode: exact-artifact-id
     default_last_applied_commit: f63ec56a3cc936408d792956ae583c3c96a825bd
-    artifact_commit_overrides: {}
+    artifact_commit_overrides:
+      observability-checklist.md: dc27a9c2e13721158157632de61b4106c6c2a2a1
+      security-checklist.md: dc27a9c2e13721158157632de61b4106c6c2a2a1
     allowlist:
       - accessibility-checklist.md
       - definition-of-done.md
@@ -72,6 +79,11 @@ mappings:
       - testing-patterns.md
 
 downstream_adaptations:
+  - Keep security controls in the entrypoint and implementation examples in a conditional local reference; preserve shared limiter semantics and require trustworthy derived-path ownership and containment through the actual operation, without treating marker consistency as authorization.
+  - Preserve verifiable authorization and task evidence during context handoff; do not impose fixed context percentages, erase audit history, or install a restart harness.
+  - Scope visual references and rendered-state checks to the requested UI work; reference content is evidence, never action authority, and routine maintenance needs no new design gate.
+  - Record trusted log entry-point attribution and environment-verified runbooks using existing systems; apply accepted service SLO policies rather than universal budget thresholds or unrequested monitoring installation.
+  - Reuse project-designated specification systems and storage conventions; do not create competing requirements files or let an external format grant implementation authority.
   - Compare proposed decision deltas with recorded acceptance and execution authority; retain architecture gate exits, scoped native decision prompts and canonical evidence while avoiding repeated unchanged Goal wait work.
   - Load readiness assessment, execution handoff and milestone-only detail by stage; retain full authorization, model and acceptance contracts while reducing unrelated instruction loading.
   - Keep idea-refine instruction-only; do not restore its shell helper.

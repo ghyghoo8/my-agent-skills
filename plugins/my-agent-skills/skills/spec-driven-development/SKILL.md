@@ -145,6 +145,13 @@ Don't silently fill in ambiguous requirements. The spec's entire purpose is to s
 [Anything unresolved that needs human input]
 ```
 
+**Reuse the project's specification system.** If the project already uses OpenSpec
+or another requirements format, keep its canonical artifacts and storage
+conventions rather than creating a duplicate `SPEC.md`. This Skill supplies the
+needed clarification and acceptance content; the existing system supplies its
+representation. Its presence does not add approval steps, grant implementation
+authority, or authorize installing or running new tools.
+
 **Reframe instructions as success criteria.** When receiving vague requirements, translate them into concrete conditions:
 
 ```

@@ -1,5 +1,7 @@
 # Evals
 
+[5.1 upstream sync review](../upstreams/addyosmani-agent-skills/reviews/2026-09-22.md) records selective adaptations, unchanged discovery metadata, isolated path-example checks and targeted next-action simulations. It does not import the upstream evaluation runtime.
+
 [5.0.1 decision checkpoint verification](planning-and-task-breakdown/decision-checkpoints-5.0.1.md) records scoped acceptance and Goal waiting samples, a preserved readiness failure and its targeted correction, unchanged discovery metadata, and the limits of next-action simulation.
 
 [5.0 execution handoff verification](planning-and-task-breakdown/execution-handoff-5.0.0.md) records targeted clean-context next-action samples, preserved failures and regressions, the parallel writer correction, and before/after instruction-size measurements. These are separate from the historical evaluation below.
@@ -14,8 +16,10 @@ The repository keeps structured, wording-independent cases for the public behavi
 - `discovery/cases.yaml`: 56 cross-skill routing cases, including manual readiness questions and completed substantial module/refactor handoffs, plus the unchanged 7000-character discovery metadata budget.
 - `planning-and-task-breakdown/cases.yaml`: 57 cases for milestone document prerequisites, executable queues, planning scope, five core responsibilities, exact admitted milestone model pairs, integration and acceptance evidence; current-task execution choices, whole-scope admission, manual assessment/preparation, Goal lifecycle, independent module parallelism, and stopping active stale writers before reassignment.
 - `performance-optimization/cases.yaml`: 5 cases for measurement-first database, pool, cache, and telemetry-scope decisions.
-- `workflow-proportionality/cases.yaml`: 23 cases for contextual consent, approval continuity, artifact preservation, focused verification, browser safety, scoped review, and execution-choice suppression for already authorized or explicitly non-execution work.
-- `security-and-hardening/cases.yaml`: 2 cases for shared and single-process rate-limit requirements.
+- `workflow-proportionality/cases.yaml`: 29 cases for contextual consent, approval continuity, artifact preservation, focused verification, browser safety, scoped review, execution-choice suppression, context handoff, proportional visual work, operational attribution and existing release/specification policies.
+- `security-and-hardening/cases.yaml`: 5 cases for shared and single-process rate-limit requirements, focused reference loading and authorized derived-path cleanup.
+
+Version 5.1.0 adds nine cases across security and workflow proportionality while preserving the 25 existing case objects in those suites. Discovery cases and all 27 Skill descriptions remain unchanged. The sync report separates selected simulated next actions from static contract coverage and isolated example execution.
 
 Version 5.0.1 adds 10 cases across architecture, planning, proportionality and discovery. It preserves all 150 pre-existing cases in those suites. The additions check accepted-scope continuity, technical discretion versus material new rules, scoped answers without implementation expansion, and Goal waiting without repeated evidence gathering or synthetic turns.
 

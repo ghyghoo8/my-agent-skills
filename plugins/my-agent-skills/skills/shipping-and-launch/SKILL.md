@@ -235,6 +235,21 @@ In the first hour after launch:
 6. Confirm rollback mechanism works (dry run if possible)
 ```
 
+## Error Budget and Release Policy
+
+When the service has an SLO and an accepted error-budget policy, check the
+remaining budget, burn rate, and measurement window before advancing a rollout.
+Apply that service's documented advance, hold, rollback, and recovery conditions;
+do not impose a universal percentage or freeze unrelated work. A canary that
+breaches the agreed burn-rate condition warrants a hold even when its current
+error rate looks normal. A calendar budget reset alone is not evidence that a
+known reliability problem is resolved.
+
+If the policy or measurements are missing, report the gap and assess it against
+the accepted release criteria. Do not fabricate a budget, declare launch safety,
+or install monitoring without authorization. Propose the missing policy only when
+the release decision needs it; reuse the existing observability workflow.
+
 ## Rollback Strategy
 
 Every deployment needs a rollback plan before it happens:
@@ -269,6 +284,7 @@ Every deployment needs a rollback plan before it happens:
 - For security pre-launch checks, see `../../references/security-checklist.md`
 - For performance pre-launch checklist, see `../../references/performance-checklist.md`
 - For accessibility verification before launch, see `../../references/accessibility-checklist.md`
+- For SLO-based signals, alerts, and runbooks, see `observability-and-instrumentation`
 
 ## Common Rationalizations
 
@@ -299,6 +315,7 @@ Before deploying:
 - [ ] Rollback plan documented
 - [ ] Monitoring dashboards set up
 - [ ] Team notified of deployment
+- [ ] Any applicable service error-budget policy is checked against current evidence, with missing measurements and unresolved release decisions recorded
 
 After deploying:
 

@@ -26,6 +26,7 @@ Telemetry without a question is noise. Before instrumenting anything:
 - [ ] Logs are structured (JSON) with stable event names — not free-form strings
 - [ ] Every log line carries a correlation/request ID, generated or accepted at the system boundary
 - [ ] Correlation ID is propagated on every outbound call and async boundary (HTTP headers, queue metadata)
+- [ ] Log streams shared by several entry points record a bounded entry-point field at a trusted boundary and propagate it with the correlation ID; attribution is not guessed from timing or caller-controlled labels
 - [ ] Log levels are consistent: `error` = invariant broken, someone may act; `warn` = degraded but handled; `info` = significant business event; `debug` = off in production
 - [ ] No secrets, tokens, passwords, or unredacted PII in any log line (hard rule from `security-and-hardening`)
 - [ ] Fields are allowlisted — no whole request/response bodies, no auth headers

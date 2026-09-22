@@ -88,6 +88,14 @@ app.use((req, res, next) => {
 });
 ```
 
+**Name the entry point when several paths share a log sink.** A correlation ID
+identifies a run, not whether a scheduler, replay endpoint, or manual CLI started
+it. Set a bounded field such as `entryPoint` at the trusted entry boundary and
+propagate it alongside the correlation ID across queue and service boundaries.
+Use the project's logging schema and established trust rules; caller-controlled
+metadata alone is not proof of origin. Do not infer attribution from timing or an
+unrelated field when the entry point was not recorded.
+
 **Never log secrets, tokens, passwords, or full PII.** This is a hard rule from the `security-and-hardening` skill — telemetry pipelines are a classic data-leak path. Allowlist fields; don't log whole request bodies.
 
 ### 4. Metrics
@@ -154,6 +162,15 @@ Rules for every alert you create:
 3. **It has a threshold and duration** justified by the SLO or by historical data, not by a guess.
 4. Use two severities only: **page** (user-facing, act now) and **ticket** (degradation, act this week). A third tier becomes noise that trains people to ignore everything.
 
+#### Writing Runbooks
+
+Use the project's existing runbook location. A minimal alert runbook records what
+the observed symptom means, the first safe check with its interpretation, and the
+responsible escalation path. Keep suspected causes distinct from established
+diagnosis; use commands and links verified for this environment. Add further steps
+only when needed to choose the next action. Correct stale or missing steps found
+during an incident as part of the authorized follow-up work.
+
 ### 7. Verify the telemetry itself
 
 Instrumentation is code; it can be wrong. Before calling the work done, trigger the paths and look at the actual output:
@@ -193,6 +210,7 @@ After instrumenting a feature, confirm:
 
 - [ ] The on-call questions for this feature are written down, and each signal maps to one
 - [ ] All log output is structured (JSON), with stable event names and a correlation ID on every line
+- [ ] Shared log sinks preserve a recorded entry-point field across boundaries; a caller-supplied label or inferred correlation is not treated as verified origin
 - [ ] No secrets, tokens, or unredacted PII in any log line (spot-check actual output)
 - [ ] RED metrics exist for every new endpoint and every external dependency, with bounded label sets
 - [ ] Latency is a histogram; p95/p99 are queryable

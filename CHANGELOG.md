@@ -2,6 +2,19 @@
 
 All notable downstream changes are recorded here.
 
+## [5.1.0] - 2026-09-22
+
+### Added
+
+- Review derived filesystem targets by their source, resolved containment, protected ownership evidence and check/use safety; reject unsafe cleanup without broadening its target.
+- Preserve restartable task evidence and existing authorization when summarizing context; reuse established specification systems instead of creating duplicate documents.
+- Add conditional visual-reference guidance, rendered UI completion checks, explicit log entry-point attribution, compact runbooks and project-defined error-budget release checks.
+
+### Changed
+
+- Move security implementation examples into a Skill-local reference loaded for the relevant risk, retaining deployment-wide rate limiting and supply-chain safeguards.
+- Selectively adapt the registered upstream update while retaining all 27 Skill descriptions, existing interview/Goal/architecture boundaries and the skills-only plugin surface. See the [sync review](upstreams/addyosmani-agent-skills/reviews/2026-09-22.md) for accepted and rejected artifacts and validation limits.
+
 ## [5.0.1] - 2026-09-16
 
 ### Fixed

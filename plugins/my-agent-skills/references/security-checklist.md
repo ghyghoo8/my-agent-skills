@@ -9,6 +9,7 @@ Quick reference for web application security. Use alongside the `security-and-ha
 - [Authentication](#authentication)
 - [Authorization](#authorization)
 - [Input Validation](#input-validation)
+- [Destructive Path Operations](#destructive-path-operations)
 - [Security Headers](#security-headers)
 - [CORS Configuration](#cors-configuration)
 - [Data Protection](#data-protection)
@@ -22,7 +23,7 @@ Quick reference for web application security. Use alongside the `security-and-ha
 
 Before reaching for controls, spend five minutes thinking like an attacker:
 
-- [ ] Trust boundaries mapped (requests, uploads, webhooks, third-party APIs, LLM output)
+- [ ] Trust boundaries mapped (requests, uploads, webhooks, third-party APIs, LLM output, and local values written by other processes)
 - [ ] Assets named (credentials, PII, payment data, admin actions, money movement)
 - [ ] STRIDE run per boundary (Spoofing, Tampering, Repudiation, Info disclosure, DoS, Elevation)
 - [ ] Abuse cases written next to use cases ("how would I misuse this?")
@@ -64,6 +65,52 @@ Before reaching for controls, spend five minutes thinking like an attacker:
 - [ ] URLs validated before redirect (prevent open redirect)
 - [ ] Server-side URL fetches allowlisted; private/reserved IPs blocked (prevent SSRF)
 
+- [ ] Derived-path cleanup checks resolved roots, minimum depth, protected ownership evidence, authorization, and check/use races
+
+### Destructive Path Operations
+
+This is a read-only candidate consistency check for an existing cleanup directory.
+It assumes the configured roots come from trusted application policy. **It is not
+an authorization function or a race-safe deletion API**, and it performs no delete.
+
+```typescript
+import { realpath, readFile } from 'node:fs/promises';
+import { relative, isAbsolute, join, sep } from 'node:path';
+
+const ALLOWED_ROOTS = ['/var/lib/myapp/sessions'];
+const MIN_DEPTH = 1; // A root itself is never a cleanup target.
+
+async function resolveCleanupCandidate(candidate: string, expectedOwner: string) {
+  if (!isAbsolute(candidate) || !expectedOwner.trim()) throw new Error('invalid candidate');
+  const roots = await Promise.all(ALLOWED_ROOTS.map((root) => realpath(root)));
+  const target = await realpath(candidate);
+  if (roots.includes(target)) throw new Error('refusing: allowed root itself');
+  const inRoot = roots.some((root) => {
+    const rel = relative(root, target);
+    // Reject parent traversal, but permit an ordinary child named `..cache`.
+    if (rel === '' || rel === '..' || rel.startsWith(`..${sep}`) || isAbsolute(rel)) return false;
+    return rel.split(sep).length >= MIN_DEPTH;
+  });
+  if (!inRoot) throw new Error('refusing: outside allowed cleanup scope');
+  const owner = await readFile(join(target, '.owner'), 'utf8').catch(() => null);
+  if (owner?.trim() !== expectedOwner) throw new Error('refusing: owner mismatch or missing');
+  return target; // Candidate only; do not pass directly to a destructive call.
+}
+```
+
+- **A writable marker is self-attestation.** The expected owner must come from
+  authenticated state. Independently protected ownership evidence or verified
+  integrity protection is required before treating a match as authorization.
+  A forged matching `.owner` can pass this example.
+- **Path resolution does not bind a later operation.** Where another process can
+  swap an ancestor, use supported descriptor-relative, no-follow containment or
+  establish exclusive control for the entire check/use interval. Repeating the
+  check does not make pathname-based deletion safe.
+- **Fail narrowly.** Missing or ambiguous evidence stops the affected operation;
+  never fall back to a parent or default root. Existing user authorization must
+  cover the actual target and operation. Moves/overwrites need separate source
+  and destination checks, including final-component symlink semantics.
+
 ## Security Headers
 
 ```
@@ -98,6 +145,9 @@ cors({ origin: '*' })  // Allows any origin
 - [ ] PII encrypted at rest (if required by regulation)
 - [ ] HTTPS for all external communication
 - [ ] Database backups encrypted
+- [ ] Personal data is classified, collected for a stated purpose, and minimized
+- [ ] Approved retention and deletion paths cover backups, caches, indexes, and analytics copies
+- [ ] Required export/delete flows and applicable consent/processing agreements are verified; checks do not authorize live erasure
 
 ## Dependency Security
 
@@ -153,7 +203,7 @@ For any feature that calls an LLM (chatbots, summarizers, agents, RAG):
 - [ ] Model output treated as untrusted — never into `eval`/SQL/shell/`innerHTML`/file paths
 - [ ] Prompt injection assumed; permissions enforced in code, not in the system prompt
 - [ ] Secrets, cross-tenant data, and full system prompts kept out of the context window
-- [ ] Tool/agent permissions scoped; destructive or irreversible actions require confirmation
+- [ ] Tool/agent permissions scoped; destructive or irreversible actions stay within explicit authorization, reusing existing same-scope approval
 - [ ] Token, rate, and recursion/loop limits set (bound consumption)
 
 ## Error Handling
