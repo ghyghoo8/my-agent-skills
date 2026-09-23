@@ -126,3 +126,13 @@ Every delegated task should state:
 5. the stop condition.
 
 The main session must preserve user intent, integrate only supported findings, verify material claims, and deliver one canonical result.
+
+Carry the active model/cost policy and any shared escalation allowance in each
+worker contract. A worker cannot replenish a parent's allowance by spawning,
+retrying, resuming, or asking for an independent review. The controller alone
+reserves a shared consultation before dispatch. For milestone assignments, use
+the [milestone model policy](../skills/planning-and-task-breakdown/references/milestone-execution.md#6-assign-roles-and-apply-the-quality-first-model-policy);
+other work retains its existing user/project settings. Review independence comes
+from fresh context and separate responsibility; it does not require a more
+expensive model. Delegate only when the bounded result justifies context and
+integration cost, and prefer focused checks over duplicating the worker's work.

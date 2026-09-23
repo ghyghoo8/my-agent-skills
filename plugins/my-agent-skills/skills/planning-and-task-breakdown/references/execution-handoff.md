@@ -38,7 +38,8 @@ Tool acceptance confirms question submission, not the user's answer.
 Preselection, silence, elapsed time, viewing the plan and unrelated replies
 grant no authorization. Keep dependent execution pending; independent authorized
 work may continue. After a matching explicit answer, recheck scope, authority,
-dependencies, gates, effective configurations and Goal state before dispatch.
+dependencies, gates, host model-selection support, effective-setting evidence
+under the applicable policy, and Goal state before dispatch.
 A stale answer cannot authorize a changed scope. Viewing displays the existing
 assessment without replanning or immediately repeating the offer; a decline
 preserves evidence and stays suppressed until the user reopens the decision.

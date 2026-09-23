@@ -111,6 +111,12 @@ When Codex subagent delegation is available, create a read-only reviewer with on
 
 Cross-model review is optional. Offer it when unresolved material risk or a requested independent perspective justifies the additional cost; do not interrupt every cycle with the same offer. Honor an earlier acceptance or decline within its scope.
 
+Preserve the active model ceiling and shared consultation allowance. Independent
+review can use the same model in fresh context; its label does not authorize a
+costlier model or reset an exhausted allowance. When an already accepted
+conditional escalation applies, reuse that authorization and its limits instead
+of asking again. Required acceptance and actual verification still apply.
+
 Before invoking an external CLI:
 
 1. Confirm authorization covers the tool, artifact, and data being sent. Reuse existing authorization when it clearly covers the invocation; ask only for a material scope change or missing permission.

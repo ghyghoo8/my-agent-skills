@@ -109,11 +109,11 @@ Populate this structure for the upcoming queue using actual paths and evidence. 
 - Stop/recovery: [material boundary or missing input; rollback/disable if applicable]
 
 ## Execution recommendation
-- Role configurations: [exact admitted model/effort per assigned role; Astra xhigh first / Sol xhigh second for implementation]
-- Controller / planner / key independent reviewer: [Astra ultra; named owner and review scope]
-- Other eligible execution options: [Terra ultra for explicit bounded tasks; Sol ultra for enhanced execution; Astra ultra for high uncertainty]
+- Role configurations: [GPT-6 Sol ultra by default for the controller; controller-selected worker model/effort with quality and risk rationale]
+- Bounded worker: [GPT-6 Luna only when low risk, clear inputs and reliable outcome checks justify it; otherwise use Sol]
+- Astra allowance: [link to the delivery scope's single allowance record; never a separate allowance per card]
 - Configuration evidence: [link to supported/effective settings in the execution record; unresolved availability/inheritance]
-- Escalate when: [material ambiguity, cross-module failure or conflicting evidence; role-appropriate approved setting and question to resolve]
+- Escalate when: [actual Sol attempt, unresolved reasoning problem, evidence and one bounded question; missing facts/authority/environment have their own resolution path]
 - Selection boundary: [initial selection rationale; existing explicit assignment and permitted fallback, if any]
 - Handoff: [required output, review responsibility and exact next action]
 ```
@@ -162,7 +162,7 @@ activation retain one writer or run serially.
 
 ## 6. Assign Roles and Apply the Quality-First Model Policy
 
-Delivery trustworthiness and quality come first; token usage and speed are secondary. **Terra ultra remains the minimum admitted execution baseline.** Apply the exact model/effort combinations below rather than treating effort names as a cross-model quality scale. Astra xhigh and Sol xhigh are explicitly admitted execution choices; this is not a requirement that every model use ultra, nor permission to infer other equivalents. Do not reopen the accepted baseline or introduce an economical tier.
+**Delivery quality is the first priority. The single controller defaults to GPT-6 Sol ultra and decides each subagent's model and reasoning effort.** Sol is the normal model ceiling; Luna is a bounded worker option, and Astra is a single-consultation exception. Reduce cost through appropriate delegation, focused context and avoiding duplicate work, without trading away trustworthy acceptance. This replaces the former Terra floor and mandatory Astra roles; model names and effort labels are not measured quality rankings.
 
 ### Core Responsibilities
 
@@ -170,13 +170,13 @@ Map these responsibilities to existing project owners before dispatch. They do n
 
 | Responsibility | Ownership and deliverable | Configuration |
 |---|---|---|
-| Control | Maintain authority context, reconcile the single queue, coordinate dependencies/assignments, retain blockers, and integrate delivery status | Astra ultra |
-| Solution and task planning | Analyze technical choices within granted scope; derive cards, interfaces, dependencies, and acceptance checks from the existing authority and roadmap | Astra ultra |
-| Implementation and integration | Own scoped changes, self-tests, ordinary debugging, and the combined working result; return actual changes and unresolved issues | Astra xhigh first choice; Sol xhigh second choice; other admitted execution options below |
-| Verification | Run and interpret reproducible checks, failure/recovery paths, and integration demonstrations; state what evidence proves and what remains uncovered | Astra xhigh for a separately assigned verifier; Astra ultra for complex evidence conflicts |
-| Independent review | Challenge material assumptions, omissions, boundary violations, and evidence sufficiency; return findings and remaining risks separately from check results | Astra ultra in fresh context for key decisions and final delivery judgments |
+| Control | Maintain authority context, reconcile the single queue, coordinate dependencies/assignments, retain blockers, and integrate delivery status | Sol ultra |
+| Solution and task planning | Derive cards, interfaces, dependencies, and acceptance checks within granted scope | Sol at controller-selected effort; control may combine planning at ultra |
+| Implementation and integration | Own scoped changes, self-tests, ordinary debugging, and the combined working result | Sol at effort suited to the task; eligible Luna work below |
+| Verification | Run and interpret reproducible checks and recovery/integration evidence | Controller-selected setting; Luna may run a bounded deterministic check |
+| Independent review | Challenge material assumptions, boundaries, omissions and evidence sufficiency | Separate fresh-context Sol for key/final review, at effort the controller judges sufficient |
 
-Control may also perform planning. Implementers must self-test; a separate verifier is needed only when required by the project or justified by risk. Self-testing is valid evidence but is not independent verification or independent review. A checker may perform both verification and review of others' work, with separate conclusions for observed results and material omissions. Keep key review independent of the implementation or consequential decision under review; a second call without the raw inputs and actual evidence is insufficient. Do not add a review gate to each trivial substep.
+Control may also perform planning at its assigned ultra setting; a separate planner uses the planning row. Implementers must self-test; a separate verifier is needed only when required by the project or justified by risk. Self-testing is valid evidence but is not independent verification or independent review. A checker may perform both verification and review of others' work, with separate conclusions for observed results and material omissions. Keep key review independent of the implementation or consequential decision under review; a second call without the raw inputs and actual evidence is insufficient. Do not add a review gate to each trivial substep.
 
 The controller reconciles the canonical queue through its designated owner; workers return evidence or update only fields already assigned to them by the project's state contract. Neither additional roles nor specialist notes create another state ledger. Role names and stronger models confer no extra authority: planners may make technical decisions within granted scope, but normative scope, contract, milestone-exit, or acceptance changes follow existing project decision rules. Do not invent a universal human approval step for routine authorized choices.
 
@@ -190,31 +190,42 @@ Assign a specialist only when it resolves a concrete ownership or evidence gap:
 - **Integration ownership:** When multiple implementers contribute, name one owner for the combined result. Component tests do not establish integration; if no specialist is needed, the implementation owner keeps this responsibility.
 - **Diagnosis and recovery:** For recurring failures, cross-module faults, or difficult recovery, assign a bounded question and repair scope. Ordinary debugging remains with the implementer; a failure does not automatically create a new agent or external blocker.
 
-Select the specialist's configuration by its actual work: bounded implementation/investigation can use admitted execution options, while consequential planning and key review retain Astra ultra. An integration failure holds the affected task and dependent acceptance; preserve unrelated completed evidence and continue independent authorized work.
+Select a specialist's configuration by its actual work, using the same policy below. An integration failure holds the affected task and dependent acceptance; preserve unrelated completed evidence and continue independent authorized work.
 
-### Admitted Model and Effort Pairs
+### Controller-Selected Worker Settings
 
-| Exact configuration | Role-fit policy |
+| Model / setting | Selection guidance |
 |---|---|
-| `gpt-6-astra` + `ultra` | Control, solution/task planning, key independent review, and direct execution of high-uncertainty or consequential work |
-| `gpt-6-astra` + `xhigh` | First implementation choice under established scope/contracts; separately assigned verification |
-| `gpt-5.6-sol` + `xhigh` | Second implementation choice when assigning suitable work |
-| `gpt-5.6-sol` + `ultra` | Retained enhanced execution option for demanding implementation/integration |
-| `gpt-5.6-terra` + `ultra` | Minimum admitted executor for explicit inputs, ownership, steps, and acceptance |
+| `gpt-6-sol` + `ultra` | Default controller, including planning it performs itself |
+| `gpt-6-sol` workers | Choose a host-supported effort for complexity, uncertainty, failure impact and required evidence. Medium may fit routine work; high or xhigh may fit difficult work/review; max or ultra may be justified for demanding work. These are references, not a fixed role whitelist or required ladder. |
+| `gpt-6-luna` workers | Only low-risk work with complete inputs and reliable independent checks. High is a starting reference; the controller chooses supported effort for the actual task. Luna has no Ultra support. |
+| `gpt-6-astra` consultant | Only the bounded consultation below; select a supported single-agent effort for the question, without Ultra or subdelegation |
 
-This is an approved selection policy, not an empirical performance ranking or guarantee. Being in the table does not make a configuration appropriate for every role: an admitted xhigh executor cannot replace required Astra ultra control or key review. Do not start every task at Terra and wait for failure before using stronger settings. Begin consequential or high-uncertainty work with Astra ultra when warranted; carry material ambiguity, cross-module failures, and conflicting evidence into escalation rather than discarding the context. Escalation cannot create missing facts, approve contracts, or replace actual tests and acceptance.
+Luna fits bounded extraction, mechanical edits, fixture work and isolated checks when those conditions hold. It does not own control, consequential planning, cross-module integration decisions or key/final independent review. If quality or verifiability is uncertain, choose Sol directly; no task must try Luna or a lower effort first. Do not routinely have Sol redo a valid Luna result. Verify the outcome proportionately and promote a struggling Luna task to Sol with its evidence rather than repeating blind attempts.
+
+Ultra can create subagents and is not merely deeper single-agent reasoning. The controller may select it for a suitable demanding worker, but should make the choice explicitly rather than blindly propagate its own setting to every worker. Use bounded ownership and observed capacity; do not create a second fan-out over already assigned tasks or extra workers for serial work. If a full-history fork cannot override settings, pass minimum task context through an override-capable path or establish that inherited settings are appropriate. Record selection reasons in the existing task assignment, not a new scoring system. A speed setting is separate from reasoning quality. Shared effort names never prove cross-model equivalence.
+
+### One Astra Consultation per Delivery Scope
+
+Use Astra only after a substantive Sol attempt leaves a material reasoning or solution impasse. First inspect the actual failure and distinguish missing facts, unavailable permissions, environment faults and rate limits; those need their own resolution, not a stronger model. Try a concrete repair or justified Sol effort increase when it has a plausible benefit; do not exhaust an effort ladder or repeat unchanged attempts to manufacture eligibility.
+
+The user's accepted conditional allowance authorizes **one bounded read-only consultation for the entire authorized delivery scope**, including all its milestones, workers and resumptions. It is not one per error, card, agent or session. A matching Goal shares this scope; creating, resuming or replacing a Goal does not replenish it. If allowance or execution authority was never granted, a recommendation does not grant either. Reuse valid authorization without asking again when its conditions hold.
+
+The controller owns the allowance in the existing canonical queue: scope, grant/source, not-granted/unused/reserved/used/uncertain status, Sol evidence, question, consultation identity and result link. Reconcile existing authorization and any prior use before recording an unused allowance; an absent record is not a fresh grant. Reserve it before dispatch so parallel workers cannot each spend it. Pass only the contract, relevant artifacts, failed approach/checks and one question with a finite deliverable. Give Astra no implementation writes, subdelegation, Goal control or follow-up assignment; one agent turn may inspect bounded evidence and returns advice to Sol. No automatic second turn, re-dispatch or retry. An uncertain launch counts as unavailable until its receipt is reconciled; only proof that it never started permits releasing the reservation. Context compaction and handoff preserve this record.
+
+Sol evaluates the advice against actual code and checks, implements within existing authority, and retains required independent review and acceptance. Astra output is not completion evidence. If unresolved, preserve the blocker and continue independent work; additional Astra use requires a new explicit allowance. Never consume the exception just because a task is important or to add a ceremonial final review.
 
 ### Configuration, Availability, and Substitution
 
-Apply the role-appropriate admitted pairs to **all participants**, including investigation subagents, reviewers, inherited settings, retries, and fallback workers. Before dispatch, verify host support and set both model and effort explicitly when the tool allows; otherwise establish the effective inherited pair. A model name, missing effort, default, or requested setting alone does not prove the effective configuration. Record the source and date of support/configuration evidence; label observations unavailable when they cannot be established.
+Apply the policy to all participants, including nested workers, reviewers, inherited settings and retries. Pass the controller's model ceiling, quality priority and shared Astra allowance to workers; worker-created subagents remain within those assignments. Before dispatch, verify current host support and explicitly request model and effort when supported. Inspect the actual inherited settings when an override is unavailable. Keep supported, requested and observed effective settings distinct; an echoed request or model self-report is not a runtime receipt. With supported explicit selection, authorized work can start, recording effective settings as unverified if the host cannot expose them; do not claim verified model compliance. If the host cannot enforce the required selection, or the project requires an effective receipt before execution, hold that affected dispatch.
 
-Availability is specific to the assigned role. A target without ultra can still run authorized Astra/Sol xhigh implementation under verified Astra ultra control and required review elsewhere, if access and handoff are sufficient. Absence of ultra on that execution target is not a blanket blocker. Conversely, supported xhigh workers do not resolve unavailable required ultra control/review; hold the affected operation or final acceptance, retaining independent authorized work and its evidence. Do not mark a task READY when its immediate required configuration is unresolved. No admitted role-appropriate executor means an execution blocker; a compliant planner may still prepare authorized documents.
+Model availability is local to the role. Missing Astra or Ultra on a worker host does not block its ordinary Sol/Luna work under supported Sol ultra control elsewhere. Missing the required Sol ultra controller or suitable review holds only affected work or acceptance; a lower-effort controller or Luna worker cannot silently fill those roles. Preserve authorized preparation and independent work. If the current main task uses a different model or effort, disclose that the Skill cannot switch it; use an exposed authorized host control or a user-selected model for execution instead of pretending a switch occurred. Do not create another user-owned task or edit global configuration to work around this.
 
-**No silent substitution:** initial selection from this table, including Sol xhigh as second choice, differs from changing a selected executor during retry. Rate limits, latency, token cost, or a failed attempt do not authorize switching a selected Astra ultra task to xhigh, changing providers, or using Luna/medium/unlisted pairs. Honor explicit assignments; change them only within existing selection/fallback authorization, with the reason and new effective pair recorded, or surface the necessary decision. A preauthorized fallback must still fit the role and table. Never fabricate `ultra` for an API that exposes only `max`, equate Astra max with an admitted pair, or infer future replacements from names.
+For assignments made under this policy, the controller may reassign role-appropriate Sol/Luna settings within the same provider and scope as evidence changes, keeping quality first and recording the reason and new selection. Preserve a user's explicitly locked model/effort or narrower fallback limit unless the user changes it. Do not silently substitute legacy models, providers or endpoints, reinterpret effort labels, or use rate limits to justify Astra. Changing this default does not silently relabel past receipts or override separately locked assignments; reconcile conflicts before the affected dispatch.
 
-The configurations are the user's approved policy, not evergreen availability claims. Official evidence checked on 2026-09-10 includes [Codex effort and inheritance guidance](https://learn.chatgpt.com/docs/agent-configuration/subagents#choosing-models-and-reasoning), [Astra's supported API efforts](https://developers.openai.com/api/docs/models/gpt-6-astra), and [Sol xhigh in Codex Security CLI](https://learn.chatgpt.com/docs/security/cli#choose-a-model-and-reasoning-effort). These document support or specific usage, not comparative quality in this workflow. The [Terra API page](https://developers.openai.com/api/docs/models/gpt-5.6-terra) lists API settings separately from Codex ultra; verify the actual executing surface rather than translating labels.
+Official [model guidance](https://learn.chatgpt.com/docs/models) and [credit rates](https://learn.chatgpt.com/docs/pricing#token-rates), checked 2026-09-23, inform this cost-aware policy; actual availability remains host-specific. They do not establish task-specific quality or savings. Track already available usage, elapsed time, rework and acceptance evidence when comparing outcomes; do not add telemetry or benchmark every task.
 
-Recommendations do not activate models, launch paid workers, or authorize implementation or external actions. When execution is authorized, use admitted pairs appropriate to the assigned roles and retain conforming explicit user choices. Subscription access does not prove unlimited capacity or delivery quality. Judge trustworthiness through authority adherence, actual verification, independent findings where required, recovery evidence, and acceptance.
+Recommendations do not activate models, launch paid workers, or authorize implementation or external actions. When execution is authorized, use controller-selected role-appropriate settings and retain explicit user choices. Subscription access does not prove unlimited capacity or delivery quality. Judge trustworthiness through authority adherence, actual verification, independent findings where required, recovery evidence, and acceptance.
 
 ## 7. Supply a Bounded Launch and Resume Contract
 
@@ -226,10 +237,12 @@ Read [entry] -> [single queue] -> selected card -> named inputs.
 Recheck actual authority revisions, exact dependencies and existing authorization.
 Assign control, planning, implementation/integration, verification and key review
 to named owners; combine compatible responsibilities without extra agents.
-Use Astra ultra for control, planning and key independent review; choose
-implementation from the admitted pairs (Astra xhigh first, Sol xhigh second;
-Terra ultra minimum baseline). Keep decision, write and acceptance authority explicit.
-Verify effective role settings before dispatch; no silent retry substitution.
+Default the single controller to GPT-6 Sol ultra; let it explicitly select worker
+models/efforts with delivery quality first and Luna only for eligible bounded work.
+Carry the one shared Astra allowance in [state target] across workers/resumptions;
+use it only for one bounded consultation after an evidenced Sol impasse.
+Keep decision, write and acceptance authority explicit. Verify host selection
+support, record requested/observed settings and respect explicit model locks.
 Execute the next authorized READY task, verify it, record evidence in [state target],
 then continue to the next eligible task until the endpoint or no executable work.
 Retain blockers and completed evidence; request only materially blocking inputs.
@@ -246,7 +259,7 @@ delegated acceptance endpoint; the queue remains the business progress authority
 
 Preserve this execution loop:
 
-1. Reconcile the queue with current authority, evidence, dependencies, worktree changes, named responsibility/decision boundaries, and the approved effective model/effort for each dispatched role.
+1. Reconcile the queue with current authority, evidence, dependencies, worktree changes, named responsibility/decision boundaries, approved requested model/effort, host selection support and observed effective status for each dispatched role.
 2. Select an authorized READY task, or a mutually independent READY set for approved parallel execution; implement, diagnose ordinary failures, repair within scope, and verify. Respect bounded write ownership and actual host capacity.
 3. Record actual commands, results, configuration evidence, limitations, and changed files; distinguish verification facts from review findings. Mark DONE only when integration and the project's required acceptance hold.
 4. Re-evaluate eligible tasks, refine the next DRAFT card when inputs suffice, and continue within accepted scope.
@@ -257,6 +270,6 @@ Do not undo completed milestones because a later gate is waiting. Reopen only wo
 
 ## 8. Review Before Handoff
 
-Check the three entry inputs, then trace authority clause -> development detail -> existing milestone outcome -> task ID -> acceptance evidence. Verify links/revisions, unique IDs, acyclic dependencies, one state owner, and sufficient detail for the next card. Identify control/planning, implementation/integration, verification, key review, and project acceptance responsibility without unnecessary agents. Check role-appropriate admitted pairs for all participants, inheritance, retries, and fallbacks. Walk through a missing prerequisite, unavailable required-role configuration, successful completion, component tests passing with integration failing, a local blocker with independent work, and an authority change. Each must give a clear next owner/action while preserving scope and acceptance.
+Check the three entry inputs, then trace authority clause -> development detail -> existing milestone outcome -> task ID -> acceptance evidence. Verify links/revisions, unique IDs, acyclic dependencies, one state owner, and sufficient detail for the next card. Identify control/planning, implementation/integration, verification, key review, and project acceptance responsibility without unnecessary agents. Check controller-selected role-appropriate settings and the shared Astra allowance for all participants, inheritance, retries, and fallbacks. Walk through a missing prerequisite, unavailable required-role configuration, successful completion, component tests passing with integration failing, a local blocker with independent work, and an authority change. Each must give a clear next owner/action while preserving scope and acceptance.
 
 Report artifacts, recommended first task/profile, unresolved inputs, and checks actually run. Document consistency review proves the plan is coherent; it does not prove product behavior, model performance, or release readiness.

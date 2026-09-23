@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 5.1.0
+plugin_version: 6.0.0
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,7 +14,7 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 5.1.0
+    plugin_version: 6.0.0
     skill_count: 27
     maximum_raw_characters: 7000
   checks:
@@ -657,13 +657,13 @@ cases:
   - id: positive-authority-grounded-milestone-roadmap
     category: positive
     focus: milestone_planning
-    request: Use the accepted authority, detailed development document, and existing milestone roadmap to refine delivery planning, produce an executable task queue, and recommend quality-first execution models with Terra ultra as the hard minimum.
+    request: Use the accepted authority, detailed development document, and existing milestone roadmap to refine delivery planning, produce an executable task queue, and recommend the approved Sol Ultra controller with quality-first child selection.
     minimal_project_evidence:
       - The accepted authority establishes product scope, ownership, and acceptance.
       - An existing detailed development document specifies responsibilities, flows, interfaces, and verification for the selected scope.
       - An existing explicit milestone roadmap records observable outcomes, dependencies, and exit evidence.
       - Work has several meaningful outcomes and dependencies but no executable plan yet.
-      - Current host evidence supports Terra ultra, Sol xhigh, Sol ultra, Astra xhigh, and Astra ultra; the active planner is verified as Astra ultra.
+      - Current host evidence supports Sol medium, high, xhigh, max, and ultra, Luna high, and single-agent Astra high, xhigh, or max; the active controller/planner is verified as Sol ultra.
       - >-
         product-contract.md, accepted Local Import section, requires local CSV name,quantity
         headers, nonempty names and positive integer quantities; reject files above 10 MB and
@@ -684,9 +684,9 @@ cases:
         development-tasks.md; the existing Milestone Roadmap section in import-development.md
         remains the roadmap; task-queue.md is the designated single mutable task-state document.
       - >-
-        Existing verified assignments are Controller C (Astra ultra) for planning and queue
-        state, Worker W (Astra xhigh) for implementation and integration, and separate Reviewer
-        R (Astra ultra) for final independent review. The maintainer owns acceptance.
+        Existing verified assignments are Controller C (Sol ultra) for planning and queue
+        state, Worker W (Sol high) for implementation and integration, and separate Reviewer
+        R (Sol high) for fresh-context final independent review. The maintainer owns acceptance.
         Planning-document preparation is authorized; worker dispatch and release are not.
       - >-
         The existing Milestone Roadmap section identifies M-LOCAL-PARSE, exiting with
@@ -702,8 +702,9 @@ cases:
       - Confirms all three substantive document prerequisites before entering the milestone workflow.
       - Derives work from existing authority without restarting settled specification or architecture decisions.
       - Keeps one mutable task-state target and distinguishes model recommendation from active model change.
-      - Preserves exactly the five admitted model and effort pairs, with Terra ultra as the named minimum for explicit bounded tasks and no universal all-models-ultra rule.
-      - Assigns Astra ultra to control and planning plus key-decision and final independent review; ordinary implementation and integration prefer Astra xhigh then Sol xhigh, with Sol ultra retained and Astra ultra for high uncertainty.
+      - Recommends one Sol Ultra controller; that controller explicitly chooses child settings from current host support by task complexity, risk, and acceptance needs, with Sol the normal ceiling for consequential work.
+      - Limits Luna to bounded low-risk independently checkable tasks and Astra to one host-supported single-agent read-only consultation without Ultra or subdelegation after an evidenced Sol reasoning impasse; neither is the default controller or final reviewer.
+      - Treats Sol high for separate key review as a useful default, not a fixed floor; reasoned child Sol xhigh, Max, or Ultra remains possible without forced fan-out.
       - Keeps five core responsibilities distinct from five mandatory workers, records integration and acceptance responsibility, and separates reproducible verification from independent review.
       - Planning artifacts do not authorize implementation, external writes, goals, or automations.
 
@@ -713,51 +714,51 @@ cases:
     request: Apply the accepted quality-first milestone workflow to the existing roadmap and queue, including its model recommendations.
     minimal_project_evidence:
       - The accepted authority, substantive detailed development document, and explicit milestone roadmap already cover the selected scope.
-      - Terra ultra is the approved named minimum admitted pair, quality and trustworthy results take priority, and token consumption and speed are secondary.
+      - The accepted policy uses one Sol Ultra controller who explicitly selects host-supported child settings for delivery quality according to each task's risk and complexity. Sol is the normal ceiling for consequential work, Luna fits only bounded low-risk checkable work, and Astra is one read-only single-agent consultation after a real Sol impasse.
       - Planning is authorized; changing the policy or launching workers is not requested.
-      - The active planner is verified as Astra ultra; current host evidence supports all five admitted pairs but does not establish measured performance or available subscription capacity.
+      - The active controller/planner is verified as Sol ultra; current host evidence supports the named settings but does not establish measured performance or available subscription capacity.
     expected_selection: planning-and-task-breakdown
     expected_behavior: preserve_accepted_quality_policy_in_planning
     key_invariants:
       - Planning owns application of the accepted execution policy without reopening it through capability-adoption-assessment, project dialectic review, or a new generic model comparison.
-      - Offers only Terra ultra, Sol xhigh, Sol ultra, Astra xhigh, and Astra ultra in suitable roles, with no economical, Luna, medium, unlisted Astra max, or assumed equivalent option.
-      - Applies effective verified role requirements to subagents, inheritance, retries, and fallback, while keeping verification separate from recommendation.
-      - Does not silently substitute an already selected Astra ultra with Sol xhigh because of rate limits, time, or token pressure; authorized initial role selection is a different decision.
-      - Does not infer cross-model performance ordering from effort labels or reinterpret the Terra ultra named minimum as all-models-ultra.
+      - Offers one Sol Ultra controller and child settings selected from current host support for task fit, without a fixed Sol medium floor or ban on reasoned child Ultra/Max; Astra remains one bounded single-agent consultation after Sol impasse.
+      - Checks host support and enforceable explicit selection for subagents, inheritance, retries, and fallback; records any unavailable effective runtime receipt as unverified without making it a universal dispatch blocker.
+      - Preserves explicit user model/effort locks and does not make silent worker substitutions; the controller may reassign a suitable same-provider child setting within scope as evidence changes when it records the reason. Missing access and 429 are not Sol reasoning impasses.
+      - Does not infer cross-model performance ordering from effort labels, force child Ultra/Max or agent fan-out, or ban a reasoned host-supported child choice merely because of its effort name.
       - Does not infer activation, implementation authority, free cost, or unlimited capacity from recommendations or subscription access.
 
-  - id: boundary-unsupported-ultra-retains-planning-with-execution-blocker
+  - id: boundary-unsupported-sol-settings-retains-planning-with-execution-blocker
     category: boundary
     focus: milestone_configuration_entry_boundary
-    request: Refine our accepted milestone roadmap and queue for the target execution host; keep the approved Terra ultra minimum.
+    request: Refine our accepted milestone roadmap and queue for the target execution host; keep the approved Sol-default role policy.
     minimal_project_evidence:
       - Accepted authority, substantive development documentation, and an explicit milestone roadmap meet all three document prerequisites.
       - Planning artifacts are authorized and sufficient current evidence exists to prepare them.
-      - The planner is verified as gpt-6-astra with ultra on a separate planning host.
-      - The target execution host offers only Astra max and Sol medium, so no role-suitable admitted pair is available, including no Astra or Sol xhigh.
+      - The controller/planner is verified as gpt-6-sol with ultra on a separate planning host.
+      - The target execution host offers only Luna medium and Astra max. The assigned consequential integration needs Sol, so no role-suitable selection is supported there.
     expected_selection: planning-and-task-breakdown
     expected_behavior: prepare_authorized_plan_and_record_execution_blocker
     key_invariants:
-      - Planning remains the owner and completes authorized documentation under the verified compliant planner while identifying unsupported compliant configuration as a target-host execution blocker.
-      - Does not reinterpret ultra as max or an API value, recommend an unlisted or role-inappropriate fallback, or launch an incompatible worker.
-      - Does not treat unavailable execution configuration as missing product authority, require unrelated architecture work, or reopen the accepted minimum.
+      - Planning remains the owner and completes authorized documentation under the verified planner while identifying unsupported role configuration as a target-host execution blocker.
+      - Does not reinterpret high as max or an API value, recommend a role-inappropriate fallback, launch an incompatible worker, or switch the main host model through a Skill.
+      - Does not treat unavailable execution configuration as missing product authority, require unrelated architecture work, or reopen the accepted policy.
       - Keeps unactivated model recommendations distinct from verified host readiness and implementation authorization.
 
-  - id: boundary-xhigh-role-assignment-retains-milestone-planning
+  - id: boundary-sol-luna-role-assignment-retains-milestone-planning
     category: boundary
     focus: milestone_role_configuration_owner
-    request: Refine responsibilities and model assignments for our accepted milestone queue, using permitted xhigh workers under the existing ultra controller and reviewer.
+    request: Refine responsibilities and model assignments for our accepted milestone queue, using bounded Luna work under the existing Sol controller and reviewer.
     minimal_project_evidence:
       - Accepted authority, substantive development documentation, and an explicit milestone roadmap meet all three planning prerequisites; planning artifact updates are authorized.
-      - The main agent is verified Astra ultra and owns the canonical queue plus task planning; an independent fresh-context Astra ultra final reviewer is available.
-      - The target host verifies Astra xhigh and Sol xhigh for ordinary implementation and integration but has no ultra configuration; no high-uncertainty execution is assigned there.
-      - The approved policy permits those initial assignments and retains all five admitted pairs with role-specific suitability.
+      - The main agent is verified Sol ultra and owns the canonical queue plus task planning; an independent fresh-context Sol high final reviewer is available.
+      - The target host verifies Sol medium and Luna high for routine implementation; a distinct bounded low-risk checkable card is suitable for Luna high. Integration remains assigned to verified Sol high on the planning host.
+      - The approved policy permits these initial assignments; no concrete deeper-reasoning need or Sol impasse has been recorded.
     expected_selection: planning-and-task-breakdown
-    expected_behavior: assign_permitted_xhigh_roles_without_reopening_policy
+    expected_behavior: assign_permitted_sol_and_luna_roles_without_reopening_policy
     key_invariants:
       - Planning owns task-card responsibilities and model assignments without rerouting an accepted policy to adoption assessment or a generic model benchmark.
-      - Keeps Astra ultra control, planning, and required independent review while allowing Astra xhigh first-choice and authorized Sol xhigh second-choice implementation and integration recommendations.
-      - Does not treat unavailable ultra on the worker host as a global blocker, replace required ultra roles with xhigh, or create five compulsory workers.
+      - Keeps Sol Ultra control and combined planning, with a separately selected Sol integration owner and fresh-context independent reviewer; Sol medium and Luna high remain suitable for the specifically bounded cards in this fixture.
+      - Does not make Luna-first mandatory, replace the Sol high roles with Luna, require Sol to redo valid Luna work, or create five compulsory workers.
       - Records permitted decisions and change scope, integration ownership, verifier, reviewer, existing acceptance responsibility, and evidence requirements in the canonical planning artifacts.
       - Does not activate models or launch workers from planning authorization, infer measured cross-model rankings, or silently change an existing selected configuration.
 
@@ -819,7 +820,7 @@ cases:
       - "docs/product.md revision 3 is the accepted authority: local CSV files with name,quantity headers, nonempty names and positive integer quantities; reject files above 10 MB; show valid-row count and every error's source line and message in preview; do not commit data during preview or fetch URLs."
       - "Current src/import/parser.ts exports parseImport(text) with the established result {rows: Array<{name: string, quantity: number}>, errors: Array<{line: number, message: string}>}. src/import/preview.tsx owns file selection, size checks and rendering that result; parser owns row validation. These current source responsibilities and interface are accepted and stable."
       - "docs/roadmap.md M-PARSE exits with valid, invalid and mixed CSV parser tests; M-PREVIEW depends on that contract and exits with all-row-error browser preview and exact-limit/over-limit checks. Remote imports are excluded. The existing docs/development/local-import.md contains only a Commands heading with the known scripts and empty Responsibilities, Flow, Interface and Verification headings; accepted source decisions have not been explained there and task state in docs/status.md."
-      - "Existing scripts run pnpm test -- src/import/parser.test.ts and pnpm typecheck from the root; pnpm dev opens the existing local-import screen for valid, invalid, mixed, exact-10-MB and over-limit fixtures. These are available checks, not test-pass receipts. Controller C (Astra ultra) owns planning and state, Worker W (Astra xhigh) owns future implementation and integration, and Reviewer R (separate Astra ultra) owns final review. Documentation and queue preparation are authorized; dispatch is not."
+      - "Existing scripts run pnpm test -- src/import/parser.test.ts and pnpm typecheck from the root; pnpm dev opens the existing local-import screen for valid, invalid, mixed, exact-10-MB and over-limit fixtures. These are available checks, not test-pass receipts. Controller C (Sol ultra) owns planning and state, Worker W (Sol high) owns future implementation and integration, and Reviewer R (separate Sol high) owns final review. Documentation and queue preparation are authorized; dispatch is not."
     expected_selection: planning-and-task-breakdown
     expected_behavior: prepare_development_prerequisite_before_workflow_entry
     key_invariants:
@@ -841,7 +842,7 @@ cases:
       - "product-contract.md, accepted Local Import section, requires local CSV name,quantity headers, nonempty names and positive integer quantities; reject files above 10 MB and preview every error with line and message, retaining valid rows. It excludes URL imports, committing preview data, and release activity from this scope."
       - "import-development.md, Parser and Preview sections, assign row validation to src/import/parser.ts and file selection, size validation and rendering to src/import/preview.tsx. The established parseImport(text) result has rows of {name, quantity} and errors of {line, message}; preview consumes that result. Row parsing can be verified before preview integration; preview depends on the parser contract and must show all mixed-file errors."
       - "The Verification section defines valid, invalid-quantity and mixed CSV fixtures, plus exact-10-MB and over-limit files. At repository root run pnpm test -- src/import/parser.test.ts, pnpm typecheck, and pnpm dev for the local-import screen checks. These are defined procedures, not passed checks. Documentation goes in roadmap.md and development-tasks.md; task-queue.md is the designated single mutable task-state document."
-      - "Existing verified assignments are Controller C (Astra ultra) for planning and queue state, Worker W (Astra xhigh) for implementation and integration, and separate Reviewer R (Astra ultra) for final independent review. The maintainer owns acceptance. Planning-document preparation is authorized; worker dispatch and release are not."
+      - "Existing verified assignments are Controller C (Sol ultra) for planning and queue state, Worker W (Sol high) for implementation and integration, and separate Reviewer R (Sol high) for final independent review. The maintainer owns acceptance. Planning-document preparation is authorized; worker dispatch and release are not."
     expected_selection: planning-and-task-breakdown
     expected_behavior: prepare_explicit_roadmap_before_workflow_entry
     key_invariants:

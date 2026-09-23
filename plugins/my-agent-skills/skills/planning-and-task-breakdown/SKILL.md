@@ -24,12 +24,14 @@ roadmap before queue derivation; their content matters, not file count. Missing
 inputs stay in authorized preparation. Do not bypass this requirement by calling
 the same milestone work a compact plan; valid inputs need no ritual re-approval.
 
-That reference owns the five core responsibilities and exact role/model policy:
-Terra ultra is the minimum admitted execution baseline; Astra ultra owns control,
-planning and key independent review. Read the full policy before assigning any
-milestone participant or retry. Quality remains primary; recommendations never
-activate models or authorize work. General module/refactor handoffs do not inherit
-these milestone-only requirements.
+That reference owns the five core responsibilities and model policy: GPT-6 Sol
+ultra controls delivery and selects subagent models/efforts with quality first;
+GPT-6 Luna is limited to low-risk, checkable work. Astra is
+limited to one scoped consultation after an evidenced Sol impasse, shared across
+the entire authorized delivery scope. Read the full policy before assigning a
+milestone participant or retry. Preserve acceptance quality; recommendations
+never activate models or authorize work. General module/refactor handoffs do not
+inherit these milestone-only requirements.
 
 ## Establish Authority and Scope
 
@@ -100,6 +102,6 @@ Create parent directories only when durable artifacts are useful. Compact plans 
 - Integration, human acceptance, and release evidence remain distinct from implementation and automated checks.
 - Planning depth fits the request; no unnecessary hierarchy, full-suite gate, or repeated approval was added.
 - Milestone cards identify responsibility, permitted decisions, integration ownership, verification/review evidence, and the project's acceptance responsibility without creating mandatory extra agents or approval steps.
-- Milestone model options preserve the named Terra ultra baseline and role-appropriate admitted pairs, including approved Astra/Sol xhigh execution. Required Astra ultra control and key review remain distinct. Subagents and retries cannot silently substitute configurations; unsupported or unverified role settings block only affected work.
+- Milestone assignments use role-appropriate Sol/Luna settings and carry the shared Astra allowance across workers and resumptions. Model changes respect explicit user locks; support, requested settings and observed effective settings remain distinct. Missing required capabilities block only affected work.
 
 Acceptance criteria describe each task's outcome and supplement applicable project-wide completion rules. See [Definition of Done](../../references/definition-of-done.md).

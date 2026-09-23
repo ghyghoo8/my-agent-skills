@@ -41,7 +41,9 @@ codex plugin add my-agent-skills@my-agent-skills
 
 里程碑流程按五类核心职责组织：**主控协调、方案与任务规划、实现与集成、验证取证、独立审查**。兼容职责可以兼任，调查、集成和恢复专职按实际需要指定；角色不增加决策或发布权限，验证结果与审查结论分别记录，任务状态仍只有一个权威入口。
 
-模型选择以交付可信度和质量优先：**Astra ultra 负责主控、规划和关键独立审查；执行首选 Astra xhigh，次选 Sol xhigh；Terra ultra 保留为最低认可执行基线，Sol ultra 保留增强执行选项**。使用明确认可的模型与强度组合，不能按跨模型的 effort 名称推断质量高低。不设置经济档；子代理、验证、复核、重试及替代配置均须符合职责要求并核验生效设置。执行主机缺少 ultra 不会自动排除合规 xhigh 执行，关键角色配置缺口则保留为局部阻塞；次选不授权静默替换已指定的配置。详见[角色与模型策略](plugins/my-agent-skills/skills/planning-and-task-breakdown/references/milestone-execution.md#6-assign-roles-and-apply-the-quality-first-model-policy)。
+里程碑模型策略以**交付质量为第一优先级，主控默认 GPT-6 Sol Ultra，由主控决定每个子 agent 的模型和推理强度**。Sol 是常规模型上限，Luna 仅用于低风险、输入完整且结果可可靠验证的任务。medium、high、xhigh 是选型参考，不是固定角色门槛；困难子任务可选择宿主支持的 Max 或 Ultra，不强制先试低档。主控记录简短的任务适配理由，保留独立审查和验收，避免盲目继承、重复分派与整项返工。
+
+**Astra 仅在 Sol 已实际尝试仍存在实质性推理难题时，允许一次有界、只读的咨询。** 整个已授权委托范围共用一次额度，由唯一队列记录和预留；跨里程碑、子 agent、Goal 续接和上下文恢复都不重置。缺资料、权限、环境故障或限流不满足升级条件；咨询后由 Sol 验证并执行。既有条件授权足够时不重复询问，追加调用才需要新的明确额度。该策略替换旧版 Terra 下限和 Astra 必选角色，保留用户另外锁定的配置。详见[角色与模型策略](plugins/my-agent-skills/skills/planning-and-task-breakdown/references/milestone-execution.md#6-assign-roles-and-apply-the-quality-first-model-policy)。Skill 只能指导分派，不能自行切换当前主任务模型或修改全局默认配置。
 
 **里程碑是交付验收节点**：明确交付物、验收标准、依赖证据，以及验收责任人或机制。Goal 表达本次委托的交付目标，可覆盖多个里程碑；开发任务产出成果，现有队列记录进度与证据。任务完成仍须满足节点验收条件，必须真人验收的节点提前标明。
 

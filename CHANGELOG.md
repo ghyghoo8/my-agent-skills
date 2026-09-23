@@ -2,6 +2,19 @@
 
 All notable downstream changes are recorded here.
 
+## [6.0.0] - 2026-09-23
+
+### Changed
+
+- Replace mandatory Astra control/review and the Terra execution floor with GPT-6 Sol-led milestone delivery and bounded GPT-6 Luna workers. Default the single controller to Sol ultra and let it select supported worker settings with delivery quality first. Effort examples are guidance, not fixed role floors; demanding Sol workers may use Max or Ultra, without blind inheritance, mandatory cheaper-first trials or duplicate fan-out.
+- Limit Astra to one bounded read-only consultation after an evidenced Sol reasoning impasse. Share and reserve that allowance across the whole authorized delivery scope, workers, milestones, retries and Goal/context resumptions; Sol validates the advice and owns implementation.
+- Preserve acceptance, fresh-context independent review, one queue and existing authorization. Distinguish environment/data/permission failures from model limitations, retain explicit model locks, and separate supported, requested and observed effective settings without making unavailable receipts a universal new gate.
+
+### Migration
+
+- This major version changes role admission and configuration-blocking behavior. Previously recorded results keep their original model identities and historical evaluation claims; live model-policy fixtures are revised separately.
+- Skills guide model selection for authorized dispatch. They do not switch the current main task, edit global defaults or install/publish themselves. Existing accepted scope and Goal authorization remain unchanged.
+
 ## [5.1.0] - 2026-09-22
 
 ### Added
