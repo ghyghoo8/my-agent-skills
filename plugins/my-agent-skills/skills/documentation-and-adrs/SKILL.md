@@ -256,6 +256,20 @@ Special consideration for AI agent context:
 - **ADRs** — Help agents understand why past decisions were made (prevents re-deciding)
 - **Inline gotchas** — Prevent agents from falling into known traps
 
+### Concise Development Conventions
+
+When accepted work establishes a reusable convention or the user asks to preserve
+one, update the existing authority rather than adding another guide. Put local
+handler contracts, important rules, edge cases and rationale in concise comments
+beside the implementation; link to tests or the designated business specification
+when needed. Keep the development guide to ownership, reuse entrypoints and
+cross-module constraints, linking to handlers instead of copying their details.
+
+Use a short applicability/read pointer in `AGENTS.md`; new sessions load only the
+relevant guide section and source. Merge or replace stale guidance. Do not promote
+unaccepted proposals, keep task history in permanent rules, catalog every helper,
+or add a convention entry for an ordinary change already covered by one.
+
 ### Development Handoff
 
 When preparing a development document from an unresolved proposal, apply the

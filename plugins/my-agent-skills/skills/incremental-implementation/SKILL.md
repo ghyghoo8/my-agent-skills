@@ -35,11 +35,11 @@ Build in thin vertical slices — implement one piece, test it, verify it, then 
 
 For each slice:
 
-1. **Implement** the smallest complete piece of functionality
+1. **Implement** the smallest complete piece; check existing helpers before adding another implementation using the scoped [reuse check](../code-simplification/SKILL.md#reuse-and-consolidation).
 2. **Test** — use relevant existing tests; add outcome-based tests for meaningful new behavior
 3. **Verify** — run checks appropriate to the slice and required by the project
 4. **Review** — inspect the result; commit only when authorized by the user or required by the applicable project workflow (see `git-workflow-and-versioning`)
-5. **Move to the next slice** — carry forward, don't restart
+5. **Move to the next slice** — carry forward, don't restart. Preserve newly confirmed reusable conventions through [concise documentation](../documentation-and-adrs/SKILL.md#concise-development-conventions) when needed.
 
 ## Slicing Strategies
 
@@ -231,7 +231,7 @@ After each increment, verify with the repository's own commands (see the test-dr
 | "It's faster to do it all at once" | It *feels* faster until something breaks and you can't find which of 500 changed lines caused it. |
 | "Every slice needs its own commit" | Verification boundaries need not be commit boundaries. Follow the authorized Git workflow. |
 | "I'll add the feature flag later" | If the feature isn't complete, it shouldn't be user-visible. Add the flag now. |
-| "This refactor is small enough to include" | Refactors mixed with features make both harder to review and debug. Separate them. |
+| "This refactor is small enough to include" | Include only necessary, verifiable local consolidation; keep unrelated refactoring separate. |
 | "Let me run the build command again just to be sure" | After a successful run, repeating the same command adds nothing unless the code has changed since. Run it again after subsequent edits, not as reassurance. |
 
 ## Red Flags
@@ -242,7 +242,7 @@ After each increment, verify with the repository's own commands (see the test-dr
 - Skipping the test/verify step to move faster
 - Build or tests broken between increments
 - A diff becoming too broad to review or verify
-- Building abstractions before the third use case demands it
+- Adding abstractions without matching semantics and actual reuse needs
 - Touching files outside the task scope "while I'm here"
 - Creating new utility files for one-time operations
 - Running the same build/test command twice in a row without any intervening code change

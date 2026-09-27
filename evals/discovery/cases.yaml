@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 6.1.0
+plugin_version: 6.2.0
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,7 +14,7 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 6.1.0
+    plugin_version: 6.2.0
     skill_count: 27
     maximum_raw_characters: 7000
   checks:
@@ -1168,3 +1168,36 @@ cases:
       - Retains the user's explicit follow-on Goal authority and requested sequence; does not convert documentation first into documentation only or ask again solely because the proposal check occurred.
       - Hands the completed substantial document to the existing whole-scope readiness owner before dependent execution, without claiming that a draft or first runnable task already establishes readiness.
       - Does not infer release, unrelated work or a new product decision from the Goal request, and does not call live Goal or automation tools to perform this evaluation.
+
+  - id: second-local-implementation-checks-existing-entry
+    category: implicit
+    focus: reuse_check_within_direct_execution
+    request: Add the accepted missing-value handling to the second private sensor panel and verify it.
+    minimal_project_evidence:
+      - The first panel already calls normalizeOptionalReading in the existing number utility; its accepted contract handles numeric strings, finite numbers, valid zero and missing input exactly as required by the second panel.
+      - The second panel is about to gain the same inline conversion. The utility is already an allowed dependency in this module, and no public contract, ownership or dependency change is needed.
+      - This is a small authorized implementation with established fixtures, not a workflow-selection request, substantial refactor or context-repair task.
+    expected_selection: direct_task_workflow
+    expected_behavior: reuse_before_writing_a_second_implementation
+    key_invariants:
+      - Finds and checks the existing utility against the actual required behavior before adding a second inline implementation, then reuses it with focused verification.
+      - Does not require a third consumer, minimum code length, fresh approval or a separate simplification phase for the authorized local repair.
+      - Does not activate using-agent-skills, a full incremental plan, context-engineering or an architecture gate solely because reuse is appropriate.
+
+  - id: concise-convention-promotion-uses-existing-documentation-owner
+    category: explicit
+    focus: concise_persistent_conventions_and_progressive_loading
+    request: 固化这次共享处理的开发约定，方便新会话继续遵循；规范保持精简，只更新文档，不改业务代码。
+    minimal_project_evidence:
+      - The accepted result has a device-state handler and a separate pump-frequency handler, both reused by the relevant cabinet consumers. The frequency handler composes the established numeric compatibility utility.
+      - docs/development.md is the authoritative development guide, with module-specific details linked from it. AGENTS.md already has a short pointer to that guide; no duplicate convention source is needed.
+      - The reusable decision is to check existing entries when a second implementation is planned and consolidate matching responsibilities locally. Exact pump rounding and device enum values already live in the domain specification and tests, and task history has its existing record.
+      - Short comments beside the handlers already explain their local contracts, missing-value boundaries and non-obvious rationale, consistent with the authoritative domain specification.
+    expected_selection: documentation-and-adrs
+    expected_behavior: promote_one_scoped_convention_without_documentation_sprawl
+    key_invariants:
+      - Updates the relevant existing guide section with a concise actionable rule, shared entry points, responsibilities and cross-module constraints; preserves the short AGENTS.md pointer.
+      - Keeps detailed domain values and task history in their current owners, linking when useful rather than copying them into global rules or a giant development document.
+      - Uses the index to load only relevant detail and does not require every future task to read all standards or append another rule.
+      - Links to source symbols for local contract, boundary and rationale comments rather than copying full comments or business flows into the guide; respects the domain specification's authority and the document-only write boundary.
+      - Keeps the documentation owner without invoking meta routing, a new context-engineering lifecycle, a mandatory ADR or an implementation/readiness offer.

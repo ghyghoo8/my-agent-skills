@@ -1,6 +1,6 @@
 schema_version: 1
 skill: cross_skill_workflow
-plugin_version: 6.1.0
+plugin_version: 6.2.0
 evaluation_mode: clean_context_behavior_contracts
 scoring:
   observe:
@@ -561,3 +561,75 @@ cases:
       - Records the supported treatment and relevant focus and spacing acceptance without fabricating a counterargument or requiring an alternative merely to show independence.
       - Does not create a separate dialectic consent step, full design interview, architecture brief or repeated approval for the delegated local styling choice.
       - Does not implement, publish or claim new runtime verification beyond the supplied evidence.
+
+  - id: two-consumers-justify-one-scoped-rule
+    category: positive
+    focus: evidence_based_local_consolidation
+    request: Finish the accepted L2 and L3 pump-frequency display change and keep the shared rule easy to maintain.
+    minimal_project_evidence:
+      - Both private render paths in the cabinet module must display each pump's finite reading rounded upward, retain valid zero, and show unknown for missing readings. Their inputs, output meaning and change owner are the same.
+      - The existing number utility normalizes numeric strings and rejects non-finite input but does not define pump display policy. No current helper owns the complete accepted display rule; both consumers are in the authorized change.
+      - The module has an established display-handler location and focused fixtures for both consumers. No public contract, ownership or dependency direction needs to change.
+    expected_behavior: compose_existing_numeric_utility_into_one_domain_handler
+    key_invariants:
+      - Reuses the number utility and gives the accepted pump display rule one narrowly named handler in the existing owning module; both affected consumers use it.
+      - Does not wait for a third consumer or a minimum number of duplicated lines once the same existing responsibility is established.
+      - Keeps pump policy out of unrelated generic utilities, preserves missing-versus-zero behavior, and verifies the two affected outputs.
+      - Applies ceiling only to display output; the underlying reading remains unchanged for calculations and start/stop decisions.
+      - Does not scan for an unrelated repository-wide migration, introduce a generic handler framework or require a separate cleanup approval for this scoped implementation.
+
+  - id: similar-syntax-does-not-establish-shared-responsibility
+    category: boundary
+    focus: semantic_and_dependency_exceptions
+    request: Review these two numeric formatters for useful consolidation; make only a safe local simplification if the evidence supports it.
+    minimal_project_evidence:
+      - One formatter renders operational readings with missing values shown as unknown; the other renders billing quantities where a missing value is an error. Similar conversion and rounding syntax hides different units, accepted rounding policies and error behavior.
+      - The formatters belong to independently deployed packages with separate owners. Importing either package into the other would violate the existing dependency direction, and introducing a shared package is outside this request.
+      - Current fixtures establish both behaviors. Neither package has a suitable existing shared entry that removes these semantic and dependency differences.
+    expected_behavior: retain_justified_separate_implementations
+    key_invariants:
+      - Checks meaning and dependency ownership before deciding; explains the concrete reasons for retaining separate formatters.
+      - Does not force an abstraction solely because two similar expressions exist or create a mode-switching utility that changes either behavior.
+      - Does not introduce a package, cross-package import or broader architecture change to satisfy a duplication count.
+      - Does not manufacture a refactor or documentation update when the current implementations and conventions already express the distinction.
+
+  - id: cabinet-status-and-frequency-have-separate-shared-handlers
+    category: positive
+    focus: cohesive_consolidation_within_authorized_change
+    request: Unify device-state handling across the cabinet views and pump-frequency handling across L2 and L3 as part of this approved change.
+    minimal_project_evidence:
+      - The affected views repeat the same accepted device-specific system-status mapping; communication connectivity remains a separate field. L2 and L3 also repeat the same accepted pump-frequency display rule.
+      - State mapping and pump formatting are distinct responsibilities in the same cabinet display module. Its established handler location and numeric compatibility utility are available; no module boundary or public contract must change.
+      - The user authorizes updating these consumers together. Local fixtures cover device enums, connectivity, finite readings, valid zero and missing values.
+    expected_behavior: consolidate_each_responsibility_without_combining_them
+    key_invariants:
+      - Creates or reuses one state handler and one frequency handler, with the relevant affected consumers sharing each entry.
+      - Preserves device-specific state meanings and separate connectivity while composing the existing number utility for frequency compatibility.
+      - Does not combine state and frequency into one generic handler with device or mode switches or move unrelated business mapping into the number utility.
+      - Keeps this necessary local convergence within the authorized implementation and verifies affected consumers without requiring unrelated cleanup or blanket reapproval.
+
+  - id: repeated-helper-calls-are-already-consolidated
+    category: negative
+    focus: call_count_is_not_implementation_duplication
+    request: Check that the two updated cabinet panels share frequency formatting and finish the approved change.
+    minimal_project_evidence:
+      - Both panels already call the same correctly named formatPumpFrequency handler. Neither repeats parsing, missing-value handling or rounding locally, and their call signatures and outputs are covered by current fixtures.
+      - The handler reuses the established number utility. Current project conventions already identify its responsibility and import path.
+    expected_behavior: retain_existing_shared_entry_without_another_wrapper
+    key_invariants:
+      - Recognizes multiple calls to one handler as successful reuse, not a second implementation requiring extraction.
+      - Does not add a wrapper, generic dispatch layer, new utility file or extra abstraction merely to reduce call-site repetition.
+      - Finishes with proportional verification and does not invent a missing convention or mandatory documentation diff.
+
+  - id: existing-convention-needs-no-per-task-appendix
+    category: negative
+    focus: durable_rules_without_documentation_growth
+    request: Apply the same shared-formatting convention to this accepted local display fix and keep the development standards concise.
+    minimal_project_evidence:
+      - AGENTS.md already links to the authoritative development guide. Its relevant section names the shared display-handler entry, requires reuse when semantics match, and explains the separate numeric-compatibility responsibility.
+      - The current task follows those rules and introduces no new exception, ownership decision or recurring failure. The guide is accurate; current task details belong in the existing task record if a handoff is needed.
+    expected_behavior: follow_current_convention_without_redundant_rule_writes
+    key_invariants:
+      - Reads the relevant existing section, reuses its entry and completes the authorized fix.
+      - Does not append a same-meaning rule, per-task changelog, copied business detail or another mandatory document merely because a task finished.
+      - Does not expand AGENTS.md or read every linked guide to establish compliance with this local convention.

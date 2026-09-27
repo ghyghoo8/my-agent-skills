@@ -2,6 +2,18 @@
 
 All notable downstream changes are recorded here.
 
+## [6.2.0] - 2026-09-27
+
+### Added
+
+- Check reuse before introducing a second implementation of the same rule. Consolidate matching semantics within the appropriate owner and authorized consumers, retaining justified semantic or dependency exceptions and separate handlers for distinct concepts.
+- Keep handler contracts and logic rationale in concise code comments; development conventions provide ownership, reuse entrypoints and cross-module constraints with links, so future sessions load relevant detail without duplicated rule text.
+
+### Changed
+
+- Replace mechanical duplication/use-count heuristics with semantic evidence. Permit necessary local extraction alongside authorized feature work while keeping unrelated refactoring separate.
+- Preserve all 27 discovery descriptions, existing authorization and architecture routes. Runtime guidance stays in existing Skills with scoped links; no new Skill, rule catalog or runtime dependency is added.
+
 ## [6.1.0] - 2026-09-27
 
 ### Added

@@ -104,6 +104,28 @@ Default to simplifying recently modified code. Avoid drive-by refactors of unrel
 
 ## The Simplification Process
 
+### Reuse and Consolidation
+
+Before adding a helper, locate relevant existing implementations and consumers.
+A second existing or planned implementation of the same rule triggers a reuse
+check; multiple calls to one helper do not. Compare purpose, input/output and
+failure semantics, and whether the implementations should change together.
+
+When semantics match, default to reusing the existing owner or extracting the
+smallest shared implementation within the appropriate responsibility. Migrate
+affected in-scope consumers and remove verified obsolete duplicates. Retain
+separate implementations when semantics or dependency boundaries justify it,
+with a brief reason. Preserve architecture triage for actual boundary changes;
+this check grants no additional scope or write authority.
+
+Keep distinct concepts in separate named handlers; shared primitives need not
+merge domain policies. Avoid speculative layers or scenario flags. Use searchable
+domain names and short contract comments for non-obvious units, missing values,
+side effects or usage limits. Verify affected consumers as well as the helper.
+Persist a confirmed reuse convention through
+[concise development conventions](../documentation-and-adrs/SKILL.md#concise-development-conventions)
+when relevant, without documenting every utility.
+
 ### Step 1: Understand Before Touching (Chesterton's Fence)
 
 Before changing or removing anything, understand why it exists. This is Chesterton's Fence: if you see a fence across a road and don't understand why it's there, don't tear it down. First understand the reason, then decide if the reason still applies.
@@ -148,7 +170,7 @@ Scan for these patterns — each one is a concrete signal, not a vague smell:
 
 | Pattern | Signal | Simplification |
 |---------|--------|----------------|
-| Duplicated logic | Same 5+ lines in multiple places | Extract to a shared function |
+| Duplicated logic | Two implementations of the same rule | Apply the semantic reuse check above |
 | Dead code | Unreachable branches, unused variables, commented-out blocks | Remove (after confirming it's truly dead) |
 | Unnecessary abstractions | Wrapper that adds no value | Inline the wrapper, call the underlying function directly |
 | Over-engineered patterns | Factory-for-a-factory, strategy-with-one-strategy | Replace with the simple direct approach |
@@ -156,7 +178,9 @@ Scan for these patterns — each one is a concrete signal, not a vague smell:
 
 ### Step 3: Apply Changes Incrementally
 
-Make one simplification at a time. Run tests after each change. **Submit refactoring changes separately from feature or bug fix changes.** A PR that refactors and adds a feature is two PRs — split them.
+Keep unrelated refactoring separate. A local extraction needed by the authorized
+feature may stay in the same reviewable change; verify preserved behavior and the
+requested behavior separately. Do not expand into adjacent cleanup.
 
 ```
 FOR EACH SIMPLIFICATION:
@@ -304,7 +328,7 @@ function UserBadge({ user }: Props) {
 | "The types make it self-documenting" | Types document structure, not intent. A well-named function explains *why* better than a type signature explains *what*. |
 | "This abstraction might be useful later" | Don't preserve speculative abstractions. If it's not used now, it's complexity without value. Remove it and re-add when needed. |
 | "The original author must have had a reason" | Maybe. Check git blame — apply Chesterton's Fence. But accumulated complexity often has no reason; it's just the residue of iteration under pressure. |
-| "I'll refactor while adding this feature" | Separate refactoring from feature work. Mixed changes are harder to review, revert, and understand in history. |
+| "I'll refactor while adding this feature" | Include only necessary, verifiable local consolidation; keep unrelated refactoring separate. |
 
 ## Red Flags
 

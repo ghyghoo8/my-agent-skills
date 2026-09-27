@@ -42,7 +42,7 @@ Can another engineer (or agent) understand this code without the author explaini
 - Is the code organized logically (related code grouped, clear module boundaries)?
 - Are there any "clever" tricks that should be simplified?
 - **Could this be done in fewer lines?** (1000 lines where 100 suffice is a failure)
-- **Are abstractions earning their complexity?** (Don't generalize until the third use case)
+- **Are abstractions earning their complexity?** Check actual semantics and reuse needs, not a fixed number of use cases.
 - Would comments help clarify non-obvious intent? (But don't comment obvious code.)
 - Are there dead code artifacts: no-op variables (`_unused`), backwards-compat shims, or `// removed` comments?
 - **Is a new conditional bolted onto an unrelated flow?** That's a design smell, not a nit — push the logic into its own helper, state, or policy instead of tangling an existing path.
@@ -54,7 +54,7 @@ Does the change fit the system's design?
 
 - Does it follow existing patterns or introduce a new one? If new, is it justified?
 - Does it maintain clean module boundaries?
-- Is there code duplication that should be shared?
+- Do repeated implementations need the scoped [reuse check](../code-simplification/SKILL.md#reuse-and-consolidation), while distinct concepts retain separate handlers?
 - Are dependencies flowing in the right direction (no circular dependencies)?
 - Is the abstraction level appropriate (not over-engineered, not too coupled)?
 - **Does this refactor reduce complexity or just relocate it?** Count the concepts a reader must hold to follow the change. If a "cleaner" version leaves that count unchanged, it isn't cleaner — prefer the restructuring that makes whole branches, modes, or layers disappear over one that re-centralizes the same logic. Prefer deleting an abstraction to polishing it.
@@ -125,7 +125,9 @@ Small, focused changes are easier to review, faster to merge, and safer to deplo
 
 **When large changes are acceptable:** Complete file deletions and automated refactoring where the reviewer only needs to verify intent, not every line.
 
-**Separate refactoring from feature work.** A change that refactors existing code and adds new behavior is two changes — submit them separately. Small cleanups (variable renaming) can be included at reviewer discretion.
+**Keep unrelated refactoring separate.** A local extraction needed by an authorized
+feature may stay in the same reviewable change; verify preserved behavior and
+the requested behavior separately. Size alone does not authorize adjacent cleanup.
 
 ## Change Descriptions
 
