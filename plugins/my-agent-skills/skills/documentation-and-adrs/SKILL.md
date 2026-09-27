@@ -258,6 +258,13 @@ Special consideration for AI agent context:
 
 ### Development Handoff
 
+When preparing a development document from an unresolved proposal, apply the
+[candidate proposal check](../spec-driven-development/SKILL.md#check-candidate-proposals)
+before recording it as a decision. Separate the goal and confirmed constraints
+from candidate means, and surface evidence-backed tensions and minimal revisions
+within the documentation task. Merely recording an accepted decision does not
+reopen it; document-only authority remains document-only.
+
 When the current request prepares a substantial module, refactor or milestone handoff,
 finish the requested documentation, then consult the planning owner's
 [Execution Readiness Choice](../planning-and-task-breakdown/references/execution-readiness-choice.md)

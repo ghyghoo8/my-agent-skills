@@ -22,6 +22,13 @@ Offer this review only when all of the following are true:
 
 Do not offer it for ordinary questions, implementation requests, summaries, translations, status reports, logs, pasted material with no project connection, or merely possible relevance. Do not intercept an explicit request for another skill or workflow.
 
+Skipping this standalone review does not suppress evidence checks or warranted
+technical pushback within the owning direct task. For an unresolved proposal in
+a direct development or planning request, that owner can use the scoped
+[candidate proposal check](../spec-driven-development/SKILL.md#check-candidate-proposals)
+without a separate debate offer. This is not consent to critique passive input,
+expand the task, or reopen an accepted decision without new material evidence.
+
 When several related ideas arrive together, treat them as one scoped candidate and make at most one offer.
 
 ## Obtain Consent
@@ -65,7 +72,10 @@ Keep the result proportional to the claim and cover:
 - **Revised thesis:** a more defensible version;
 - **Minimal next step:** one bounded validation, optionally paired with the smallest evidence-backed optimization.
 
-Conclude the review without changing files or starting implementation. If the user subsequently requests action, route that request through the owning project workflow and its authorization boundaries.
+Conclude the review itself without changing files or starting implementation.
+Separately authorized follow-on work returns to its owning workflow and applicable
+gates, whether authorized before, together with, or after the review request.
+Review consent alone never supplies that authority.
 
 ## Verification
 

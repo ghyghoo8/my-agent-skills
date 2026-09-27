@@ -28,6 +28,8 @@ codex plugin add my-agent-skills@my-agent-skills
 - `$modular-architecture-design`：在职责、所有权、依赖、模块间或公共契约、迁移边界可能变化时，先做只读架构分流。
 - `$project-dialectic-review`：遇到可能实质影响当前项目的新思路、主张或外部资料时，显式请求则直接审视，否则先询问；基于项目证据保留有效部分，指出关键矛盾或不确定性，并给出更稳健的修订与最小验证。
 
+直接开发、设计或规划任务中夹带的建议，由当前工作流在定稿前做[候选方案检查](plugins/my-agent-skills/skills/spec-driven-development/SKILL.md#check-candidate-proposals)：区分目标、明确约束、已接受决策与候选手段，依据项目证据指出实质问题并提出最小修订，无须另问是否辩证。后续要求整理开发文档，不会自动把未定建议变成已接受方案；已确认选择不因措辞含“建议”而重审。局部任务可就地判断，不强制进入完整规格流程；被动分享仍保留逐项同意，文档授权不扩大为实施授权。
+
 架构分流只选择一条路径：
 
 | Path | Meaning |

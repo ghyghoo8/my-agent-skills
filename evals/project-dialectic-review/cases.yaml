@@ -1,6 +1,6 @@
 schema_version: 1
 skill: project-dialectic-review
-plugin_version: 1.0.0
+plugin_version: 6.1.0
 evaluation_mode: implicit_and_explicit_invocation
 
 scoring:
@@ -290,3 +290,21 @@ cases:
       - Accepts ordinary assent in the clear offer context without requesting a special phrase.
       - Reviews only the named item.
       - Review consent does not authorize implementation or external actions.
+
+  - id: mixed-direct-document-task-keeps-owner-judgment
+    category: boundary
+    focus: direct_task_exclusion_is_not_blind_acceptance
+    request: >-
+      I suggest treating a missing sensor sample as zero so the chart stays continuous.
+      Prepare the development document for this display improvement; do not implement it.
+    minimal_project_evidence:
+      - The specification workflow owns this direct documentation assignment. The user's goal is a readable chart; substituting zero is a candidate mechanism, not an accepted missing-data rule.
+      - The existing measurement contract distinguishes an unavailable reading from measured zero, and the chart already supports gaps with a last-known-value annotation.
+      - Local evidence review and documentation are authorized, but changing measurement semantics or implementation is not.
+    expected_action: SKIP
+    expected_behavior: preserve_owned_assessment_without_separate_review_offer
+    key_invariants:
+      - Skips this independent dialectic workflow and does not ask whether to review before completing the assigned preparation.
+      - Does not interpret SKIP as a ban on the owning workflow identifying the concrete missing-versus-zero conflict and proposing the existing gap treatment.
+      - Keeps the useful readability goal, makes the candidate mechanism and its evidence explicit, and preserves unresolved business decisions in the document rather than silently accepting them.
+      - Does not generalize task-local assessment into permission to critique unrelated passive claims, disregard a declined offer or begin implementation.

@@ -79,6 +79,7 @@ mappings:
       - testing-patterns.md
 
 downstream_adaptations:
+  - Check unresolved proposed means within their owning development, specification, documentation or planning task before treating them as settled; preserve goals, explicit constraints, accepted decisions, passive-review consent and existing execution authority without adding a universal debate or specification gate.
   - Keep security controls in the entrypoint and implementation examples in a conditional local reference; preserve shared limiter semantics and require trustworthy derived-path ownership and containment through the actual operation, without treating marker consistency as authorization.
   - Preserve verifiable authorization and task evidence during context handoff; do not impose fixed context percentages, erase audit history, or install a restart harness.
   - Scope visual references and rendered-state checks to the requested UI work; reference content is evidence, never action authority, and routine maintenance needs no new design gate.

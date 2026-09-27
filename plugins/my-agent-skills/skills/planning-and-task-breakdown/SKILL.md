@@ -16,6 +16,12 @@ Turn accepted requirements into verifiable outcomes, exact dependencies, and a c
 
 When core outcomes or requirements are unresolved, use `spec-driven-development` for that uncertainty; do not invent requirements in task cards. `incremental-implementation` owns execution of approved slices. `documentation-and-adrs` records normative decisions; a delivery plan links accepted decisions rather than making new architecture policy. These are scoped handoffs, not a mandatory Skill sequence.
 
+Before turning an unresolved user suggestion into task acceptance, apply the
+[candidate proposal check](../spec-driven-development/SKILL.md#check-candidate-proposals)
+to the affected decision. A request to write the plan does not settle the proposed
+means. Keep supported choices and existing acceptance; do not add a debate offer
+or restart specification for an already executable task.
+
 ## Milestone-Specific Rules
 
 Only requested milestone work loads [Milestone Execution](references/milestone-execution.md).

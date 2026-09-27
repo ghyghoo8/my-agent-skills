@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 6.0.0
+plugin_version: 6.1.0
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,7 +14,7 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 6.0.0
+    plugin_version: 6.1.0
     skill_count: 27
     maximum_raw_characters: 7000
   checks:
@@ -1062,3 +1062,109 @@ cases:
       - Reuses the pending question and valid evidence rather than re-entering full planning/readiness assessment or asking the same approval again.
       - Does not trigger using-agent-skills, capability-adoption-assessment or modular-architecture-design merely because a Goal continuation contains a blocker.
       - Applies actual host blocking rules without artificial polling, duplicate Goals or a background monitor; unresolved approval remains unresolved.
+
+  - id: cabinet-suggestions-to-documentation-retain-owned-assessment
+    category: implicit
+    focus: mixed_user_goals_candidates_and_constraints
+    conversation:
+      - role: user
+        content: >-
+          做几个优化项：旧机柜、报表入口更醒目，字体大一些，我建议不用按钮样式，
+          直接用大一些的超链接加下划线；泵频率不能取平均值，按实际 A/B 数值用斜杠分开，
+          机柜右侧逐路向上取整；system_status 区分待机、运行、故障、手动，分别用灰、绿、红、橙；
+          液池温度去掉数值下面的横引线，数值居中在斜引线上方。
+      - role: user
+        content: 先按这些优化点整理详细、可直接交付的开发文档，暂不实施。
+    minimal_project_evidence:
+      - >-
+        This is a synthetic documentation-only continuation of a cabinet UI request.
+        The goals are discoverable navigation and truthful device readings; underlined
+        link styling is a proposed means. A/B separation, right-panel ceiling, the
+        named four-state palette and temperature-label alignment are explicit user
+        constraints, not permission to redesign unrelated behavior.
+      - >-
+        The current entries navigate to real routes. Existing device contracts define
+        the four system_status values for CDU devices; UPS devices use a different
+        enum, and communication connectivity is a separate field. Missing frequency
+        readings are unknown, not zero. No evidence accepts one shared state enum or
+        removal of the connectivity indication.
+      - >-
+        docs/plan/cabinet-display.md is the canonical draft. The frontend task now
+        requires a developer handoff, but source edits, Goal creation and execution
+        are excluded by the latest instruction. The fixture authorizes local evidence
+        inspection and this document only.
+    expected_selection: spec-driven-development with documentation-and-adrs
+    expected_behavior: assess_mixed_proposal_before_documenting_without_dialectic_offer
+    key_invariants:
+      - Separates the outcome, the candidate link styling and explicit display constraints without treating every suggestion as either an accepted design or an invitation to a separate debate.
+      - Preserves supported changes and names the concrete state-domain and missing-value tensions before presenting the plan as ready; proposes device-specific mapping, a retained connectivity indication and unknown-frequency handling as the smallest corrections supported by the fixture.
+      - Keeps the existing owner, assesses within the requested handoff and does not first ask whether to invoke project-dialectic-review or force an unrelated architecture phase.
+      - Writes the authorized canonical document, records any remaining material decision as unresolved, and does not label an unaccepted business change accepted merely because it appears in the draft.
+      - Does not edit business implementation, start a Goal or offer execution under the explicit documentation-only continuation.
+
+  - id: explicit-proposal-review-and-documents-use-existing-authorization
+    category: explicit
+    focus: scoped_review_followed_by_authorized_documentation
+    request: >-
+      先结合项目挑出我的导出方案中真正有问题的地方，修订后写入现有开发文档。
+      我建议导出当前筛选的数据，但可以从加载到浏览器的所有行直接生成 CSV。
+      这次只评审和写文档，不实施。
+    minimal_project_evidence:
+      - The accepted product goal is exporting only the currently filtered rows. The browser retains additional hidden rows for other filters, so exporting all loaded rows would violate that goal.
+      - The current filter selector already supplies the visible row set. Using that selector preserves the accepted scope and requires no new product or ownership decision.
+      - The user explicitly requests a project-grounded challenge, revision and an update to docs/plan/export.md; no implementation, upload or new workflow authorization is needed for those named actions.
+    expected_selection: project-dialectic-review then documentation-and-adrs
+    expected_behavior: review_and_write_with_separate_existing_scoped_authority
+    key_invariants:
+      - Treats the explicit request as consent to review this proposal and does not ask a redundant review question.
+      - Preserves the filtered-export goal, identifies the hidden-row conflict and recommends reusing the visible-row selector without inventing unrelated objections.
+      - Completes the separately authorized document update after the review rather than stopping on the review Skill's default analysis-only boundary.
+      - Does not infer implementation, external effects or broader consent from either the review or document authorization.
+
+  - id: direct-suggested-local-fix-does-not-require-specification
+    category: negative
+    focus: suggestion_wording_without_workflow_expansion
+    request: >-
+      我建议这里复用现有的 formatOptionalFrequency，把空值显示成 --。
+      请直接修复这个私有组件的显示问题，保持其他行为不变。
+    minimal_project_evidence:
+      - The private component currently coerces null to 0 Hz. The accepted display rule and existing formatOptionalFrequency utility already distinguish null from zero.
+      - Existing component fixtures establish valid zero, missing input and ordinary finite readings. Ownership, public contracts, product meaning and dependencies remain unchanged.
+      - The user authorizes the bounded implementation and focused verification; no product decision is unresolved.
+    expected_selection: direct_task_workflow
+    expected_behavior: check_existing_evidence_and_fix_without_new_lifecycle
+    key_invariants:
+      - Checks that the proposed utility satisfies the accepted display rule and performs the authorized local repair with focused verification.
+      - Does not treat the phrase I suggest as a passive-thesis trigger, require dialectic consent or manufacture a substantive objection.
+      - Does not start a full specification, planning or architecture workflow merely to record the already settled goal, means and constraints.
+
+  - id: cabinet-documentation-first-preserves-explicit-goal-follow-on
+    category: boundary
+    focus: proposal_assessment_does_not_erase_follow_on_authority
+    request: 先按优化点，整理详细、可直接交付的开发文档，然后开启goal，执行文档
+    minimal_project_evidence:
+      - >-
+        The preceding request contains four cabinet changes: more prominent entry
+        links with underlining as a candidate treatment, raw A/B pump frequencies
+        instead of an average and per-route ceiling in the right panel, the named
+        four system-status labels and colors, and the temperature label above its
+        diagonal leader without a horizontal line. This continuation explicitly
+        authorizes documentation first and subsequent Goal execution of that scope.
+      - >-
+        The current owning workflow is preparing docs/plan/cabinet-display.md.
+        Nearby evidence establishes valid navigation routes, device-specific status
+        mappings, independent connectivity indicators and unknown-frequency handling.
+        Those constraints support bounded display corrections without an unresolved
+        product or ownership decision. The handoff is still being written, and
+        whole-scope execution readiness has not yet been assessed.
+      - >-
+        This is a next-action routing fixture. Goal support and available execution
+        capabilities are scenario inputs, not authorization to call live host tools
+        during the evaluation. No prior acceptance or readiness result is fabricated.
+    expected_selection: spec-driven-development then planning-and-task-breakdown
+    expected_behavior: finish_assessed_handoff_and_preserve_scoped_goal_authority
+    key_invariants:
+      - Completes the developer document after assessing candidate means against the supplied evidence and makes supported refinements visible within the four requested changes.
+      - Retains the user's explicit follow-on Goal authority and requested sequence; does not convert documentation first into documentation only or ask again solely because the proposal check occurred.
+      - Hands the completed substantial document to the existing whole-scope readiness owner before dependent execution, without claiming that a draft or first runnable task already establishes readiness.
+      - Does not infer release, unrelated work or a new product decision from the Goal request, and does not call live Goal or automation tools to perform this evaluation.

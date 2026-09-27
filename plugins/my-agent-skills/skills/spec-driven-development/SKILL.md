@@ -23,6 +23,33 @@ Specify → Plan → Tasks → Implement, with a capability scope check only whe
 
 Ask when a missing decision materially affects the outcome and cannot be resolved from project evidence or delegated judgment. Continue independent work while waiting. For changes that may materially alter ownership, dependencies, contracts, or migration boundaries, hand off to `modular-architecture-design`. Preserve its single selected route, `ARCHITECTURE_GATE` / `DISCOVERY` no-write boundary, and documented exit condition; a spec or general delegation does not bypass them.
 
+### Check Candidate Proposals
+
+Within a direct design, planning, or implementation request, distinguish the
+user's desired outcome, explicit constraints and accepted decisions from proposed
+means. Use the conversation's meaning and prior decisions, not keywords alone.
+Asking to turn a suggestion into a development document does not by itself settle
+its assumptions or tradeoffs; carry unresolved proposals across follow-up turns.
+
+Before treating a candidate as settled, check the nearby project evidence for
+material effects on correctness, data or state semantics, key interactions, or
+maintenance cost. When a real tension exists, briefly explain what holds, the
+concrete problem and the smallest supported revision. Surface missing evidence
+as uncertainty. If no meaningful tension exists, retain the proposal without
+inventing objections, alternatives or a review artifact.
+
+This judgment belongs to the current task and needs no separate invitation to
+debate. It does not activate `project-dialectic-review` for passive input or
+bypass its consent rules. A bounded local task can do this check inline without
+loading the rest of this specification workflow. Preserve accepted decisions
+unless new material evidence warrants revisiting the affected part.
+
+Resolve reversible technical details within existing delegation and continue;
+do not silently replace an explicit user constraint or accept a new product rule.
+Document proposed versus accepted changes distinctly. Document-only authority
+does not authorize implementation; separately authorized follow-on work retains
+its scope without another ritual approval.
+
 For an unsettled product rule, first compare the concrete proposal with accepted
 behavior. Show its decision reference, impact and recommendation, then ask once
 through a permitted native choice or text question: accept within the current

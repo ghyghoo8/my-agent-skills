@@ -1,6 +1,6 @@
 schema_version: 1
 skill: cross_skill_workflow
-plugin_version: 6.0.0
+plugin_version: 6.1.0
 evaluation_mode: clean_context_behavior_contracts
 scoring:
   observe:
@@ -503,3 +503,61 @@ cases:
       - Preserves unrelated module documents and the other unfinished plan, and avoids duplicating mutable requirements across a second source of truth.
       - Delivers developer-usable scope, dependencies and verification details within the existing format while keeping documentation completion distinct from implementation authorization.
       - Does not start implementation, create a Goal or offer to start merely because the handoff is complete under an explicit documentation-only request.
+
+  - id: development-draft-does-not-accept-unsettled-product-rule
+    category: boundary
+    focus: candidate_means_and_acceptance_continuity
+    request: >-
+      把刚才讨论的告警方案整理成可交付开发文档，其他已确认内容继续完成，暂不实施。
+    minimal_project_evidence:
+      - >-
+        The accepted goal is reducing duplicate alarm noise while retaining critical
+        alarms. The user earlier suggested suppressing every repeated alarm for
+        ten minutes. Current evidence shows a repeat can escalate from warning to
+        critical; the owner has not accepted whether escalation bypasses suppression.
+      - >-
+        The assistant already identified that tension and asked once about an
+        escalation exception. No answer arrived. The current request to write the
+        document does not resolve that product choice. Layout, field names and
+        read-only alarm history are accepted and can be documented independently.
+      - docs/plan/alarm-display.md is the existing draft and only local documentation is authorized.
+    expected_behavior: retain_pending_product_decision_while_completing_independent_documentation
+    key_invariants:
+      - Distinguishes the accepted noise-reduction goal from the proposed ten-minute mechanism and carries forward the evidenced critical-escalation tension.
+      - Keeps the exception and dependent acceptance criteria explicitly pending, with a recommendation and its impact; does not record the candidate or recommendation as accepted merely because the user requested a handoff document.
+      - Reuses the existing unanswered decision without repeating the same consent or acceptance question and completes the independently settled document sections.
+      - Does not claim the full handoff is ready, start implementation or add an architecture gate solely because one product rule remains unresolved.
+
+  - id: accepted-proposal-documentation-does-not-reopen-review
+    category: negative
+    focus: settled_decision_preservation
+    request: >-
+      已确认导出只包含当前筛选的行，使用现有 selector；请把这个已接受方案同步到开发文档，
+      不改源码，也不用重新讨论方案。
+    minimal_project_evidence:
+      - The immediately preceding scoped decision D-EXPORT-r2 explicitly accepted the filtered-row rule and existing selector. The tests and selector behavior support that decision, with no contradictory new evidence.
+      - docs/plan/export.md contains an older all-loaded-rows draft that must be brought into line with D-EXPORT-r2; this is documentation synchronization, not an open design decision.
+      - No implementation, export generation, Goal or release action is authorized.
+    expected_behavior: synchronize_accepted_decision_without_new_proposal_review
+    key_invariants:
+      - Updates the stale draft to match the accepted decision and preserves the decision reference and verification evidence.
+      - Does not reopen the design, manufacture alternatives, ask for dialectic consent or repeat acceptance solely because an older draft contains a candidate proposal.
+      - Keeps document editing separate from source changes or execution and does not run the export as a prerequisite to recording the decision.
+
+  - id: evidence-supported-proposal-needs-no-manufactured-opposition
+    category: positive
+    focus: proportional_assessment_without_forced_disagreement
+    request: >-
+      I suggest making the report entry a larger underlined link. Check it against
+      the current UI and record the agreed treatment in the development document;
+      do not implement it yet.
+    minimal_project_evidence:
+      - The goal is making the report route easier to find. The entry already navigates to a real report route, and the accepted design system has a larger underlined navigation-link variant with keyboard focus and adequate target spacing.
+      - The existing layout has room for that variant at all supported breakpoints. No functional action, unresolved product rule, boundary change or conflicting accessibility requirement is implicated.
+      - The user delegates this local styling choice after evidence review and authorizes docs/plan/report-entry.md only. Evidence does not establish any material downside needing a different approach.
+    expected_behavior: accept_supported_local_means_and_document_proportionately
+    key_invariants:
+      - Checks the proposed link treatment against the actual navigation semantics and available design-system evidence, then briefly states why it satisfies the goal.
+      - Records the supported treatment and relevant focus and spacing acceptance without fabricating a counterargument or requiring an alternative merely to show independence.
+      - Does not create a separate dialectic consent step, full design interview, architecture brief or repeated approval for the delegated local styling choice.
+      - Does not implement, publish or claim new runtime verification beyond the supplied evidence.

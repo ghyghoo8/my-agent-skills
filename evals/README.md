@@ -1,5 +1,7 @@
 # Evals
 
+[6.1 candidate proposal verification](workflow-proportionality/candidate-proposals-6.1.0.md) records task-owned assessment of unresolved suggestions, eight added behavior cases, clean-context next-action samples and preserved consent/authorization boundaries. These samples do not establish full-suite or installed-plugin behavior.
+
 [6.0 model policy verification](planning-and-task-breakdown/model-policy-6.0.0.md) records the Sol-led selection policy, scope-wide Astra consultation limit, revised live fixtures and targeted simulated decisions. Historical model results remain unchanged and do not validate GPT-6 Sol/Luna quality or savings.
 
 [5.1 upstream sync review](../upstreams/addyosmani-agent-skills/reviews/2026-09-22.md) records selective adaptations, unchanged discovery metadata, isolated path-example checks and targeted next-action simulations. It does not import the upstream evaluation runtime.
@@ -14,11 +16,11 @@ The repository keeps structured, wording-independent cases for the public behavi
 
 - `architecture-gate/cases.yaml`: 24 cases for the four exclusive architecture paths, task authorization, write boundary, and adoption handoff.
 - `capability-adoption-assessment/cases.yaml`: 13 cases for Value, Cost, net result, single recommendation, adjacent ownership, and write boundaries.
-- `project-dialectic-review/cases.yaml`: 18 cases for trigger, consent, project evidence, revision, and untrusted material.
-- `discovery/cases.yaml`: 56 cross-skill routing cases, including manual readiness questions and completed substantial module/refactor handoffs, plus the unchanged 7000-character discovery metadata budget.
+- `project-dialectic-review/cases.yaml`: 19 cases for trigger, consent, project evidence, revision, direct-task judgment, and untrusted material.
+- `discovery/cases.yaml`: 60 cross-skill routing cases, including candidate proposals in direct tasks, manual readiness questions and completed substantial module/refactor handoffs, plus the unchanged 7000-character discovery metadata budget.
 - `planning-and-task-breakdown/cases.yaml`: 65 cases for milestone document prerequisites, executable queues, planning scope, five core responsibilities, exact admitted milestone model pairs, integration and acceptance evidence; current-task execution choices, whole-scope admission, manual assessment/preparation, Goal lifecycle, independent module parallelism, and stopping active stale writers before reassignment.
 - `performance-optimization/cases.yaml`: 5 cases for measurement-first database, pool, cache, and telemetry-scope decisions.
-- `workflow-proportionality/cases.yaml`: 30 cases for contextual consent, approval continuity, artifact preservation, focused verification, browser safety, scoped review, execution-choice suppression, context handoff, proportional visual work, operational attribution and existing release/specification policies.
+- `workflow-proportionality/cases.yaml`: 33 cases for contextual consent, approval continuity, candidate-versus-accepted decisions, artifact preservation, focused verification, browser safety, scoped review, execution-choice suppression, context handoff, proportional visual work, operational attribution and existing release/specification policies.
 - `security-and-hardening/cases.yaml`: 5 cases for shared and single-process rate-limit requirements, focused reference loading and authorized derived-path cleanup.
 
 Version 5.1.0 adds nine cases across security and workflow proportionality while preserving the 25 existing case objects in those suites. Discovery cases and all 27 Skill descriptions remain unchanged. The sync report separates selected simulated next actions from static contract coverage and isolated example execution.

@@ -2,6 +2,18 @@
 
 All notable downstream changes are recorded here.
 
+## [6.1.0] - 2026-09-27
+
+### Added
+
+- Check unresolved proposals within their owning development, design or planning task before turning them into accepted decisions. Distinguish desired outcomes and confirmed constraints from candidate means, preserve that distinction across documentation follow-ups, and surface only evidence-backed tensions and minimal revisions.
+- Connect development documentation and task planning to the scoped proposal check. Local tasks may reason inline without a full specification workflow or a separate invitation to debate.
+
+### Preserved
+
+- Keep passive project dialectic review consent-scoped, direct workflows in control, accepted decisions stable absent new material evidence, and document-only work separate from implementation authority. Existing authorization and architecture gate exits remain in force.
+- Keep all 27 Skill descriptions and the discovery metadata budget unchanged. This compatible capability addition uses a minor version; it adds no Skill, hook, runtime dependency or installation action.
+
 ## [6.0.0] - 2026-09-23
 
 ### Changed

@@ -53,6 +53,13 @@ Task arrives
 
 Direct implementation, summary, translation, status, and explicit workflow requests keep their normal owner. An accepted adoption decision is not reopened by `capability-adoption-assessment`. Do not route these tasks through `project-dialectic-review` merely because they contain an idea, claim, or external material.
 
+Within a direct development, design or planning task, the owner still evaluates
+unresolved proposed means against the user's goal and project evidence. Apply
+the [candidate proposal check](../spec-driven-development/SKILL.md#check-candidate-proposals)
+when needed before treating a suggestion as settled. This does not require a
+standalone review offer or full specification workflow for a local change, and
+does not waive consent for passive input or reopen accepted choices by default.
+
 For a manual execution-readiness check or a completed substantial development
 handoff in the current task, `planning-and-task-breakdown`
 owns the [execution readiness choice](../planning-and-task-breakdown/references/execution-readiness-choice.md)
