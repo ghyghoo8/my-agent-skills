@@ -1,6 +1,6 @@
 schema_version: 1
 skill: cross_skill_workflow
-plugin_version: 6.2.0
+plugin_version: 6.2.1
 evaluation_mode: clean_context_behavior_contracts
 scoring:
   observe:
@@ -633,3 +633,49 @@ cases:
       - Reads the relevant existing section, reuses its entry and completes the authorized fix.
       - Does not append a same-meaning rule, per-task changelog, copied business detail or another mandatory document merely because a task finished.
       - Does not expand AGENTS.md or read every linked guide to establish compliance with this local convention.
+
+  - id: accepted-field-contract-uses-existing-development-guide
+    category: boundary
+    focus: development_convention_authority
+    request: >-
+      The total_power compatibility behavior is accepted. Move its development
+      guidance out of AGENTS.md into the right existing document; this is a
+      documentation change only.
+    minimal_project_evidence:
+      - API.md already owns the public contract for accepting legacy totle_power input and emitting total_power, including precedence and missing-value behavior.
+      - An existing development guide holds cross-module conventions but lacks this one. AGENTS.md repeats the full field contract alongside essential project boundaries.
+      - The normalization handlers and outcome tests already exist; no behavior change or new guide is requested.
+    expected_behavior: preserve_contract_with_existing_guide_and_short_agent_pointer
+    key_invariants:
+      - Keeps API.md authoritative for public behavior and uses the existing guide for concise ownership, reuse entry points and cross-module constraints, linking to API.md and source or tests instead of copying their detail.
+      - Leaves only a short applicability pointer in AGENTS.md while retaining essential always-on project boundaries; creates no second guide or duplicate contract authority.
+      - Preserves the accepted behavior and documentation-only scope without reopening the field decision or editing implementation.
+
+  - id: requested-separate-standards-without-existing-guide
+    category: boundary
+    focus: explicit_development_guide_creation
+    request: >-
+      Create a separate project development standards document for the accepted
+      cross-module field compatibility rule. Keep AGENTS.md concise; edit docs only.
+    minimal_project_evidence:
+      - The project has no development guide, contributing guide or equivalent authority. Its existing root Markdown files establish a location for project documentation.
+      - API.md already owns the observable field contract, while AGENTS.md contains entrypoint commands and trust and authorization boundaries needed in every agent session.
+      - The accepted implementation and tests exist; the user explicitly requests a separate standards document but has not prescribed a filename.
+    expected_behavior: create_one_requested_guide_and_preserve_agent_boundaries
+    key_invariants:
+      - Creates one appropriately placed, concise guide for reusable ownership, entry points and cross-module constraints, with links to the public contract and relevant source or tests.
+      - Adds a short read pointer in AGENTS.md and keeps its essential always-on boundaries there instead of moving the whole instruction file or copying the full API contract.
+      - Chooses a routine filename without another approval and stays within documentation-only authority; does not alter code or create global rules.
+
+  - id: single-field-convention-without-guide-keeps-api-owner
+    category: boundary
+    focus: field_rule_without_explicit_guide_request
+    request: 关于对这个字段的处理作为一条开发规范，固化下来；只改文档。
+    minimal_project_evidence:
+      - Accepted totle_power input compatibility and total_power downstream output span snapshot and history modules; API.md already records exact precedence, missing-value and response semantics, and outcome tests cover them.
+      - AGENTS.md holds the project map, commands and always-on boundaries but has no field paragraph. There is no development or contributing guide, and the user did not request a separate one.
+    expected_behavior: preserve_field_rule_without_defaulting_to_agent_rules_or_new_guide
+    key_invariants:
+      - Keeps API.md and outcome tests as the behavior owners; adds at most a short AGENTS.md applicability/read pointer if future agents need to find them.
+      - Does not copy the full field contract into AGENTS.md or create a new guide or ADR solely for one already documented rule.
+      - Stays within documentation-only authority and does not reopen the accepted behavior or edit implementation.

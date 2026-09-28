@@ -90,7 +90,7 @@ downstream_adaptations:
   - Load readiness assessment, execution handoff and milestone-only detail by stage; retain full authorization, model and acceptance contracts while reducing unrelated instruction loading.
   - Keep idea-refine instruction-only; do not restore its shell helper.
   - Keep Chrome DevTools MCP optional and user-authorized.
-  - Use AGENTS.md as the Codex rules file in context-engineering, code-simplification, and documentation-and-adrs.
+  - Keep AGENTS.md as the concise Codex rules entrypoint for always-on boundaries and pointers in context-engineering, code-simplification, and documentation-and-adrs; maintain detailed accepted conventions in the existing project-designated development guide and load only relevant sections.
   - Keep Skill-to-Skill handoffs in planning-and-task-breakdown and spec-driven-development; do not restore slash-command dependencies.
   - Keep Codex subagent semantics in doubt-driven-development and orchestration-patterns.md.
   - Preserve downstream-narrowed Skill frontmatter descriptions for Codex progressive discovery; never replace them silently with broader upstream descriptions.

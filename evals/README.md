@@ -1,5 +1,7 @@
 # Evals
 
+[6.2.1 context placement review](workflow-proportionality/context-placement-6.2.1.md) records the AGENTS-versus-development-guide correction, three independent next-action probes, unchanged discovery metadata, reduced loaded Skill text, and static validation limits.
+
 [6.2 reuse and convention verification](workflow-proportionality/reuse-conventions-6.2.0.md) records semantic consolidation, separate handler responsibilities, concise code-local documentation, seven added cases and targeted next-action samples. Discovery metadata is unchanged; instruction-size measurements are not runtime performance results.
 
 [6.1 candidate proposal verification](workflow-proportionality/candidate-proposals-6.1.0.md) records task-owned assessment of unresolved suggestions, eight added behavior cases, clean-context next-action samples and preserved consent/authorization boundaries. These samples do not establish full-suite or installed-plugin behavior.
@@ -22,7 +24,7 @@ The repository keeps structured, wording-independent cases for the public behavi
 - `discovery/cases.yaml`: 62 cross-skill routing cases, including scoped reuse, concise conventions, candidate proposals in direct tasks, manual readiness questions and completed substantial module/refactor handoffs, plus the unchanged 7000-character discovery metadata budget.
 - `planning-and-task-breakdown/cases.yaml`: 65 cases for milestone document prerequisites, executable queues, planning scope, five core responsibilities, exact admitted milestone model pairs, integration and acceptance evidence; current-task execution choices, whole-scope admission, manual assessment/preparation, Goal lifecycle, independent module parallelism, and stopping active stale writers before reassignment.
 - `performance-optimization/cases.yaml`: 5 cases for measurement-first database, pool, cache, and telemetry-scope decisions.
-- `workflow-proportionality/cases.yaml`: 38 cases for semantic reuse, concise conventions, contextual consent, approval continuity, candidate-versus-accepted decisions, artifact preservation, focused verification, browser safety, scoped review, execution-choice suppression, context handoff, proportional visual work, operational attribution and existing release/specification policies.
+- `workflow-proportionality/cases.yaml`: 41 cases for semantic reuse, concise conventions and document placement, contextual consent, approval continuity, candidate-versus-accepted decisions, artifact preservation, focused verification, browser safety, scoped review, execution-choice suppression, context handoff, proportional visual work, operational attribution and existing release/specification policies.
 - `security-and-hardening/cases.yaml`: 5 cases for shared and single-process rate-limit requirements, focused reference loading and authorized derived-path cleanup.
 
 Version 5.1.0 adds nine cases across security and workflow proportionality while preserving the 25 existing case objects in those suites. Discovery cases and all 27 Skill descriptions remain unchanged. The sync report separates selected simulated next actions from static contract coverage and isolated example execution.

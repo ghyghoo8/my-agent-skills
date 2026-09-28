@@ -2,6 +2,13 @@
 
 All notable downstream changes are recorded here.
 
+## [6.2.1] - 2026-09-28
+
+### Fixed
+
+- Keep `AGENTS.md` as a concise, always-on project entrypoint. Record detailed development conventions in the project-designated guide and public field behavior in the API or domain contract; link to them only where relevant.
+- Align context setup guidance with documentation ownership so a request to preserve a field rule does not turn a project rules file into a duplicate specification. Preserve existing discovery metadata and the skills-only runtime surface.
+
 ## [6.2.0] - 2026-09-27
 
 ### Added

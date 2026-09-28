@@ -37,39 +37,29 @@ Structure context from most persistent to most transient:
 
 ### Level 1: Rules Files
 
-Create a rules file that persists across sessions. This is the highest-leverage context you can provide.
+Keep `AGENTS.md` to task-wide scope, commands, authority, boundaries, and short
+pointers. Keep detailed conventions in the existing project guide and domain
+behavior in the API or domain contract; load only the relevant sections.
 
 **AGENTS.md** (for OpenAI Codex):
 ```markdown
 # Project: [Name]
 
-## Tech Stack
-- React 18, TypeScript 5, Vite, Tailwind CSS 4
-- Node.js 22, Express, PostgreSQL, Prisma
+## Entry points
+- Development conventions: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Commands
 - Build: `npm run build`
 - Test: `npm test`
-- Lint: `npm run lint --fix`
-- Dev: `npm run dev`
-- Type check: `npx tsc --noEmit`
-
-## Code Conventions
-- Functional components with hooks (no class components)
-- Named exports (no default exports)
-- colocate tests next to source: `Button.tsx` → `Button.test.tsx`
-- Use `cn()` utility for conditional classNames
-- Error boundaries at route level
 
 ## Boundaries
 - Never commit .env files or secrets
-- Never add dependencies without checking bundle size impact
 - Ask before modifying database schema
-- Always run tests before committing
-
-## Patterns
-[One short example of a well-written component in your style]
 ```
+
+When asked to preserve a rule, check its owner first. Create a development
+guide only if requested or needed for confirmed recurring conventions; keep
+the `AGENTS.md` pointer short. Use the project's actual paths.
 
 **Equivalent files for other tools:**
 - `CLAUDE.md` (Claude Code)
@@ -290,14 +280,14 @@ This catches wrong directions before you've built on them. It's a 30-second inve
 | Context flooding | Irrelevant or conflicting material can obscure task evidence. | Include only relevant context. Historical line-count targets (such as 2,000 or 5,000 lines) are rough packing heuristics, not model limits; adjust to task needs and observed quality. |
 | Stale context | Agent references outdated patterns or deleted code | Start fresh sessions when context drifts |
 | Missing examples | Agent invents a new style instead of following yours | Include one example of the pattern to follow |
-| Implicit knowledge | Agent doesn't know project-specific rules | Write it down in rules files — if it's not written, it doesn't exist |
+| Implicit knowledge | Agent doesn't know project-specific rules | Record each rule in its owning document and link it from the rules file when needed |
 | Silent confusion | Agent guesses when it should ask | Surface ambiguity explicitly using the confusion management patterns above |
 
 ## Common Rationalizations
 
 | Rationalization | Reality |
 |---|---|
-| "The agent should figure out the conventions" | It can't read your mind. Write a rules file — 10 minutes that saves hours. |
+| "The agent should figure out the conventions" | It can't read your mind. Keep an accurate rules entrypoint and a focused development guide. |
 | "I'll just correct it when it goes wrong" | Prevention is cheaper than correction. Upfront context prevents drift. |
 | "More context is always better" | Research shows performance degrades with too many instructions. Be selective. |
 | "The context window is huge, I'll use it all" | Context window size ≠ attention budget. Focused context outperforms large context. |
@@ -315,7 +305,7 @@ This catches wrong directions before you've built on them. It's a 30-second inve
 
 After setting up context, confirm:
 
-- [ ] Rules file exists and covers tech stack, commands, conventions, and boundaries
+- [ ] Rules file covers task-wide scope, commands, authority, and boundaries, with working pointers to detailed conventions and contracts
 - [ ] Agent output follows the patterns shown in the rules file
 - [ ] Agent references actual project files and APIs (not hallucinated ones)
 - [ ] Context is refreshed when switching between major tasks

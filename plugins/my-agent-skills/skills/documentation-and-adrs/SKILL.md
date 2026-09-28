@@ -251,24 +251,24 @@ For shipped features:
 
 Special consideration for AI agent context:
 
-- **AGENTS.md / project rules** — Document project conventions so Codex and other agents follow them
+- **AGENTS.md / project rules** — Keep always-on boundaries and short pointers to the owning documents
 - **Spec files** — Keep specs updated so agents build the right thing
 - **ADRs** — Help agents understand why past decisions were made (prevents re-deciding)
 - **Inline gotchas** — Prevent agents from falling into known traps
 
 ### Concise Development Conventions
 
-When accepted work establishes a reusable convention or the user asks to preserve
-one, update the existing authority rather than adding another guide. Put local
-handler contracts, important rules, edge cases and rationale in concise comments
-beside the implementation; link to tests or the designated business specification
-when needed. Keep the development guide to ownership, reuse entrypoints and
-cross-module constraints, linking to handlers instead of copying their details.
+For an accepted reusable convention, update its existing owner. Public field
+behavior belongs in the API or domain contract and outcome tests; local handler
+rules and rationale belong beside the code. A development guide such as
+`CONTRIBUTING.md` or `docs/development.md` holds ownership, reuse entrypoints,
+and cross-module constraints with links to those details. Reuse the designated
+guide; create one only when requested or needed for confirmed recurring rules.
 
-Use a short applicability/read pointer in `AGENTS.md`; new sessions load only the
-relevant guide section and source. Merge or replace stale guidance. Do not promote
-unaccepted proposals, keep task history in permanent rules, catalog every helper,
-or add a convention entry for an ordinary change already covered by one.
+Keep a short applicability/read pointer and always-on boundaries in `AGENTS.md`;
+load only the relevant guide section and source. Merge or replace stale guidance.
+Do not promote unaccepted proposals, add task history to permanent rules,
+catalog every helper, or append a rule for an ordinary covered change.
 
 ### Development Handoff
 
