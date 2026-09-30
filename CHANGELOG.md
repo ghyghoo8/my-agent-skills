@@ -2,6 +2,13 @@
 
 All notable downstream changes are recorded here.
 
+## [6.2.2] - 2026-09-30
+
+### Changed
+
+- Update the milestone controller and Sol worker model from `gpt-6-sol` to `gpt-6.1-sol`. Preserve every reasoning effort, role, Luna/Astra setting, authorization boundary and explicit user model lock.
+- Align current documentation, downstream adaptation and live model-policy fixtures. Historical model identities and evaluation results remain unchanged; this patch does not change workflow routing or install/update the local plugin cache.
+
 ## [6.2.1] - 2026-09-28
 
 ### Fixed

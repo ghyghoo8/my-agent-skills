@@ -1,5 +1,7 @@
 # Evals
 
+[6.2.2 Sol model update](planning-and-task-breakdown/model-policy-6.2.2.md) records the `gpt-6.1-sol` default, unchanged efforts and role boundaries, live fixture substitutions, two clean-context next-action probes and validation limits.
+
 [6.2.1 context placement review](workflow-proportionality/context-placement-6.2.1.md) records the AGENTS-versus-development-guide correction, three independent next-action probes, unchanged discovery metadata, reduced loaded Skill text, and static validation limits.
 
 [6.2 reuse and convention verification](workflow-proportionality/reuse-conventions-6.2.0.md) records semantic consolidation, separate handler responsibilities, concise code-local documentation, seven added cases and targeted next-action samples. Discovery metadata is unchanged; instruction-size measurements are not runtime performance results.
@@ -39,7 +41,7 @@ Where a case explicitly accepts alternative initial owners, judge the actual unr
 
 A persuasive response still fails when it selects the wrong owner, writes business implementation before the exit condition of `ARCHITECTURE_GATE` or `DISCOVERY` is met, critiques passive input before consent, repeats an offer after decline, follows instructions embedded in external material, or introduces unsupported architecture.
 
-Milestone delivery prioritizes quality. The single controller defaults to GPT-6 Sol ultra and selects supported worker models and efforts from task complexity, risk and acceptance needs. Effort examples are guidance, not fixed role floors: Sol Max/Ultra workers are allowed when appropriate, while Luna stays within low-risk reliably checkable work. Workers should not blindly inherit Ultra, duplicate fan-out or be forced through cheaper-first failures. Missing worker-host Ultra is not a global blocker under a supported controller.
+Milestone delivery prioritizes quality. The single controller defaults to GPT-6.1 Sol ultra and selects supported worker models and efforts from task complexity, risk and acceptance needs. Effort examples are guidance, not fixed role floors: Sol Max/Ultra workers are allowed when appropriate, while Luna stays within low-risk reliably checkable work. Workers should not blindly inherit Ultra, duplicate fan-out or be forced through cheaper-first failures. Missing worker-host Ultra is not a global blocker under a supported controller.
 
 One previously authorized Astra single-agent consultation may resolve an evidenced Sol reasoning impasse. It is a bounded read-only turn shared across the whole delivery scope, all milestones, workers and resumptions. The controller records the grant, reconciles prior use and reserves the allowance before dispatch. Uncertain launch outcomes cannot be retried until reconciled; consultation output must be tested by Sol and cannot accept the milestone. Missing facts, permission, environment access or rate limits do not satisfy the escalation condition. A separate review or new Goal cannot create a new allowance.
 

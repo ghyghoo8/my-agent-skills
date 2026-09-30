@@ -1,6 +1,6 @@
 schema_version: 1
 skill: using-agent-skills
-plugin_version: 6.2.1
+plugin_version: 6.2.2
 evaluation_mode: clean_context_explicit_and_implicit_routing
 
 metadata_budget:
@@ -14,7 +14,7 @@ metadata_budget:
     skill_count: 25
     raw_characters: 7515
   target:
-    plugin_version: 6.2.1
+    plugin_version: 6.2.2
     skill_count: 27
     maximum_raw_characters: 7000
   checks:
@@ -734,7 +734,7 @@ cases:
     minimal_project_evidence:
       - Accepted authority, substantive development documentation, and an explicit milestone roadmap meet all three document prerequisites.
       - Planning artifacts are authorized and sufficient current evidence exists to prepare them.
-      - The controller/planner is verified as gpt-6-sol with ultra on a separate planning host.
+      - The controller/planner is verified as gpt-6.1-sol with ultra on a separate planning host.
       - The target execution host offers only Luna medium and Astra max. The assigned consequential integration needs Sol, so no role-suitable selection is supported there.
     expected_selection: planning-and-task-breakdown
     expected_behavior: prepare_authorized_plan_and_record_execution_blocker

@@ -1,6 +1,6 @@
 schema_version: 1
 skill: planning-and-task-breakdown
-plugin_version: 6.0.0
+plugin_version: 6.2.2
 evaluation_mode: clean_context_behavior_contracts
 scoring:
   observe:
@@ -219,7 +219,7 @@ cases:
     request: Recommend execution models for the accepted milestone roadmap using the approved Sol Ultra controller policy and quality-first child selection.
     minimal_project_evidence:
       - The roadmap and task classes already derive from an accepted authority, a detailed development document covering implementation responsibilities, flows, interfaces and verification, and an explicit roadmap covering outcomes, dependencies and exit evidence.
-      - Current host evidence supports gpt-6-sol with medium, high, xhigh, max, or ultra; gpt-6-luna with high; and gpt-6-astra with high, xhigh, or max in single-agent mode. The active controller/planner is verified as gpt-6-sol with ultra.
+      - Current host evidence supports gpt-6.1-sol with medium, high, xhigh, max, or ultra; gpt-6-luna with high; and gpt-6-astra with high, xhigh, or max in single-agent mode. The active controller/planner is verified as gpt-6.1-sol with ultra.
       - Tasks include control, solution and task planning, implementation and integration, reproducible verification, key decisions, and final independent review.
       - One implementation has explicit bounded low-risk contracts and independent checks; another has material uncertainty; a consequential integration needs stronger review.
       - The catalog establishes supported configurations but provides no measured task latency, quality, price, or available subscription capacity.
@@ -242,7 +242,7 @@ cases:
     request: Continue the accepted milestone queue using a bounded implementation worker and an independent final reviewer.
     minimal_project_evidence:
       - The accepted authority, detailed development document, and explicit milestone roadmap are current and sufficient, and queue execution and delegation are authorized.
-      - The host supports Sol medium, high, xhigh, and ultra plus Luna high; the controller is verified as gpt-6-sol with ultra.
+      - The host supports Sol medium, high, xhigh, and ultra plus Luna high; the controller is verified as gpt-6.1-sol with ultra.
       - A proposed bounded Luna worker uses a full-history fork that cannot override its inherited Sol ultra setting, although a minimal-context spawn permits an explicit Luna high selection.
       - A proposed independent final reviewer is configured as gpt-6-luna with high despite being labeled the strongest reviewer.
       - No worker or reviewer has been launched; project context and the bounded task contract can be passed to the minimal-context spawn without copying the controller's entire history.
@@ -263,7 +263,7 @@ cases:
     request: Prepare the milestone plan and queue for the target execution host, and start its ready work only if all entry conditions are satisfied.
     minimal_project_evidence:
       - Accepted authority, detailed development documentation, and an explicit milestone roadmap substantively cover the selected scope; planning artifact writes and conditional queue execution are authorized.
-      - The combined planner and controller are verified as gpt-6-sol with ultra on the planning host, which is distinct from the target execution host.
+      - The combined planner and controller are verified as gpt-6.1-sol with ultra on the planning host, which is distinct from the target execution host.
       - The controller selected Sol for this consequential integration task. Current target-host evidence supports only gpt-6-luna with medium and gpt-6-astra with max; neither fits that task and no Sol setting is supported.
       - A UI label suggests max is the strongest available option, and an unrelated API document describes a different effort vocabulary.
       - No verified supported mechanism provides a role-appropriate execution setting on the target execution host.
@@ -282,7 +282,7 @@ cases:
     request: Resume the failed milestone implementation task and retry within the approved execution policy.
     minimal_project_evidence:
       - Current accepted authority, detailed development documentation, and explicit milestone roadmap ground the authorized queue.
-      - The controller remains verified as gpt-6-sol with ultra and can record planning and task state while checking worker availability.
+      - The controller remains verified as gpt-6.1-sol with ultra and can record planning and task state while checking worker availability.
       - The difficult task explicitly selected and used verified Sol high and remains incomplete with its partial evidence preserved.
       - The selected Sol high configuration is temporarily unavailable after a rate limit; no other Sol setting is currently supported for this task. Luna high and Astra high are supported and available, but neither is a suitable replacement for this difficult implementation.
       - A proposed retry would use Luna high for speed, and a nested fallback would use Astra high to overcome the rate limit.
@@ -303,7 +303,7 @@ cases:
     minimal_project_evidence:
       - Existing accepted authority, detailed development documentation, and explicit milestone roadmap are sufficient for authorized planning.
       - The approved workflow defaults the controller to Sol ultra and lets it choose host-supported child settings for task risk and acceptance quality. Sol is the normal ceiling for consequential work; Luna fits only bounded low-risk checkable tasks. Astra is one bounded read-only single-agent consultation after an evidenced Sol impasse.
-      - The active controller is verified as gpt-6-sol with ultra and a separate material planner as Sol high on the planning host; recommendations concern a separate target execution host.
+      - The active controller is verified as gpt-6.1-sol with ultra and a separate material planner as Sol high on the planning host; recommendations concern a separate target execution host.
       - An old note lists target-host model names, but current target-host support, effective active effort, worker inheritance, and available capacity cannot be inspected from the available evidence.
       - The user has a subscription, but no current account limits, billing terms, task benchmarks, or model execution receipts are available.
       - Implementation, model switching, and worker creation are not authorized.
@@ -835,8 +835,8 @@ cases:
       - >-
         Current read-only inspection confirms the named source/test paths, installed
         project dependencies, all fixture files and documented root scripts are usable.
-        The scenario host receipt verifies effective Controller C gpt-6-sol/ultra,
-        Worker W gpt-6-sol/high and fresh-context Reviewer R gpt-6-sol/high with
+        The scenario host receipt verifies effective Controller C gpt-6.1-sol/ultra,
+        Worker W gpt-6.1-sol/high and fresh-context Reviewer R gpt-6.1-sol/high with
         required access. No architecture gate or unresolved product decision remains.
       - >-
         Only implementation authorization is missing. There is no prior offer or

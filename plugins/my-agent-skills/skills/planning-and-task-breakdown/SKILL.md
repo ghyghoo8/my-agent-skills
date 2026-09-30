@@ -30,7 +30,7 @@ roadmap before queue derivation; their content matters, not file count. Missing
 inputs stay in authorized preparation. Do not bypass this requirement by calling
 the same milestone work a compact plan; valid inputs need no ritual re-approval.
 
-That reference owns the five core responsibilities and model policy: GPT-6 Sol
+That reference owns the five core responsibilities and model policy: GPT-6.1 Sol
 ultra controls delivery and selects subagent models/efforts with quality first;
 GPT-6 Luna is limited to low-risk, checkable work. Astra is
 limited to one scoped consultation after an evidenced Sol impasse, shared across

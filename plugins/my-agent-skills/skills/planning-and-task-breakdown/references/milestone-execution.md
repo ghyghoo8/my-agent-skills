@@ -109,7 +109,7 @@ Populate this structure for the upcoming queue using actual paths and evidence. 
 - Stop/recovery: [material boundary or missing input; rollback/disable if applicable]
 
 ## Execution recommendation
-- Role configurations: [GPT-6 Sol ultra by default for the controller; controller-selected worker model/effort with quality and risk rationale]
+- Role configurations: [GPT-6.1 Sol ultra by default for the controller; controller-selected worker model/effort with quality and risk rationale]
 - Bounded worker: [GPT-6 Luna only when low risk, clear inputs and reliable outcome checks justify it; otherwise use Sol]
 - Astra allowance: [link to the delivery scope's single allowance record; never a separate allowance per card]
 - Configuration evidence: [link to supported/effective settings in the execution record; unresolved availability/inheritance]
@@ -162,7 +162,7 @@ activation retain one writer or run serially.
 
 ## 6. Assign Roles and Apply the Quality-First Model Policy
 
-**Delivery quality is the first priority. The single controller defaults to GPT-6 Sol ultra and decides each subagent's model and reasoning effort.** Sol is the normal model ceiling; Luna is a bounded worker option, and Astra is a single-consultation exception. Reduce cost through appropriate delegation, focused context and avoiding duplicate work, without trading away trustworthy acceptance. This replaces the former Terra floor and mandatory Astra roles; model names and effort labels are not measured quality rankings.
+**Delivery quality is the first priority. The single controller defaults to GPT-6.1 Sol ultra and decides each subagent's model and reasoning effort.** Sol is the normal model ceiling; Luna is a bounded worker option, and Astra is a single-consultation exception. Reduce cost through appropriate delegation, focused context and avoiding duplicate work, without trading away trustworthy acceptance. This replaces the former Terra floor and mandatory Astra roles; model names and effort labels are not measured quality rankings.
 
 ### Core Responsibilities
 
@@ -196,8 +196,8 @@ Select a specialist's configuration by its actual work, using the same policy be
 
 | Model / setting | Selection guidance |
 |---|---|
-| `gpt-6-sol` + `ultra` | Default controller, including planning it performs itself |
-| `gpt-6-sol` workers | Choose a host-supported effort for complexity, uncertainty, failure impact and required evidence. Medium may fit routine work; high or xhigh may fit difficult work/review; max or ultra may be justified for demanding work. These are references, not a fixed role whitelist or required ladder. |
+| `gpt-6.1-sol` + `ultra` | Default controller, including planning it performs itself |
+| `gpt-6.1-sol` workers | Choose a host-supported effort for complexity, uncertainty, failure impact and required evidence. Medium may fit routine work; high or xhigh may fit difficult work/review; max or ultra may be justified for demanding work. These are references, not a fixed role whitelist or required ladder. |
 | `gpt-6-luna` workers | Only low-risk work with complete inputs and reliable independent checks. High is a starting reference; the controller chooses supported effort for the actual task. Luna has no Ultra support. |
 | `gpt-6-astra` consultant | Only the bounded consultation below; select a supported single-agent effort for the question, without Ultra or subdelegation |
 
@@ -237,7 +237,7 @@ Read [entry] -> [single queue] -> selected card -> named inputs.
 Recheck actual authority revisions, exact dependencies and existing authorization.
 Assign control, planning, implementation/integration, verification and key review
 to named owners; combine compatible responsibilities without extra agents.
-Default the single controller to GPT-6 Sol ultra; let it explicitly select worker
+Default the single controller to GPT-6.1 Sol ultra; let it explicitly select worker
 models/efforts with delivery quality first and Luna only for eligible bounded work.
 Carry the one shared Astra allowance in [state target] across workers/resumptions;
 use it only for one bounded consultation after an evidenced Sol impasse.
