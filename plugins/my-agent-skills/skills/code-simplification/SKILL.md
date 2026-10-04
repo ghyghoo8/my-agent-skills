@@ -118,6 +118,13 @@ separate implementations when semantics or dependency boundaries justify it,
 with a brief reason. Preserve architecture triage for actual boundary changes;
 this check grants no additional scope or write authority.
 
+Business enums used in multiple places, their associated types, label mappings
+and ordering rules should have one authoritative definition under the owning
+domain or module. Check existing definitions before adding another literal or
+mapping, and have in-scope consumers reuse that definition. Keep values used
+only locally near their consumer; matching numeric codes do not make different
+business meanings one enum. Preserve established dependency boundaries.
+
 Keep distinct concepts in separate named handlers; shared primitives need not
 merge domain policies. Avoid speculative layers or scenario flags. Use searchable
 domain names and short contract comments for non-obvious units, missing values,

@@ -1,6 +1,6 @@
 schema_version: 1
 skill: performance-optimization
-plugin_version: 1.0.0
+plugin_version: 6.2.3
 evaluation_mode: explicit_skill_invocation
 
 scoring:
@@ -10,6 +10,7 @@ scoring:
     - correctness_boundary
     - reversible_change
     - speculative_optimization_control
+    - targeted_reference_reading
   ignore:
     - exact_wording
     - heading_style
@@ -99,3 +100,33 @@ cases:
       - Does not install telemetry, create an external account, or export traces merely to satisfy measurement-first
         guidance.
       - Separates the measured result from any unperformed production verification.
+
+  - id: backend-symptom-loads-only-related-examples
+    category: positive
+    focus: progressive_reference_loading
+    request: Fix the measured owner-lookup bottleneck in this API using the existing ORM and local benchmark.
+    minimal_project_evidence:
+      - The authorized API currently issues one task query and a separate owner query per row. Existing traces and a fixed local benchmark identify this as the bottleneck.
+      - The ORM supports related-record loading, and existing tests specify owner results and unknown-owner behavior. No frontend or production monitoring work is requested.
+      - The reference can be searched and read by heading or line range. The existing local benchmark is sufficient for before/after evidence.
+    expected_behavior: read_targeted_backend_example_and_preserve_measured_contract
+    key_invariants:
+      - Uses the main Skill's measurement, scope, correctness and keep-or-revert rules.
+      - Reads the N+1 query example only if its details are needed; skips unrelated image, React, bundle and caching examples instead of loading the complete reference.
+      - Preserves accepted results and unknown-owner behavior and compares the same benchmark and relevant tests before and after the bounded change.
+      - Does not install RUM, expand CI, create a cache or require a checklist-wide optimization.
+
+  - id: frontend-symptom-loads-only-image-example
+    category: boundary
+    focus: progressive_reference_loading
+    request: Fix this measured hero-image LCP regression with the current image assets and local profiling tools.
+    minimal_project_evidence:
+      - A controlled trace attributes the regression to the existing hero image's resolution and loading priority. The approved change covers only this image and its responsive markup.
+      - Current assets support responsive variants, and existing viewport checks cover layout. Backend behavior and bundle loading are unaffected.
+      - Reference sections can be read independently. No field-data tool or telemetry installation is available or requested.
+    expected_behavior: read_targeted_image_example_without_backend_or_monitoring_expansion
+    key_invariants:
+      - Reads the responsive image example only if markup detail is needed, while skipping backend, pool, query, React and caching snippets.
+      - Keeps explicit dimensions and responsive sizing, prioritizes the hero/LCP image and does not lazy-load it; below-the-fold rules remain distinct.
+      - Re-measures under the same local conditions, checks affected viewports and reverts changes that fail correctness or do not improve beyond noise.
+      - Reports controlled measurements without claiming production user impact or installing telemetry merely to complete this work.

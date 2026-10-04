@@ -39,36 +39,19 @@ Measure before optimizing. Performance work without measurement is guessing — 
 
 ### Step 1: Measure
 
+Read linked reference sections only when the measured symptom or chosen approach
+needs their detail. Skip unrelated frontend/backend examples; the checklist is
+not a requirement to read the entire reference or run every command.
+
 Two complementary approaches — select evidence suited to the claim and authorized scope:
 
 - **Synthetic (Lighthouse, DevTools Performance tab):** Controlled conditions, reproducible. Best for CI regression detection and isolating specific issues.
 - **RUM (web-vitals library, CrUX):** Real user data in real conditions. Use available, authorized field evidence to validate actual user impact. Without it, report the controlled measurement improvement and leave production user impact unverified; do not install telemetry merely to finish local work.
 
-**Frontend:**
-```bash
-# Synthetic: Lighthouse in Chrome DevTools (or CI)
-# Chrome DevTools → Performance tab → Record
-# Chrome DevTools MCP → Performance trace
-
-# RUM: Web Vitals library in code
-import { onLCP, onINP, onCLS } from 'web-vitals';
-
-onLCP(console.log);
-onINP(console.log);
-onCLS(console.log);
-```
-
-**Backend:**
-```bash
-# Response time logging
-# Application Performance Monitoring (APM)
-# Database query logging with timing
-
-# Simple timing
-console.time('db-query');
-const result = await db.query(...);
-console.timeEnd('db-query');
-```
+For frontend profiling and field-data examples, read the relevant
+[frontend measurement section](../../references/performance-checklist.md#inp-field-data-and-devtools-workflow).
+For API/database timing, read the
+[backend measurement example](../../references/performance-checklist.md#backend-measurement-example).
 
 ### Where to Start Measuring
 
@@ -122,42 +105,17 @@ Common bottlenecks by category:
 
 #### N+1 Queries (Backend)
 
-```typescript
-// BAD: N+1 — one query per task for the owner
-const tasks = await db.tasks.findMany();
-for (const task of tasks) {
-  task.owner = await db.users.findUnique({ where: { id: task.ownerId } });
-}
-
-// GOOD: Single query with join/include
-const tasks = await db.tasks.findMany({
-  include: { owner: true },
-});
-```
+When profiling shows N+1 owner lookups, fetch related owners together using the existing ORM or a join; see the [N+1 query example](../../references/performance-checklist.md#n1-query-example).
 
 #### Unbounded Data Fetching
 
-```typescript
-// BAD: Fetching all records
-const allTasks = await db.tasks.findMany();
-
-// GOOD: Paginated with limits
-const tasks = await db.tasks.findMany({
-  take: 20,
-  skip: (page - 1) * 20,
-  orderBy: { createdAt: 'desc' },
-});
-```
+Bound list reads with the project's pagination contract and limits; see the [paginated query example](../../references/performance-checklist.md#paginated-query-example).
 
 #### Queries That Ignore Their Index
 
-"Add an index" is the guess. The query plan is the measurement. Use the target database's plan command and semantics; the example below is PostgreSQL-style. `EXPLAIN ANALYZE` executes the statement, so run it only for a representative read in an authorized, bounded environment. Do not execute mutating statements this way outside an isolated disposable environment unless the user has explicitly authorized it.
+"Add an index" is the guess. The query plan is the measurement. Use the target database's plan command and semantics; the linked example is PostgreSQL-style. `EXPLAIN ANALYZE` executes the statement, so run it only for a representative read in an authorized, bounded environment. Do not execute mutating statements this way outside an isolated disposable environment unless the user has explicitly authorized it.
 
-```sql
-EXPLAIN ANALYZE
-SELECT id, title FROM tasks
-WHERE owner_id = 42 ORDER BY created_at DESC LIMIT 20;
-```
+See the [query plan example](../../references/performance-checklist.md#query-plan-example) for PostgreSQL-style syntax; adapt it to the target database.
 
 Three things in the output decide the fix:
 
@@ -169,9 +127,7 @@ Three things in the output decide the fix:
 
 Index for the **shape of the query**, not the column in isolation. In a composite index, equality columns come first, then the range or sort column:
 
-```sql
-CREATE INDEX idx_tasks_owner_created ON tasks (owner_id, created_at DESC);
-```
+See the [index example](../../references/performance-checklist.md#index-example) for the equality-plus-sort shape above.
 
 **When an index will not help:**
 
@@ -188,131 +144,21 @@ Re-run the same plan measurement after the change. An index that did not improve
 
 Common clues include many endpoints slowing at once, time spent waiting to acquire a connection, and pool-acquisition timeouts. Active or idle session counts and database saturation can vary, so confirm the cause with pool and database metrics before changing capacity.
 
-```typescript
-// BAD: a pool per request or call site — under serverless this multiplies
-// by instance count and exhausts the database's connection limit
-// GOOD: reuse one pool per database/connection configuration in each process
-const pool = new Pool({
-  max: 10,                        // total app pools must leave database headroom
-  idleTimeoutMillis: 30_000,
-  connectionTimeoutMillis: 5_000, // fail fast instead of queueing forever
-});
-```
+Reuse one pool per database/configuration in each process, with acquisition timeouts and capacity justified by the combined deployment budget. See the [pool reuse example](../../references/performance-checklist.md#pool-reuse-example).
 
 **Bigger is not faster.** A pool larger than what the database can execute concurrently just relocates the queue from your app to the database, where it is harder to see. Size the combined pools below the database ceiling and retain operational headroom. When instance count is unbounded (serverless, autoscaling), a proxy that multiplexes connections (pgbouncer, RDS Proxy) is usually safer than a higher `max`.
 
 #### Missing Image Optimization (Frontend)
 
-```html
-<!-- BAD: No dimensions, no format optimization -->
-<img src="/hero.jpg" />
-
-<!-- GOOD: Hero / LCP image — art direction + resolution switching, high priority -->
-<!--
-  Two techniques combined:
-  - Art direction (media): different crop/composition per breakpoint
-  - Resolution switching (srcset + sizes): right file size per screen density
--->
-<picture>
-  <!-- Mobile: portrait crop (8:10) -->
-  <source
-    media="(max-width: 767px)"
-    srcset="/hero-mobile-400.avif 400w, /hero-mobile-800.avif 800w"
-    sizes="100vw"
-    width="800"
-    height="1000"
-    type="image/avif"
-  />
-  <source
-    media="(max-width: 767px)"
-    srcset="/hero-mobile-400.webp 400w, /hero-mobile-800.webp 800w"
-    sizes="100vw"
-    width="800"
-    height="1000"
-    type="image/webp"
-  />
-  <!-- Desktop: landscape crop (2:1) -->
-  <source
-    srcset="/hero-800.avif 800w, /hero-1200.avif 1200w, /hero-1600.avif 1600w"
-    sizes="(max-width: 1200px) 100vw, 1200px"
-    width="1200"
-    height="600"
-    type="image/avif"
-  />
-  <source
-    srcset="/hero-800.webp 800w, /hero-1200.webp 1200w, /hero-1600.webp 1600w"
-    sizes="(max-width: 1200px) 100vw, 1200px"
-    width="1200"
-    height="600"
-    type="image/webp"
-  />
-  <img
-    src="/hero-desktop.jpg"
-    width="1200"
-    height="600"
-    fetchpriority="high"
-    alt="Hero image description"
-  />
-</picture>
-
-<!-- GOOD: Below-the-fold image — lazy loaded + async decoding -->
-<img
-  src="/content.webp"
-  width="800"
-  height="400"
-  loading="lazy"
-  decoding="async"
-  alt="Content image description"
-/>
-```
+For a measured image bottleneck, use responsive formats and explicit dimensions; prioritize hero/LCP images and lazy-load only below-the-fold images. See the [responsive image example](../../references/performance-checklist.md#responsive-image-example).
 
 #### Unnecessary Re-renders (React)
 
-```tsx
-// BAD: Creates new object on every render, causing children to re-render
-function TaskList() {
-  return <TaskFilters options={{ sortBy: 'date', order: 'desc' }} />;
-}
-
-// GOOD: Stable reference
-const DEFAULT_OPTIONS = { sortBy: 'date', order: 'desc' } as const;
-function TaskList() {
-  return <TaskFilters options={DEFAULT_OPTIONS} />;
-}
-
-// Use React.memo for expensive components
-const TaskItem = React.memo(function TaskItem({ task }: Props) {
-  return <div>{/* expensive render */}</div>;
-});
-
-// Use useMemo for expensive computations
-function TaskStats({ tasks }: Props) {
-  const stats = useMemo(() => calculateStats(tasks), [tasks]);
-  return <div>{stats.completed} / {stats.total}</div>;
-}
-```
+Profile the component first; stabilize inputs or memoize expensive renders/calculations only where the measured cost justifies it. See the [React render example](../../references/performance-checklist.md#react-render-example).
 
 #### Large Bundle Size
 
-```typescript
-// Modern bundlers (Vite, webpack 5+) handle named imports with tree-shaking automatically,
-// provided the dependency ships ESM and is marked `sideEffects: false` in package.json.
-// Profile before changing import styles — the real gains come from splitting and lazy loading.
-
-// GOOD: Dynamic import for heavy, rarely-used features
-const ChartLibrary = lazy(() => import('./ChartLibrary'));
-
-// GOOD: Route-level code splitting wrapped in Suspense
-const SettingsPage = lazy(() => import('./pages/Settings'));
-
-function App() {
-  return (
-    <Suspense fallback={<Spinner />}>
-      <SettingsPage />
-    </Suspense>
-  );
-}
-```
+Measure bundle impact before changing imports. Modern bundlers can tree-shake named ESM imports when the dependency marks `sideEffects: false`; split heavy, rarely-used features or routes with appropriate loading states. See the [bundle splitting example](../../references/performance-checklist.md#bundle-splitting-example).
 
 #### Missing Caching (Backend)
 
@@ -326,31 +172,7 @@ Cache what is expensive to produce and read far more often than it changes. Cach
 | Shared (Redis, Memcached) | All instances | Instances must agree, or the value is expensive to recompute | A network hop, and another service to run and monitor |
 | CDN / edge | Everyone, per URL | Responses are public and identical for a given key | Invalidation is the hard part; assume you cannot recall a bad response quickly |
 
-```typescript
-// Cache frequently-read, rarely-changed data
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-let cachedConfig: AppConfig | null = null;
-let cacheExpiry = 0;
-
-async function getAppConfig(): Promise<AppConfig> {
-  if (cachedConfig && Date.now() < cacheExpiry) {
-    return cachedConfig;
-  }
-  cachedConfig = await db.config.findFirst();
-  cacheExpiry = Date.now() + CACHE_TTL;
-  return cachedConfig;
-}
-
-// HTTP caching headers for static assets
-app.use('/static', express.static('public', {
-  maxAge: '1y',           // Cache for 1 year
-  immutable: true,        // Never revalidate (use content hashing in filenames)
-}));
-
-// Cache-Control only for public API responses that are identical for this key
-// Never mark personalized or authorization-dependent responses as public
-res.set('Cache-Control', 'public, max-age=300'); // 5 minutes
-```
+See the [cache implementation example](../../references/performance-checklist.md#cache-implementation-example) only after choosing the layer, keys, acceptable staleness and invalidation below. Its TTL is illustrative; public HTTP caching requires responses identical for the authorized viewers represented by the key.
 
 **Key design decides correctness.** Every input that changes the response belongs in the key: tenant, locale, permissions, feature flags. A key that omits the viewer is how one user's data gets served to another, and that ships as a performance win.
 
@@ -421,14 +243,8 @@ Time to Interactive: < 3.5s on 4G
 Lighthouse Performance score: ≥ 90
 ```
 
-**Enforce in CI:**
-```bash
-# Bundle size check
-npx bundlesize --config bundlesize.config.json
-
-# Lighthouse CI
-npx lhci autorun
-```
+Reuse an existing in-scope CI check when applicable; see the
+[CI measurement examples](../../references/performance-checklist.md#ci-measurement-examples).
 
 ## See Also
 

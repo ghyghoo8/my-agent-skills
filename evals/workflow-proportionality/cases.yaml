@@ -1,6 +1,6 @@
 schema_version: 1
 skill: cross_skill_workflow
-plugin_version: 6.2.2
+plugin_version: 6.2.3
 evaluation_mode: clean_context_behavior_contracts
 scoring:
   observe:
@@ -679,3 +679,67 @@ cases:
       - Keeps API.md and outcome tests as the behavior owners; adds at most a short AGENTS.md applicability/read pointer if future agents need to find them.
       - Does not copy the full field contract into AGENTS.md or create a new guide or ADR solely for one already documented rule.
       - Stays within documentation-only authority and does not reopen the accepted behavior or edit implementation.
+
+  - id: shared-domain-enum-reuses-existing-owner
+    category: positive
+    focus: business_enum_types_labels_and_order_reuse
+    request: Review the proposed job-status changes and describe the smallest consistent reuse plan. Analyze only; do not edit files or run an export.
+    minimal_project_evidence:
+      - The jobs module's existing status.ts owns JobStatus codes, its associated type, status labels and display order. Its current definitions and fixtures establish the accepted status meanings, unknown-value fallback and ordering.
+      - The proposed list, detail and CSV export consumers repeat the same status labels and order. A proposed input type repeats the numeric union, and an eligibility check repeats the corresponding status literals; all refer to the same job-status contract.
+      - These consumers can already import the jobs module's status definitions under the existing dependency direction. They are in the reviewed change; no public contract, owner or package boundary needs to change.
+    expected_behavior: propose_existing_business_definition_reuse_across_consumers
+    key_invariants:
+      - Locates and reads the existing business definition before proposing a new enum, type, mapping or ordering table.
+      - Uses that business owner for the associated type and status constants in logic, and reuses its labels and display order across the affected list, detail and export consumers.
+      - Preserves accepted numeric codes, status meanings, unknown-value behavior and ordering rather than independently reconstructing equivalent literals or maps at each consumer.
+      - Keeps the definition with the jobs responsibility; does not introduce a global constants registry, generic status framework or unrelated migration.
+      - Delivers the requested analysis without editing source, generating an export or performing an external action.
+
+  - id: local-values-and-distinct-domain-codes-stay-separate
+    category: boundary
+    focus: local_value_scope_and_domain_enum_identity
+    request: Review whether these local view values and matching numeric status codes should be centralized. Analyze only; do not edit files.
+    minimal_project_evidence:
+      - The view's summary and details modes are private to one component. No other consumer, shared contract or planned requirement uses them, and their current local definition is clear.
+      - ApprovalStatus belongs to approvals, where 0 means pending and 1 means approved. ConnectionStatus belongs to connectivity, where 0 means offline and 1 means online. Each has its own associated type and labels, used by its domain's existing consumers.
+      - A proposal groups both status domains into one generic StatusCode and moves the component's private modes into a cross-module constants file solely because the literal values repeat. Current fixtures confirm the distinct meanings; no cross-domain translation or architecture change is required.
+    expected_behavior: retain_local_values_and_separate_business_status_owners
+    key_invariants:
+      - Keeps the component-only modes near their use rather than requiring cross-module centralization without a real consumer or contract need.
+      - Treats matching numeric values as insufficient evidence of a shared business enum; preserves the distinct approval and connection types, labels and owners.
+      - Reuses each existing domain definition within its own consumers without merging them into a generic enum, mode-switching map or global registry.
+      - Explains the semantic and scope reasons for separation without manufacturing a new abstraction, broader migration or mandatory documentation change.
+      - Completes the read-only review without editing files or interpreting a consolidation recommendation as implementation authorization.
+
+  - id: same-task-verified-official-evidence-is-reused
+    category: positive
+    focus: official_evidence_reuse_scope
+    request: Finish the approved implementation of the second form using the same documented submission API.
+    minimal_project_evidence:
+      - The installed framework version is confirmed as 19.1.0 from the lockfile and installed package. Earlier in this task, the relevant official API page was retrieved and verified to apply to that version and submission API.
+      - Its source URL, version applicability, relevant signature, documented behavior and deprecation findings remain available in the task context. The second form uses that same API without introducing a new feature or compatibility requirement.
+      - There is no version drift, conflicting source, missing coverage or unresolved product decision. Existing form tests cover the approved behavior.
+    expected_behavior: reuse_verified_official_evidence_and_cite_without_redundant_fetch
+    key_invariants:
+      - Confirms that the existing evidence covers the same task, confirmed version and feature/API before reusing it.
+      - Implements using the verified official patterns and retains the source URL, version applicability and verified findings for citations.
+      - Does not fetch the same page again solely because another consumer is being implemented or repeat an already settled version question.
+      - Uses installed-version types only to supplement signature checks, without presenting them or memory as substitutes for official evidence and version confirmation.
+      - Performs the relevant implementation checks without building a cache system or expanding the authorized change.
+
+  - id: version-drift-or-missing-api-coverage-fetches-targeted-evidence
+    category: boundary
+    focus: official_evidence_reuse_invalidation
+    request: Continue the approved upgrade and implement the additional server-only submission option using verified documentation.
+    minimal_project_evidence:
+      - The current installed framework version is confirmed as 20.0.0. Earlier verified official evidence in this task applies to 19.1.0 and covers only the client submission API, not the requested server-only option.
+      - A saved unverified summary and a memory note claim that the signatures are unchanged; neither establishes official version applicability or coverage. Local installed types expose the new option but do not establish its documented behavior.
+      - The relevant official versioned API and migration pages are available through the authorized documentation tools. No broader docs-site retrieval or unrelated implementation is needed.
+    expected_behavior: fetch_affected_version_and_api_pages_before_dependent_implementation
+    key_invariants:
+      - Treats version drift and missing API coverage as independent reasons the prior evidence is insufficient for the current decision.
+      - Retrieves the specific affected official API and migration pages and records source URLs, version applicability and verified findings before implementing dependent behavior.
+      - Does not promote unknown-version material, unverified summaries or memory into official evidence or use installed types to bypass documentation and version verification.
+      - Surfaces any conflict between the retrieved official sources and verifies applicability to the confirmed installed version instead of silently choosing a convenient statement.
+      - Retains unaffected verified evidence where it remains applicable and does not fetch the entire docs site or create caching infrastructure.

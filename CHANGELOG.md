@@ -2,6 +2,19 @@
 
 All notable downstream changes are recorded here.
 
+## [6.2.3] - 2026-10-04
+
+### Added
+
+- Add a repository-owned, standard-library Plugin validator and CLI regression tests. Check the compatibility manifest, declared resources, Skill layout and skills-only boundary; keep maintenance tooling outside the published plugin and replace the missing system Plugin validator prerequisite in the contribution workflow.
+
+### Fixed
+
+- Clarify the existing semantic reuse rule for business enums: reuse one domain/module-owned definition for shared values, associated types, labels and ordering; check existing definitions before adding literals or mappings. Keep local-only values close to consumers and preserve different business meanings and dependency boundaries.
+- Keep the rule in code-simplification's existing reuse section, already linked by incremental-implementation. Preserve all Skill descriptions, routing, authorization and the skills-only runtime.
+- Move performance implementation examples to the existing reference with symptom-specific links. Keep measurement, safety, correctness and keep-or-revert decisions in the Skill entrypoint; skip unrelated reference sections.
+- Reuse verified official evidence within the same task, confirmed version and covered API. Fetch affected pages when evidence is missing, the version changes, coverage is insufficient or sources conflict; retain citations and version applicability.
+
 ## [6.2.2] - 2026-09-30
 
 ### Changed

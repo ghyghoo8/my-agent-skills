@@ -27,12 +27,12 @@ Every framework-specific code decision must be backed by official documentation.
 ## The Process
 
 ```
-DETECT ──→ FETCH ──→ IMPLEMENT ──→ CITE
-  │          │           │            │
-  ▼          ▼           ▼            ▼
- What       Get the    Follow the   Show your
- stack?     relevant   documented   sources
-            docs       patterns
+DETECT ──→ FETCH/REUSE ──→ IMPLEMENT ──→ CITE
+  │             │              │           │
+  ▼             ▼              ▼           ▼
+ What        Verify the     Follow the   Show your
+ stack?      relevant       documented   sources
+             docs           patterns
 ```
 
 ### Step 1: Detect Stack and Versions
@@ -55,14 +55,16 @@ STACK DETECTED:
 - React 19.1.0 (from package.json)
 - Vite 6.2.0
 - Tailwind CSS 4.0.3
-→ Fetching official docs for the relevant patterns.
+→ Checking official evidence for the relevant patterns.
 ```
 
 If versions are missing or ambiguous, **ask the user**. Don't guess — the version determines which patterns are correct.
 
-### Step 2: Fetch Official Documentation
+### Step 2: Fetch or Reuse Official Documentation
 
-Fetch the specific documentation page for the feature you're implementing. Not the homepage, not the full docs — the relevant page.
+Within the same task, reuse official documentation already verified for the same confirmed version and feature/API. Retain its source URL, version applicability and verified findings for citations. Fetch the specific missing or affected page when evidence is absent, the version changes, sources conflict, or the relevant API is not covered. Unknown-version material, unverified summaries and memory are not official evidence. Installed-version types may supplement signature checks; they do not replace official documentation or version confirmation.
+
+Fetch only the relevant feature page, not the homepage or full docs.
 
 **Source hierarchy (in order of authority):**
 
@@ -90,7 +92,7 @@ BAD:  Search "django authentication best practices"
 GOOD: Fetch docs.djangoproject.com/en/6.0/topics/auth/
 ```
 
-After fetching, extract the key patterns and note any deprecation warnings or migration guidance.
+From fetched or reused evidence, extract the key patterns and note any deprecation warnings or migration guidance.
 
 When official sources conflict with each other (e.g. a migration guide contradicts the API reference), surface the discrepancy to the user and verify which pattern actually works against the detected version.
 
@@ -183,7 +185,7 @@ Honesty about what you couldn't verify is more valuable than false confidence.
 | Rationalization | Reality |
 |---|---|
 | "I'm confident about this API" | Confidence is not evidence. Training data contains outdated patterns that look correct but break against current versions. Verify. |
-| "Fetching docs wastes tokens" | Hallucinating an API wastes more. The user debugs for an hour, then discovers the function signature changed. One fetch prevents hours of rework. |
+| "Fetching docs wastes tokens" | Hallucinating an API wastes more. Reuse verified same-task evidence for the confirmed version and covered API; fetch missing or affected pages. |
 | "The docs won't have what I need" | If the docs don't cover it, that's valuable information — the pattern may not be officially recommended. |
 | "I'll just mention it might be outdated" | A disclaimer doesn't help. Either verify and cite, or clearly flag it as unverified. Hedging is the worst option. |
 | "This is a simple task, no need to check" | Simple tasks with wrong patterns become templates. The user copies your deprecated form handler into ten components before discovering the modern approach exists. |
@@ -206,7 +208,7 @@ Honesty about what you couldn't verify is more valuable than false confidence.
 After implementing with source-driven development:
 
 - [ ] Framework and library versions were identified from the dependency file
-- [ ] Official documentation was fetched for framework-specific patterns
+- [ ] Official documentation was fetched or reused from verified same-task evidence for the confirmed version and framework-specific patterns
 - [ ] All sources are official documentation, not blog posts or training data
 - [ ] Code follows the patterns shown in the current version's documentation
 - [ ] Non-trivial decisions include source citations with full URLs

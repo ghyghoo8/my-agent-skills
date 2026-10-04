@@ -40,13 +40,13 @@ Changes to `project-dialectic-review` must preserve one neutral offer before uns
 
 Before committing, complete these static checks:
 
-1. Run the bundled Codex Skill quick validator for every Skill and the Plugin validator for `plugins/my-agent-skills/`, using the commands below.
+1. Run the bundled Codex Skill quick validator for every Skill, the repository Plugin validator for `plugins/my-agent-skills/`, and the validator's tests, using the commands below.
 2. Parse all repository JSON and YAML, including hidden paths such as `.agents/plugins/marketplace.json`.
 3. Validate upstream source IDs, descriptor paths, exact allowlists, unique primary ownership, and 40-character hexadecimal commit IDs against [UPSTREAM.md](UPSTREAM.md).
 4. Check relative reference links, unfinished placeholders, private absolute paths, and likely secrets. Check Skill inventory, unique names, and the discovery metadata budget in [the discovery cases](evals/discovery/cases.yaml).
 5. Run `git diff --check` and review the complete diff, including newly added files.
 
-Run from the repository root. The validators belong to the local Codex system Skills, not this repository. Use an existing project `.venv/bin/python` when available; otherwise use an existing Python 3 with PyYAML. The example defaults to `python3` outside a project environment. To select another existing interpreter, set `validation_python` to its executable path before running the block.
+Run from the repository root. The Skill quick validator belongs to the local Codex system Skills. The Plugin validator is maintained at [scripts/validate_plugin.py](scripts/validate_plugin.py), outside the published plugin, and uses only Python's standard library. Use an existing project `.venv/bin/python` when available; otherwise use an existing Python 3 with PyYAML for the Skill validator. The example defaults to `python3` outside a project environment. To select another existing interpreter, set `validation_python` to its executable path before running the block.
 
 ```sh
 (
@@ -61,7 +61,7 @@ Run from the repository root. The validators belong to the local Codex system Sk
   fi
   validation_system_skills="$validation_codex_dir/skills/.system"
   validation_quick="$validation_system_skills/skill-creator/scripts/quick_validate.py"
-  validation_plugin="$validation_system_skills/plugin-creator/scripts/validate_plugin.py"
+  validation_plugin=scripts/validate_plugin.py
   test -f "$validation_quick"
   test -f "$validation_plugin"
   "$validation_python" -c 'import yaml'
@@ -69,10 +69,15 @@ Run from the repository root. The validators belong to the local Codex system Sk
     "$validation_python" "$validation_quick" "${validation_skill%/SKILL.md}"
   done
   "$validation_python" "$validation_plugin" plugins/my-agent-skills
+  "$validation_python" -m unittest discover -s tests -p 'test_validate_plugin.py'
 )
 ```
 
-If an interpreter, PyYAML, or a bundled validator is unavailable, report the missing check; do not install tools by default or claim validation passed. These validator commands cover item 1 only.
+The repository Plugin validator checks the compatibility manifest's JSON and selected identity/listing fields, SemVer, declared resource paths, direct Skill layout, and this project's skills-only content boundary. Paths and package field limits follow the official [packaging guide](https://developers.openai.com/plugins/build/plugins#path-rules) and [package error reference](https://developers.openai.com/plugins/deploy/submission-errors). Symlinks, additional plugin manifests, runtime/dependency files and executable content are rejected by repository policy. Optional submission assets are checked only when declared.
+
+This is a repository validator, not a copy of the official `plugin-creator` validator or a complete public-directory submission check. Skill frontmatter, unique Skill names, relative documentation links, marketplace/upstream metadata and model behavior remain separate checks. It reports errors to stderr and exits 1 on failure; successful checks print `PASS` and exit 0.
+
+If an interpreter, PyYAML, or the bundled Skill validator is unavailable, report the missing check; do not install tools by default or claim validation passed. These validator commands cover item 1 only.
 
 When behavior or trigger semantics change, update and review the affected cases selected from [the eval inventory](evals/README.md); this includes the performance, workflow-proportionality, and security groups when relevant. New or broadened triggers must also update discovery cases. Follow the eval guide's clean-context interception and non-interception review, and distinguish contract review from full-model execution. Ordinary documentation edits do not require a full behavioral evaluation.
 

@@ -1,5 +1,9 @@
 # Evals
 
+[6.2.3 progressive examples and official evidence reuse](performance-optimization/progressive-loading-6.2.3.md) records performance example relocation, scoped source reuse, preserved safety contracts, targeted reference/evidence cases, static size measurements and validation limits.
+
+[6.2.3 business enum reuse](workflow-proportionality/enum-reuse-6.2.3.md) records the domain-owned definition rule, local-value and distinct-meaning boundaries, two added cases, targeted next-action probes and validation limits.
+
 [6.2.2 Sol model update](planning-and-task-breakdown/model-policy-6.2.2.md) records the `gpt-6.1-sol` default, unchanged efforts and role boundaries, live fixture substitutions, two clean-context next-action probes and validation limits.
 
 [6.2.1 context placement review](workflow-proportionality/context-placement-6.2.1.md) records the AGENTS-versus-development-guide correction, three independent next-action probes, unchanged discovery metadata, reduced loaded Skill text, and static validation limits.
@@ -25,8 +29,8 @@ The repository keeps structured, wording-independent cases for the public behavi
 - `project-dialectic-review/cases.yaml`: 19 cases for trigger, consent, project evidence, revision, direct-task judgment, and untrusted material.
 - `discovery/cases.yaml`: 62 cross-skill routing cases, including scoped reuse, concise conventions, candidate proposals in direct tasks, manual readiness questions and completed substantial module/refactor handoffs, plus the unchanged 7000-character discovery metadata budget.
 - `planning-and-task-breakdown/cases.yaml`: 65 cases for milestone document prerequisites, executable queues, planning scope, five core responsibilities, exact admitted milestone model pairs, integration and acceptance evidence; current-task execution choices, whole-scope admission, manual assessment/preparation, Goal lifecycle, independent module parallelism, and stopping active stale writers before reassignment.
-- `performance-optimization/cases.yaml`: 5 cases for measurement-first database, pool, cache, and telemetry-scope decisions.
-- `workflow-proportionality/cases.yaml`: 41 cases for semantic reuse, concise conventions and document placement, contextual consent, approval continuity, candidate-versus-accepted decisions, artifact preservation, focused verification, browser safety, scoped review, execution-choice suppression, context handoff, proportional visual work, operational attribution and existing release/specification policies.
+- `performance-optimization/cases.yaml`: 7 cases for measurement-first database, pool, cache, telemetry scope and symptom-specific reference reading.
+- `workflow-proportionality/cases.yaml`: 45 cases for semantic reuse and domain-owned enum definitions, same-task official evidence reuse and invalidation, concise conventions and document placement, contextual consent, approval continuity, candidate-versus-accepted decisions, artifact preservation, focused verification, browser safety, scoped review, execution-choice suppression, context handoff, proportional visual work, operational attribution and existing release/specification policies.
 - `security-and-hardening/cases.yaml`: 5 cases for shared and single-process rate-limit requirements, focused reference loading and authorized derived-path cleanup.
 
 Version 5.1.0 adds nine cases across security and workflow proportionality while preserving the 25 existing case objects in those suites. Discovery cases and all 27 Skill descriptions remain unchanged. The sync report separates selected simulated next actions from static contract coverage and isolated example execution.
